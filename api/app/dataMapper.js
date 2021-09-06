@@ -15,5 +15,12 @@ const dataMapper = {
     }
     client.query(explorationByID_query, callback);
   },
+  deleteExplorationRequest: (id, callback) => {
+    const deleteExploration_query = {
+        text: 'DELETE from "exploration" WHERE "id" = $1;',
+        values : [id]
+    }
+    client.query(deleteExploration_query, callback);
+  },
 };
 module.exports = dataMapper;
