@@ -22,5 +22,16 @@ const dataMapper = {
     }
     client.query(deleteExploration_query, callback);
   },
+  createExplorationRequest: (name,author_id, callback) => {
+    const createExplorationRequest_query = {
+        text : `
+                INSERT INTO "exploration"
+                    (name, author_id)
+                VALUES
+                    ($1, $2);`,
+            values : [name, author_id]
+    }
+    client.query(createExplorationRequest_query, callback);
+  },
 };
 module.exports = dataMapper;
