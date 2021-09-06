@@ -8,5 +8,8 @@ const explorationController = require('./controllers/explorationController');
 
 router.get('/exploration', explorationController.getExplorations);
 router.get('/exploration/:id', explorationController.getExplorationById);
+router.delete('/exploration/:id', explorationController.deleteExploration);
+router.post('/create', explorationController.createExploration);
+router.patch('/exploration/:id', explorationController.updateExploration);
 
 module.exports = router;
