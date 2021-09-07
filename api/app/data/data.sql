@@ -23,7 +23,9 @@ insert into "exploration" (name, description, author_id, geog, date, max_partici
 insert into "exploration" (name, description, author_id, geog, date, max_participants, is_published) values ('Alpha', 'Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.', 9, 'POINT(25.84122 116.023145)', '2021-09-07 04:30:45', 8, false);
 insert into "exploration" (name, description, author_id, geog, date, max_participants, is_published) values ('Cardguard', 'Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est. Phasellus sit amet erat.', 10, 'POINT(56.606956 26.7599531)', '2021-08-18 03:43:48', 9, true);
 insert into "exploration" (name, description, author_id, geog, date, max_participants, is_published) values ('Konklux', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 11, 'POINT(-11.434693 -61.4566885)', '2021-03-26 13:46:58', 10, true);
-
+insert into "exploration" (name, description, author_id, geog, date, max_participants, is_published) values ('Sortie sous les étoiles', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 11, 'SRID=4326;POINT(-11.434693 -61.4566885)', '2021-03-26 13:46:58', 15, true);
+insert into "exploration" (name, description, author_id, geog, date, max_participants, is_published) values ('Sortie sous les étoiles 2', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 11, 'SRID=4326;POINT(9.9578348 124.1789637)', '2021-03-26 13:46:58', 15, true);
+insert into "exploration" (name, description, author_id, geog, date, max_participants, is_published) values ('Sortie sous les étoiles 4', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 11, 'POINT(48.862725 2.287592)', '2021-03-26 13:46:58', 15, true);
 
 insert into "comment" (author_id, exploration_id, content) values (2, 3,'ou se trouve lexploration ?');
 insert into "comment" (author_id, exploration_id, content) values (11, 3,'A toulouse !');
@@ -31,3 +33,6 @@ insert into "comment" (author_id, exploration_id, content) values (11, 3,'A toul
 insert into "participate" (exploration_id, user_id) values (3, 2);
 insert into "participate" (exploration_id, user_id) values (3, 11);
 insert into "participate" (exploration_id, user_id) values (3, 5);
+
+
+'SRID=4326;POINT(longitude latitude)'
