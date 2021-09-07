@@ -33,7 +33,7 @@ const userController = {
       },
       updateUser: (req, res) => {
         const id = Number(req.params.id);
-        const {firstname, lastname, username, email, password, avatar_url, bio, city,zipcode} = req.body;
+        const {firstname, lastname, username, email, password, avatar_url, bio, city, zipcode} = req.body;
         dataUser.updateUserRequest(id, firstname, lastname, username, email, password, avatar_url, bio, city, zipcode,(error, response) => {
           if (error) {
             console.trace(error);
@@ -42,6 +42,17 @@ const userController = {
           }
         });
       },
+      createUser: (req, res) => {
+        const {firstname, lastname, username, email, password, city, zipcode} = req.body;
+        dataUser.createUserRequest(firstname, lastname, username, email, password, city, zipcode,(error, response) => {
+          if (error) {
+            console.trace(error);
+          } else {
+            res.json('success modifications');
+          }
+        });
+      },
+
    
   };
   
