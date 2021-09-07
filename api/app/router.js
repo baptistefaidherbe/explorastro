@@ -25,5 +25,6 @@ router.delete('/participate/:exploration_id', participateController.deletePartic
 
 router.post('/comment/:exploration_id', commentController.createComment);
 router.patch('/comment/:exploration_id', commentController.updateComment);
+router.delete('/comment/', commentController.deleteComment);
 
 module.exports = router;

@@ -24,5 +24,12 @@ const dataComment = {
     };
     client.query(updateExploration_query, callback);
   },
+  deleteCommentRequest: (id, callback) => {
+    const deleteComment_query = {
+      text: 'DELETE from "comment" WHERE "id" = $1;',
+      values: [id],
+    };
+    client.query(deleteComment_query, callback);
+  },
 };
 module.exports = dataComment;

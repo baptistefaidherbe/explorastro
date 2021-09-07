@@ -34,6 +34,17 @@ const commentController = {
       }
     );
   },
+  deleteComment: (req, res) => {
+    const { id } = req.body;
+    dataComment.deleteCommentRequest(id, (error, response) => {
+        if (error) {
+          console.trace(error);
+        } else {
+          res.json("success modifications");
+        }
+      }
+    );
+  },
 };
 
 module.exports = commentController;
