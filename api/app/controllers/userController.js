@@ -12,8 +12,8 @@ const userController = {
       });
     },
     getUserById: (req, res) => {
-        const promo_id = Number(req.params.id);
-        dataUser.getUserByIdRequest(promo_id, (error, response) => {
+        const id = Number(req.params.id);
+        dataUser.getUserByIdRequest(id, (error, response) => {
           if (error) {
             console.trace(error);
           } else {
@@ -28,6 +28,17 @@ const userController = {
             console.trace(error);
           } else {
             res.json({ exploration: response.rows });
+          }
+        });
+      },
+      updateUser: (req, res) => {
+        const id = Number(req.params.id);
+        const {firstname, lastname, username, email, password, avatar_url, bio, city,zipcode} = req.body;
+        dataUser.updateUserRequest(id, firstname, lastname, username, email, password, avatar_url, bio, city, zipcode,(error, response) => {
+          if (error) {
+            console.trace(error);
+          } else {
+            res.json('success modifications');
           }
         });
       },

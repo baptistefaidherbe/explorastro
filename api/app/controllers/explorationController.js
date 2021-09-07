@@ -11,8 +11,8 @@ const explorationController = {
     });
   },
   getExplorationById: (req, res) => {
-    const promo_id = Number(req.params.id);
-    dataExploration.getExplorationByIdRequest(promo_id, (error, response) => {
+    const id = Number(req.params.id);
+    dataExploration.getExplorationByIdRequest(id, (error, response) => {
       if (error) {
         console.trace(error);
       } else {

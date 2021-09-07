@@ -16,6 +16,7 @@ router.patch('/exploration/:id', explorationController.updateExploration);
 router.get('/user', userController.getUsers);
 router.get('/user/:id', userController.getUserById);
 router.delete('/user/:id', userController.deleteUser);
+router.patch('/user/:id', userController.updateUser);
 
 
 module.exports = router;
