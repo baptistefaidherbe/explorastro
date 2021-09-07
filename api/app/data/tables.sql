@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS "exploration" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" TEXT NOT NULL,
     "description" TEXT,
-    "author_id" INT NOT NULL REFERENCES "user"("id"),
+    "author_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE DEFAULT 1,
     "geog" GEOGRAPHY(POINT, 4326),
     "date" TIMESTAMPTZ NOT NULL,
     "max_participants" INT,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS "exploration" (
 
 CREATE TABLE IF NOT EXISTS "comment" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "author_id" INT NOT NULL REFERENCES "user"("id"),
+    "author_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE DEFAULT 1,
     "exploration_id" INT NOT NULL REFERENCES "exploration"("id"),
     "content" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -58,3 +58,4 @@ CREATE TABLE IF NOT EXISTS "participate" (
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
     "updated_at" TIMESTAMPTZ
 );
+

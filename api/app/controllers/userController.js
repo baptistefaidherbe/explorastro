@@ -21,6 +21,16 @@ const userController = {
           }
         });
       },
+      deleteUser: (req, res) => {
+        const id = Number(req.params.id);
+        dataUser.deleteUserRequest(id, (error, response) => {
+          if (error) {
+            console.trace(error);
+          } else {
+            res.json({ exploration: response.rows });
+          }
+        });
+      },
    
   };
   

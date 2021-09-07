@@ -34,5 +34,3 @@ insert into "participate" (exploration_id, user_id) values (3, 2);
 insert into "participate" (exploration_id, user_id) values (3, 11);
 insert into "participate" (exploration_id, user_id) values (3, 5);
 
-
-'SRID=4326;POINT(longitude latitude)'
