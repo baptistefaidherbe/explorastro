@@ -21,5 +21,6 @@ router.patch('/user/:id', userController.updateUser);
 router.post('/createuser', userController.createUser);
 
 router.post('/participate', participateController.createParticipate);
+router.delete('/participate/user/:user_id/exploration/:exploration_id', participateController.deleteParticipate);
 
 module.exports = router;

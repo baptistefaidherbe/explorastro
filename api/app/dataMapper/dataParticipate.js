@@ -12,5 +12,12 @@ const dataParticipate = {
     };
     client.query(createParticipate_query, callback);
   },
+  deleteParticipateRequest: (exploration_id, user_id, callback) => {
+    const deleteParticipate_query = {
+      text: 'DELETE from "participate" WHERE "exploration_id" = $1 AND "user_id"= $2;',
+      values: [exploration_id, user_id ],
+    };
+    client.query(deleteParticipate_query, callback);
+  },
 };
 module.exports = dataParticipate;

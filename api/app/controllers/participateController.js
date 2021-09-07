@@ -15,6 +15,17 @@ const participateController = {
       }
     );
   },
+  deleteParticipate: (req, res) => {
+    const exploration_id = Number(req.params.exploration_id);
+    const user_id = Number(req.params.user_id);
+    dataParticipate.deleteParticipateRequest(exploration_id, user_id, (error, response) => {
+      if (error) {
+        console.trace(error);
+      } else {
+        res.json({ exploration: response.rows });
+      }
+    });
+  },
 };
 
 module.exports = participateController;
