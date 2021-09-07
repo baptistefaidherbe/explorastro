@@ -2,7 +2,9 @@ const { dataParticipate } = require("../dataMapper/");
 
 const participateController = {
   createParticipate: (req, res) => {
-    const { exploration_id, user_id } = req.body;
+    const exploration_id = Number(req.params.exploration_id);
+    const {user_id } = req.body;
+    
     dataParticipate.createParticipateRequest(
       exploration_id,
       user_id,
@@ -17,7 +19,7 @@ const participateController = {
   },
   deleteParticipate: (req, res) => {
     const exploration_id = Number(req.params.exploration_id);
-    const user_id = Number(req.params.user_id);
+    const {user_id} = req.body;
     dataParticipate.deleteParticipateRequest(exploration_id, user_id, (error, response) => {
       if (error) {
         console.trace(error);
