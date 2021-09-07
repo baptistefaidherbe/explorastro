@@ -1,6 +1,6 @@
-const client = require("./database");
+const client = require("../database");
 
-const dataMapper = {
+const dataExploration = {
   getExplorationsRequest: (callback) => {
     const explorations_query = {
       text: `SELECT
@@ -88,4 +88,4 @@ const dataMapper = {
     client.query(updateExploration_query, callback);
   },
 };
-module.exports = dataMapper;
+module.exports = dataExploration;
