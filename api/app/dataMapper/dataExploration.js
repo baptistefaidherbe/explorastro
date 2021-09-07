@@ -1,19 +1,25 @@
-const client = require("./database");
+const client = require("../database");
 
-const dataMapper = {
+const dataExploration = {
   getExplorationsRequest: (callback) => {
     const explorations_query = {
       text: `SELECT
-              id,
-              name, 
-              description,
-              author_id,
-              ST_AsGeoJSON(geog),
-              date,
-              max_participants,
-              is_published,
-              image_url
-              FROM "exploration";`,
+      exploration.id,
+      exploration.name, 
+      exploration.description,
+      exploration.author_id,
+      ST_AsGeoJSON(geog) geog,
+      exploration.date,
+      exploration.max_participants,
+      exploration.is_published,
+      exploration.image_url,
+      ARRAY_AGG(public.user.username) participants
+              FROM exploration 
+              FULL JOIN participate on exploration.id = participate.exploration_id
+              FULL JOIN public.user on public.user.id = participate.user_id
+              WHERE exploration.id IS NOT NULL
+              group by (exploration.id)
+              ;`,
     };
 
     client.query(explorations_query, callback);
@@ -21,17 +27,22 @@ const dataMapper = {
   getExplorationByIdRequest: (id, callback) => {
     const explorationByID_query = {
       text: `SELECT
-              id,
-              name, 
-              description,
-              author_id,
-              ST_AsGeoJSON(geog),
-              date,
-              max_participants,
-              is_published,
-              image_url
-              FROM "exploration" 
-              WHERE "id" = $1;`,
+      exploration.id,
+      exploration.name, 
+      exploration.description,
+      exploration.author_id,
+      ST_AsGeoJSON(geog) geog,
+      exploration.date,
+      exploration.max_participants,
+      exploration.is_published,
+      exploration.image_url,
+      ARRAY_AGG(public.user.username) participants
+              FROM exploration 
+              FULL JOIN participate on exploration.id = participate.exploration_id
+              FULL JOIN public.user on public.user.id = participate.user_id
+              WHERE exploration.id IS NOT NULL
+              AND exploration.id = $1
+              group by (exploration.id);`,
 
       values: [id],
     };
@@ -88,4 +99,4 @@ const dataMapper = {
     client.query(updateExploration_query, callback);
   },
 };
-module.exports = dataMapper;
+module.exports = dataExploration;

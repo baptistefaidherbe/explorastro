@@ -1,8 +1,8 @@
-const dataMapper = require("../dataMapper.js");
+const {dataExploration} = require("../dataMapper/");
 
 const explorationController = {
   getExplorations: (req, res) => {
-    dataMapper.getExplorationsRequest((error, response) => {
+    dataExploration.getExplorationsRequest((error, response) => {
       if (error) {
         console.trace(error);
       } else {
@@ -11,8 +11,8 @@ const explorationController = {
     });
   },
   getExplorationById: (req, res) => {
-    const promo_id = Number(req.params.id);
-    dataMapper.getExplorationByIdRequest(promo_id, (error, response) => {
+    const id = Number(req.params.id);
+    dataExploration.getExplorationByIdRequest(id, (error, response) => {
       if (error) {
         console.trace(error);
       } else {
@@ -22,32 +22,32 @@ const explorationController = {
   },
   deleteExploration: (req, res) => {
     const id = Number(req.params.id);
-    dataMapper.deleteExplorationRequest(id, (error, response) => {
+    dataExploration.deleteExplorationRequest(id, (error, response) => {
       if (error) {
         console.trace(error);
       } else {
-        res.json({ exploration: response.rows[0] });
+        res.json({ exploration: response.rows });
       }
     });
   },
   createExploration: (req, res) => {
     const { name, author_id } = req.body;
-    dataMapper.createExplorationRequest(name, author_id, (error, response) => {
+    dataExploration.createExplorationRequest(name, author_id, (error, response) => {
       if (error) {
         console.trace(error);
       } else {
-        res.json({ exploration: response.rows[0] });
+        res.json('succes creation event');
       }
     });
   },
   updateExploration: (req, res) => {
     const id = Number(req.params.id);
     const {name, description, geog, date, max_participants, is_published} = req.body;
-    dataMapper.updateExplorationRequest(id, name, description, geog, date, max_participants, is_published,(error, response) => {
+    dataExploration.updateExplorationRequest(id, name, description, geog, date, max_participants, is_published,(error, response) => {
       if (error) {
         console.trace(error);
       } else {
-        res.json({ exploration: response.rows[0] });
+        res.json('success modifications');
       }
     });
   },
