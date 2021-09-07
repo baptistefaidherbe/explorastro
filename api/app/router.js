@@ -5,7 +5,7 @@ const router = express.Router();
 const explorationController = require('./controllers/explorationController');
 const userController = require('./controllers/userController');
 const participateController = require('./controllers/participateController');
-
+const commentController = require('./controllers/commentController');
 
 
 router.get('/exploration', explorationController.getExplorations);
@@ -22,5 +22,7 @@ router.post('/createuser', userController.createUser);
 
 router.post('/participate', participateController.createParticipate);
 router.delete('/participate/user/:user_id/exploration/:exploration_id', participateController.deleteParticipate);
+
+router.post('/user/:author_id/exploration/:exploration_id/comment/add', commentController.createComment);
 
 module.exports = router;
