@@ -4,6 +4,7 @@ const router = express.Router();
 
 const explorationController = require('./controllers/explorationController');
 const userController = require('./controllers/userController');
+const participateController = require('./controllers/participateController');
 
 
 
@@ -19,5 +20,6 @@ router.delete('/user/:id', userController.deleteUser);
 router.patch('/user/:id', userController.updateUser);
 router.post('/createuser', userController.createUser);
 
+router.post('/participate', participateController.createParticipate);
 
 module.exports = router;

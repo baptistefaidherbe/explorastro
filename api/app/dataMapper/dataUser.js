@@ -1,7 +1,7 @@
 const client = require("../database");
 
 const dataUser = {
-    getUsersRequest: (callback) => {
+  getUsersRequest: (callback) => {
     const explorations_query = {
       text: `SELECT * FROM "user";`,
     };
@@ -59,19 +59,28 @@ const dataUser = {
         avatar_url,
         bio,
         city,
-        zipcode
+        zipcode,
       ],
     };
     client.query(updateUser_query, callback);
   },
-  createUserRequest: (firstname, lastname, username, email, password, city, zipcode, callback) => {
+  createUserRequest: (
+    firstname,
+    lastname,
+    username,
+    email,
+    password,
+    city,
+    zipcode,
+    callback
+  ) => {
     const createUser_query = {
-      text: `
-                INSERT INTO "user"
-                    (firstname, lastname, username, email, password, city, zipcode)
-                VALUES
-                    ($1, $2, $3, $4, $5, $6, $7);`,
-      values: [firstname, lastname, username, email, password, city, zipcode,],
+        text: `
+            INSERT INTO "user"
+                (firstname, lastname, username, email, password, city, zipcode)
+            VALUES
+                ($1, $2, $3, $4, $5, $6, $7);`,
+      values: [firstname, lastname, username, email, password, city, zipcode],
     };
     client.query(createUser_query, callback);
   },
