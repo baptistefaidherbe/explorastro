@@ -11,6 +11,16 @@ const userController = {
         }
       });
     },
+    getUserById: (req, res) => {
+        const promo_id = Number(req.params.id);
+        dataUser.getUserByIdRequest(promo_id, (error, response) => {
+          if (error) {
+            console.trace(error);
+          } else {
+            res.json({ exploration: response.rows[0] });
+          }
+        });
+      },
    
   };
   

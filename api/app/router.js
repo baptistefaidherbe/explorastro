@@ -14,5 +14,6 @@ router.post('/create', explorationController.createExploration);
 router.patch('/exploration/:id', explorationController.updateExploration);
 
 router.get('/user', userController.getUsers);
+router.get('/user/:id', userController.getUserById);
 
 module.exports = router;
