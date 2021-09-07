@@ -13,13 +13,15 @@ const dataExploration = {
       exploration.max_participants,
       exploration.is_published,
       exploration.image_url,
-      ARRAY_AGG(public.user.username) participants
+      json_build_object(
+      'username', json_agg(distinct(public.user.username)),
+       'commentaire', json_agg(distinct(comment.id) || ', ' || comment.content )) participants
               FROM exploration 
               FULL JOIN participate on exploration.id = participate.exploration_id
               FULL JOIN public.user on public.user.id = participate.user_id
+              FULL JOIN comment on comment.exploration_id = exploration.id
               WHERE exploration.id IS NOT NULL
-              group by (exploration.id)
-              ;`,
+              group by (exploration.id);`,
     };
 
     client.query(explorations_query, callback);
