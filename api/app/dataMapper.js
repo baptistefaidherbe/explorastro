@@ -3,14 +3,36 @@ const client = require("./database");
 const dataMapper = {
   getExplorationsRequest: (callback) => {
     const explorations_query = {
-      text: 'SELECT * FROM "exploration";',
+      text: `SELECT
+              id,
+              name, 
+              description,
+              author_id,
+              ST_AsGeoJSON(geog),
+              date,
+              max_participants,
+              is_published,
+              image_url
+              FROM "exploration";`,
     };
 
     client.query(explorations_query, callback);
   },
   getExplorationByIdRequest: (id, callback) => {
     const explorationByID_query = {
-      text: 'SELECT * FROM "exploration" WHERE "id" = $1;',
+      text: `SELECT
+              id,
+              name, 
+              description,
+              author_id,
+              ST_AsGeoJSON(geog),
+              date,
+              max_participants,
+              is_published,
+              image_url
+              FROM "exploration" 
+              WHERE "id" = $1;`,
+
       values: [id],
     };
     client.query(explorationByID_query, callback);
@@ -33,19 +55,35 @@ const dataMapper = {
     };
     client.query(createExploration_query, callback);
   },
-  updateExplorationRequest: (id, name, description, geog, date, max_participants, is_published, callback) => {
-      console.log(description)
+  updateExplorationRequest: (
+    id,
+    name,
+    description,
+    geog,
+    date,
+    max_participants,
+    is_published,
+    callback
+  ) => {
     const updateExploration_query = {
       text: `
         UPDATE exploration
         SET name = $2,
         description = $3,
-        geog= $4,
+        geog = $4,
         date= $5,
         max_participants= $6,
         is_published= $7
         WHERE id= $1;`,
-      values: [id, name, description, geog, date, max_participants, is_published],
+      values: [
+        id,
+        name,
+        description,
+        geog,
+        date,
+        max_participants,
+        is_published,
+      ],
     };
     client.query(updateExploration_query, callback);
   },
