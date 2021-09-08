@@ -52,16 +52,38 @@ const authController = {
     });
   },
   signup: (req, res) => {
-    const {firstname, lastname, username, email, password, city, zipcode} = req.body;
-    console.log(firstname)
-    const passwordHash = bcrypt.hashSync(password, 10);
-    dataAuth.createUserRequest(firstname, lastname, username, email, passwordHash, city, zipcode,(error, response) => {
+    const { firstname, lastname, username, email, password, city, zipcode } =
+      req.body;
+
+    dataAuth.findUserRequest(username, email, (error, response) => {
       if (error) {
         console.trace(error);
       } else {
-        res.json(MESSAGE.SUCCESS_MODIFICATION);
+        console.log(response.rows.length);
+
+        if (response.rows.length !== 0) {
+          return res.json(MESSAGE.USER_EXIST);
+        }
       }
     });
+
+    const passwordHash = bcrypt.hashSync(password, 10);
+    dataAuth.createUserRequest(
+      firstname,
+      lastname,
+      username,
+      email,
+      passwordHash,
+      city,
+      zipcode,
+      (error, response) => {
+        if (error) {
+          console.trace(error);
+        } else {
+          res.json(MESSAGE.SUCCESS_MODIFICATION);
+        }
+      }
+    );
   },
 };
 

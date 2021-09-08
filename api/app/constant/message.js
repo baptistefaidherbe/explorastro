@@ -5,7 +5,7 @@ module.exports = {
     INVALID_USER_ID :         'Invalid user ID',
     INVALID_REQUEST :         'Invalid request',
     SUCCESS_MODIFICATION :    'success modification',
-    SUCCESS_CREATION_EVENT :  'succes creation event'
- 
+    SUCCESS_CREATION_EVENT :  'succes creation event',
+    USER_EXIST :              'user exist'
     
   };

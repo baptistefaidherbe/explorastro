@@ -28,7 +28,7 @@ const userController = {
       if (error) {
         console.trace(error);
       } else {
-        res.json({ exploration: response.rows });
+        res.json(MESSAGE.SUCCESS_MODIFICATION);
       }
     });
   },

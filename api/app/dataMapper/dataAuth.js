@@ -11,6 +11,17 @@ const dataAuth = {
     };
     client.query(getPasswordHash_query, callback);
   },
+  findUserRequest: (username, email, callback) => {
+    const findUser_query = {
+      text: `
+                SELECT username, email
+                FROM "user"
+                WHERE username = $1
+                OR email = $2;`,
+      values: [username, email],
+    };
+    client.query(findUser_query, callback);
+  },
   checkUserRequest: (email, callback) => {
     const checkUser_query = {
       text: `SELECT
