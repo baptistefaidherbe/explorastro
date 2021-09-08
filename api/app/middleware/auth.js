@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const ERROR = require("../constant/error");
+const MESSAGE = require("../constant/message");
 const client = require("../database");
 
 module.exports = (req, res, next) => {
@@ -23,7 +23,7 @@ module.exports = (req, res, next) => {
         const id = response.rows[0].id;
         if (id && id !== userId) {
           return res.status(404).json({
-            message: ERROR.INVALID_USER_ID,
+            message: MESSAGE.INVALID_USER_ID,
           });
         } else {
           next();
@@ -32,7 +32,7 @@ module.exports = (req, res, next) => {
     });
   } catch {
     res.status(401).json({
-      message: ERROR.INVALID_REQUEST,
+      message: MESSAGE.INVALID_REQUEST,
     });
   }
 };

@@ -1,6 +1,6 @@
 const { dataAuth } = require("../dataMapper/");
 const jsonwebtoken = require("jsonwebtoken");
-const ERROR = require("../constant/error");
+const MESSAGE = require("../constant/message");
 const bcrypt = require("bcrypt");
 
 const authController = {
@@ -9,7 +9,7 @@ const authController = {
 
     if (!(email && password)) {
       return res.status(404).json({
-        message: ERROR.MISSING_INPUT,
+        message: MESSAGE.MISSING_INPUT,
       });
     }
     dataAuth.checkUserRequest(email, (error, result) => {
@@ -18,7 +18,7 @@ const authController = {
       } else {
         if (result.rows.length == 0) {
           return res.status(404).json({
-            message: ERROR.INVALID_CREDENTIAL,
+            message: MESSAGE.INVALID_CREDENTIAL,
           });
         } else {
           dataAuth.getPasswordHashRequest(email, (error, response) => {
@@ -42,12 +42,24 @@ const authController = {
                 });
               } else {
                 return res.status(404).json({
-                  message: ERROR.INVALID_CREDENTIAL,
+                  message: MESSAGE.INVALID_CREDENTIAL,
                 });
               }
             }
           });
         }
+      }
+    });
+  },
+  signup: (req, res) => {
+    const {firstname, lastname, username, email, password, city, zipcode} = req.body;
+    console.log(firstname)
+    const passwordHash = bcrypt.hashSync(password, 10);
+    dataAuth.createUserRequest(firstname, lastname, username, email, passwordHash, city, zipcode,(error, response) => {
+      if (error) {
+        console.trace(error);
+      } else {
+        res.json(MESSAGE.SUCCESS_MODIFICATION);
       }
     });
   },

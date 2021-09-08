@@ -1,16 +1,16 @@
 const client = require("../database");
 
 const dataAuth = {
-    getPasswordHashRequest: (email, callback) => {
-        const getPasswordHash_query = {
-          text: `
+  getPasswordHashRequest: (email, callback) => {
+    const getPasswordHash_query = {
+      text: `
                 SELECT password
                 FROM "user"
                 WHERE email = $1;`,
-          values: [email],
-        };
-        client.query(getPasswordHash_query, callback);
-      },
+      values: [email],
+    };
+    client.query(getPasswordHash_query, callback);
+  },
   checkUserRequest: (email, callback) => {
     const checkUser_query = {
       text: `SELECT
@@ -47,16 +47,33 @@ const dataAuth = {
     };
     client.query(checkUser_query, callback);
   },
-  loginRequest: (author_id, exploration_id, content, callback) => {
-    const createComment_query = {
+  createUserRequest: (
+    firstname,
+    lastname,
+    username,
+    email,
+    passwordHash,
+    city,
+    zipcode,
+    callback
+  ) => {
+    const createUser_query = {
       text: `
-            INSERT INTO "comment"
-                (author_id, exploration_id, content)
+            INSERT INTO "user"
+                (firstname, lastname, username, email, password, city, zipcode)
             VALUES
-                ($1, $2, $3);`,
-      values: [author_id, exploration_id, content],
+                ($1, $2, $3, $4, $5, $6, $7);`,
+      values: [
+        firstname,
+        lastname,
+        username,
+        email,
+        passwordHash,
+        city,
+        zipcode,
+      ],
     };
-    client.query(createComment_query, callback);
+    client.query(createUser_query, callback);
   },
 };
 module.exports = dataAuth;
