@@ -1,4 +1,5 @@
 const { dataComment } = require("../dataMapper/");
+const MESSAGE = require("../constant/message");
 
 const commentController = {
   createComment: (req, res) => {
@@ -13,7 +14,7 @@ const commentController = {
         if (error) {
           console.trace(error);
         } else {
-          res.json("success modifications");
+          res.json(MESSAGE.SUCCESS_MODIFICATION);
         }
       }
     );
@@ -29,7 +30,7 @@ const commentController = {
         if (error) {
           console.trace(error);
         } else {
-          res.json("success modifications");
+          res.json(MESSAGE.SUCCESS_MODIFICATION);
         }
       }
     );
@@ -40,7 +41,7 @@ const commentController = {
         if (error) {
           console.trace(error);
         } else {
-          res.json("success modifications");
+          res.json(MESSAGE.SUCCESS_MODIFICATION);
         }
       }
     );

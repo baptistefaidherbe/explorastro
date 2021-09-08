@@ -1,9 +1,11 @@
 
-DROP TABLE IF EXISTS "role";
-DROP TABLE IF EXISTS "user";
-DROP TABLE IF EXISTS "exploration";
-DROP TABLE IF EXISTS "comment";
 DROP TABLE IF EXISTS "participate";
+DROP TABLE IF EXISTS "comment";
+DROP TABLE IF EXISTS "exploration";
+DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS "role";
+
+
 
 CREATE TABLE IF NOT EXISTS "role" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -33,10 +35,10 @@ CREATE TABLE IF NOT EXISTS "exploration" (
     "name" TEXT NOT NULL,
     "description" TEXT,
     "author_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE DEFAULT 1,
-    "geog" GEOGRAPHY(POINT, 4326),
-    "date" TIMESTAMPTZ NOT NULL,
+    "geog" TEXT[],
+    "date" TIMESTAMPTZ,
     "max_participants" INT,
-    "is_published" BOOLEAN NOT NULL,
+    "is_published" BOOLEAN,
     "image_url" TEXT,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
     "updated_at" TIMESTAMPTZ

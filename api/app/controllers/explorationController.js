@@ -1,4 +1,5 @@
 const {dataExploration} = require("../dataMapper/");
+const MESSAGE = require("../constant/message");
 
 const explorationController = {
   getExplorations: (req, res) => {
@@ -36,7 +37,7 @@ const explorationController = {
       if (error) {
         console.trace(error);
       } else {
-        res.json('succes creation event');
+        res.json(MESSAGE.SUCCESS_CREATION_EVENT);
       }
     });
   },
@@ -47,7 +48,7 @@ const explorationController = {
       if (error) {
         console.trace(error);
       } else {
-        res.json('success modifications');
+        res.json(MESSAGE.SUCCESS_MODIFICATION);
       }
     });
   },

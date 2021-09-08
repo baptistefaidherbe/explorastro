@@ -29,7 +29,7 @@ const dataUser = {
     lastname,
     username,
     email,
-    password,
+    passwordHash,
     avatar_url,
     bio,
     city,
@@ -55,7 +55,7 @@ const dataUser = {
         lastname,
         username,
         email,
-        password,
+        passwordHash,
         avatar_url,
         bio,
         city,
@@ -63,26 +63,6 @@ const dataUser = {
       ],
     };
     client.query(updateUser_query, callback);
-  },
-  createUserRequest: (
-    firstname,
-    lastname,
-    username,
-    email,
-    password,
-    city,
-    zipcode,
-    callback
-  ) => {
-    const createUser_query = {
-        text: `
-            INSERT INTO "user"
-                (firstname, lastname, username, email, password, city, zipcode)
-            VALUES
-                ($1, $2, $3, $4, $5, $6, $7);`,
-      values: [firstname, lastname, username, email, password, city, zipcode],
-    };
-    client.query(createUser_query, callback);
   },
 };
 module.exports = dataUser;
