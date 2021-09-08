@@ -6,6 +6,7 @@ const explorationController = require('./controllers/explorationController');
 const userController = require('./controllers/userController');
 const participateController = require('./controllers/participateController');
 const commentController = require('./controllers/commentController');
+const authController = require('./controllers/authController');
 
 
 router.get('/exploration', explorationController.getExplorations);
@@ -18,7 +19,9 @@ router.get('/user', userController.getUsers);
 router.get('/user/:id', userController.getUserById);
 router.delete('/user/:id', userController.deleteUser);
 router.patch('/user/:id', userController.updateUser);
-router.post('/createuser', userController.createUser);
+
+router.post('/signup', userController.createUser);
+router.post('/login', authController.login);
 
 router.post('/participate/:exploration_id', participateController.createParticipate);
 router.delete('/participate/:exploration_id', participateController.deleteParticipate);

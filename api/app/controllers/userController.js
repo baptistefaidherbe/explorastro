@@ -1,4 +1,5 @@
 const {dataUser} = require("../dataMapper/");
+const bcrypt = require('bcrypt');
 
 
 const userController = {
@@ -34,7 +35,8 @@ const userController = {
       updateUser: (req, res) => {
         const id = Number(req.params.id);
         const {firstname, lastname, username, email, password, avatar_url, bio, city, zipcode} = req.body;
-        dataUser.updateUserRequest(id, firstname, lastname, username, email, password, avatar_url, bio, city, zipcode,(error, response) => {
+        const passwordHash = bcrypt.hashSync(password, 10);
+        dataUser.updateUserRequest(id, firstname, lastname, username, email, passwordHash, avatar_url, bio, city, zipcode,(error, response) => {
           if (error) {
             console.trace(error);
           } else {
@@ -44,7 +46,8 @@ const userController = {
       },
       createUser: (req, res) => {
         const {firstname, lastname, username, email, password, city, zipcode} = req.body;
-        dataUser.createUserRequest(firstname, lastname, username, email, password, city, zipcode,(error, response) => {
+        const passwordHash = bcrypt.hashSync(password, 10);
+        dataUser.createUserRequest(firstname, lastname, username, email, passwordHash, city, zipcode,(error, response) => {
           if (error) {
             console.trace(error);
           } else {
