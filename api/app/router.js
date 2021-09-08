@@ -12,24 +12,24 @@ const authController = require('./controllers/authController');
 
 
 router.get('/exploration',auth, explorationController.getExplorations);
-router.get('/exploration/:id', explorationController.getExplorationById);
-router.delete('/exploration/:id', explorationController.deleteExploration);
-router.post('/create', explorationController.createExploration);
-router.patch('/exploration/:id', explorationController.updateExploration);
+router.get('/exploration/:id',auth, explorationController.getExplorationById);
+router.delete('/exploration/:id',auth, explorationController.deleteExploration);
+router.post('/create',auth, explorationController.createExploration);
+router.patch('/exploration/:id',auth, explorationController.updateExploration);
 
-router.get('/user', userController.getUsers);
-router.get('/user/:id', userController.getUserById);
-router.delete('/user/:id', userController.deleteUser);
-router.patch('/user/:id', userController.updateUser);
+router.get('/user',auth, userController.getUsers);
+router.get('/user/:id',auth, userController.getUserById);
+router.delete('/user/:id',auth, userController.deleteUser);
+router.patch('/user/:id',auth, userController.updateUser);
 
-router.post('/signup', userController.createUser);
-router.post('/login', authController.login);
+router.post('/signup',auth, userController.createUser);
+router.post('/login',auth, authController.login);
 
-router.post('/participate/:exploration_id', participateController.createParticipate);
-router.delete('/participate/:exploration_id', participateController.deleteParticipate);
+router.post('/participate/:exploration_id',auth, participateController.createParticipate);
+router.delete('/participate/:exploration_id',auth, participateController.deleteParticipate);
 
-router.post('/comment/:exploration_id', commentController.createComment);
-router.patch('/comment/:exploration_id', commentController.updateComment);
-router.delete('/comment/', commentController.deleteComment);
+router.post('/comment/:exploration_id',auth, commentController.createComment);
+router.patch('/comment/:exploration_id',auth, commentController.updateComment);
+router.delete('/comment/',auth, commentController.deleteComment);
 
 module.exports = router;
