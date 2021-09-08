@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
+const auth = require('./middleware/auth')
+
 const explorationController = require('./controllers/explorationController');
 const userController = require('./controllers/userController');
 const participateController = require('./controllers/participateController');
@@ -9,7 +11,7 @@ const commentController = require('./controllers/commentController');
 const authController = require('./controllers/authController');
 
 
-router.get('/exploration', explorationController.getExplorations);
+router.get('/exploration',auth, explorationController.getExplorations);
 router.get('/exploration/:id', explorationController.getExplorationById);
 router.delete('/exploration/:id', explorationController.deleteExploration);
 router.post('/create', explorationController.createExploration);
