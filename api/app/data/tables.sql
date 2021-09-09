@@ -61,3 +61,5 @@ CREATE TABLE IF NOT EXISTS "participate" (
     "updated_at" TIMESTAMPTZ
 );
 
+
+ALTER TABLE "user" ADD COLUMN token_temp text DEFAULT 0; 

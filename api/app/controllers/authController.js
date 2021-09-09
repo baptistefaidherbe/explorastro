@@ -8,18 +8,14 @@ const authController = {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      return res.status(404).json({
-        message: MESSAGE.MISSING_INPUT,
-      });
+      return res.json(MESSAGE.MISSING_INPUT);
     }
     dataAuth.checkUserRequest(email, (error, result) => {
       if (error) {
         console.trace(error);
       } else {
         if (result.rows.length == 0) {
-          return res.status(404).json({
-            message: MESSAGE.INVALID_CREDENTIAL,
-          });
+          return res.json(MESSAGE.INVALID_CREDENTIAL);
         } else {
           dataAuth.getPasswordHashRequest(email, (error, response) => {
             if (error) {
@@ -41,9 +37,7 @@ const authController = {
                   token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
                 });
               } else {
-                return res.status(404).json({
-                  message: MESSAGE.INVALID_CREDENTIAL,
-                });
+                return response.json(MESSAGE.INVALID_CREDENTIAL);
               }
             }
           });

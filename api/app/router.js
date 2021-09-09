@@ -9,6 +9,7 @@ const userController = require('./controllers/userController');
 const participateController = require('./controllers/participateController');
 const commentController = require('./controllers/commentController');
 const authController = require('./controllers/authController');
+const forgotPasswordController = require('./controllers/forgotPaswordController');
 
 
 router.get('/exploration',auth, explorationController.getExplorations);
@@ -31,5 +32,13 @@ router.delete('/participate/:exploration_id',auth, participateController.deleteP
 router.post('/comment/:exploration_id',auth, commentController.createComment);
 router.patch('/comment/:exploration_id',auth, commentController.updateComment);
 router.delete('/comment/',auth, commentController.deleteComment);
+
+
+router.get('/auth/forgot_password',forgotPasswordController.forgotPasswordTemplate)
+router.post('/auth/forgot_password',forgotPasswordController.forgotPassword);
+
+router.patch('/auth/reset_password/:token',forgotPasswordController.resetPassword);
+
+
 
 module.exports = router;
