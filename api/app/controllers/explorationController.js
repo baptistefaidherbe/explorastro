@@ -43,8 +43,8 @@ const explorationController = {
   },
   updateExploration: (req, res) => {
     const id = Number(req.params.id);
-    const {name, description, geog, date, max_participants, is_published} = req.body;
-    dataExploration.updateExplorationRequest(id, name, description, geog, date, max_participants, is_published,(error, response) => {
+    const {name, description, geog, date, max_participants, is_published,image_url} = req.body;
+    dataExploration.updateExplorationRequest(id, name, description, geog, date, max_participants, is_published,image_url,(error, response) => {
       if (error) {
         console.trace(error);
       } else {

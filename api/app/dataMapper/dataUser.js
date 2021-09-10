@@ -27,10 +27,6 @@ const dataUser = {
     id,
     firstname,
     lastname,
-    username,
-    email,
-    passwordHash,
-    avatar_url,
     bio,
     city,
     zipcode,
@@ -41,28 +37,63 @@ const dataUser = {
         UPDATE "user"
         SET firstname = $2,
         lastname = $3,
-        username = $4,
-        email= $5,
-        password= $6,
-        avatar_url= $7,
-        bio= $8,
-        city= $9,
-        zipcode = $10
+        bio= $4,
+        city= $5,
+        zipcode = $6
         WHERE id= $1;`,
-      values: [
-        id,
-        firstname,
-        lastname,
-        username,
-        email,
-        passwordHash,
-        avatar_url,
-        bio,
-        city,
-        zipcode,
-      ],
+      values: [id, firstname, lastname, bio, city, zipcode],
     };
     client.query(updateUser_query, callback);
+  },
+  updateUserNameRequest: (id, username, callback) => {
+    const updateUsername_query = {
+      text: `
+        UPDATE "user"
+        SET username = $2
+        WHERE id= $1;`,
+      values: [id, username],
+    };
+    client.query(updateUsername_query, callback);
+  },
+  updatePasswordRequest: (id, password, callback) => {
+    const updatePassword_query = {
+      text: `
+        UPDATE "user"
+        SET password = $2
+        WHERE id= $1;`,
+      values: [id, password],
+    };
+    client.query(updatePassword_query, callback);
+  },
+  updateEmailRequest: (id, email, callback) => {
+    const updateEmailquery = {
+      text: `
+        UPDATE "user"
+        SET email = $2
+        WHERE id= $1;`,
+      values: [id, email],
+    };
+    client.query(updateEmailquery, callback);
+  },
+  checkUserNameRequest: (username, callback) => {
+    const checkUserName_query = {
+      text: `
+        SELECT username
+        FROM "user"
+        WHERE username = $1;`,
+      values: [username],
+    };
+    client.query(checkUserName_query, callback);
+  },
+  checkEmailRequest: (email, callback) => {
+    const checkEmail_query = {
+      text: `
+        SELECT email
+        FROM "user"
+        WHERE email = $1;`,
+      values: [email],
+    };
+    client.query(checkEmail_query, callback);
   },
 };
 module.exports = dataUser;

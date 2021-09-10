@@ -14,13 +14,33 @@ const dataAuth = {
   findUserRequest: (username, email, callback) => {
     const findUser_query = {
       text: `
-                SELECT username, email
+                SELECT id, username, email
                 FROM "user"
                 WHERE username = $1
                 OR email = $2;`,
       values: [username, email],
     };
     client.query(findUser_query, callback);
+  },
+  findUserMailRequest: (email, callback) => {
+    const findUserMail_query = {
+      text: `
+                SELECT id,  email
+                FROM "user"
+                WHERE email = $1;`,
+      values: [email],
+    };
+    client.query(findUserMail_query, callback);
+  },
+  findUserTokenRequest: (token, callback) => {
+    const findUserMail_query = {
+      text: `
+                SELECT id
+                FROM "user"
+                WHERE token_temp = $1;`,
+      values: [token],
+    };
+    client.query(findUserMail_query, callback);
   },
   checkUserRequest: (email, callback) => {
     const checkUser_query = {
@@ -85,6 +105,27 @@ const dataAuth = {
       ],
     };
     client.query(createUser_query, callback);
+  },
+  updateTokenTmpRequest: (id, tokenTmp, callback) => {
+    const updateUser_query = {
+      text: `
+        UPDATE "user"
+        SET token_temp = $2
+        WHERE id= $1;`,
+      values: [id, tokenTmp],
+    };
+    client.query(updateUser_query, callback);
+  },
+  updatePasswordRequest: (id, newPassword, callback) => {
+    const updateUser_query = {
+      text: `
+        UPDATE "user"
+        SET token_temp = NULL,
+        password= $2
+        WHERE id= $1;`,
+      values: [id, newPassword],
+    };
+    client.query(updateUser_query, callback);
   },
 };
 module.exports = dataAuth;

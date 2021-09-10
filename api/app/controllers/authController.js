@@ -1,25 +1,21 @@
 const { dataAuth } = require("../dataMapper/");
-const jsonwebtoken = require("jsonwebtoken");
 const MESSAGE = require("../constant/message");
 const bcrypt = require("bcrypt");
+const jwt = require("../utils/token");
 
 const authController = {
   login: (req, res) => {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      return res.status(404).json({
-        message: MESSAGE.MISSING_INPUT,
-      });
+      return res.json(MESSAGE.MISSING_INPUT);
     }
     dataAuth.checkUserRequest(email, (error, result) => {
       if (error) {
         console.trace(error);
       } else {
         if (result.rows.length == 0) {
-          return res.status(404).json({
-            message: MESSAGE.INVALID_CREDENTIAL,
-          });
+          return res.json(MESSAGE.INVALID_CREDENTIAL);
         } else {
           dataAuth.getPasswordHashRequest(email, (error, response) => {
             if (error) {
@@ -28,22 +24,16 @@ const authController = {
               const passwordHash = response.rows[0].password;
               const verified = bcrypt.compareSync(password, passwordHash);
               if (verified) {
-                const { id, username } = result.rows[0];
-                const jwtSecret = process.env.TOKEN_SECRET;
-                const jwtContent = { userId: id };
-                const jwtOptions = {
-                  algorithm: "HS256",
-                  expiresIn: "3h",
-                };
+                const { id, email } = result.rows[0];
+                const token = jwt.generateToken(id, email,"3h");
+
                 res.json({
                   logged: true,
                   user: result.rows[0],
-                  token: jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions),
+                  token,
                 });
               } else {
-                return res.status(404).json({
-                  message: MESSAGE.INVALID_CREDENTIAL,
-                });
+                return res.json(MESSAGE.INVALID_CREDENTIAL);
               }
             }
           });

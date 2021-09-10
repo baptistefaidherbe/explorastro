@@ -20,7 +20,11 @@ module.exports = (req, res, next) => {
       if (error) {
         console.trace(error);
       } else {
-        const id = response.rows[0].id;
+        if(response.rows.length === 0){
+
+          return res.json(MESSAGE.INVALID_TOKEN)
+        }
+        const {id} = response.rows[0];
         if (id && id !== userId) {
           return res.status(404).json({
             message: MESSAGE.INVALID_USER_ID,
