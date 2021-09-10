@@ -38,13 +38,24 @@ const dataExploration = {
       exploration.max_participants,
       exploration.is_published,
       exploration.image_url,
-      ARRAY_AGG(public.user.username) participants
-              FROM exploration 
-              FULL JOIN participate on exploration.id = participate.exploration_id
-              FULL JOIN public.user on public.user.id = participate.user_id
-              WHERE exploration.id IS NOT NULL
-              AND exploration.id = $1
-              group by (exploration.id);`,
+      json_agg(distinct(public.user.username)) participants,
+      (   SELECT
+        json_build_object(
+        'comment',json_agg(comment),
+        'author', json_agg(u.username))
+        FROM "comment"
+        FULL JOIN exploration on comment.exploration_id = exploration.id
+        FULL JOIN "user" u on comment.author_id = u.id
+        WHERE exploration.id = $1
+        AND comment.id IS NOT NULL
+      )
+      FROM exploration 
+      FULL JOIN participate on exploration.id = participate.exploration_id
+      FULL JOIN public.user on public.user.id = participate.user_id
+      FULL JOIN comment on comment.exploration_id = exploration.id
+      WHERE exploration.id IS NOT NULL
+      AND exploration.id = $1
+      group by (exploration.id);`,
 
       values: [id],
     };
@@ -76,6 +87,7 @@ const dataExploration = {
     date,
     max_participants,
     is_published,
+    image_url,
     callback
   ) => {
     const updateExploration_query = {
@@ -86,7 +98,8 @@ const dataExploration = {
         geog = $4,
         date= $5,
         max_participants= $6,
-        is_published= $7
+        is_published= $7,
+        image_url=$8
         WHERE id= $1;`,
       values: [
         id,
@@ -96,6 +109,7 @@ const dataExploration = {
         date,
         max_participants,
         is_published,
+        image_url,
       ],
     };
     client.query(updateExploration_query, callback);

@@ -5,7 +5,6 @@ const commentController = {
   createComment: (req, res) => {
     const exploration_id = Number(req.params.exploration_id);
     const { author_id, content } = req.body;
-
     dataComment.createCommentRequest(
       author_id,
       exploration_id,
@@ -20,12 +19,12 @@ const commentController = {
     );
   },
   updateComment: (req, res) => {
-    const exploration_id = Number(req.params.exploration_id);
-    const { id, content } = req.body;
+    const id = Number(req.params.id);
+    const { content, author_id } = req.body;
     dataComment.updateCommentRequest(
       id,
-      exploration_id,
       content,
+      author_id,
       (error, response) => {
         if (error) {
           console.trace(error);
@@ -36,7 +35,7 @@ const commentController = {
     );
   },
   deleteComment: (req, res) => {
-    const { id } = req.body;
+    const id = Number(req.params.id);
     dataComment.deleteCommentRequest(id, (error, response) => {
         if (error) {
           console.trace(error);

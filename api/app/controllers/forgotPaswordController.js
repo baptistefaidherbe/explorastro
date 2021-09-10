@@ -1,4 +1,4 @@
-const jsonwebtoken = require("jsonwebtoken");
+const jwt = require("../utils/token");
 const bcrypt = require("bcrypt");
 const hbs = require("nodemailer-express-handlebars");
 const EMAIL_MAILER = process.env.MAILER_EMAIL_ID;
@@ -8,23 +8,12 @@ const nodemailer = require("nodemailer");
 const { dataAuth } = require("../dataMapper/");
 const path = require("path");
 const MESSAGE = require("../constant/message");
-const jwtSecret = process.env.TOKEN_SECRET;
+
 
 const forgotPasswordController = {
-  forgotPasswordTemplate: (req, res) => {
-    return res.sendFile(
-      path.join(__dirname, "../templates/forgot-password-email.html")
-    );
-  },
-  resetPasswordTemplate: (req, res) => {
-    return res.sendFile(
-      path.resolve(__dirname, "../templates/reset-password-email.html")
-    );
-  },
-
   forgotPassword: async (req, res) => {
     try {
-      const { email, password } = req.body;
+      const { email } = req.body;
 
       const smtpTransport = nodemailer.createTransport({
         service: "gmail",
@@ -50,23 +39,12 @@ const forgotPasswordController = {
         if (error) {
           console.trace(error);
         } else {
-          console.log(response.rows.length);
-
           if (response.rows.length !== 0) {
             const { id, email } = response.rows[0];
-            const jwtContent = {
-              userEmail: email,
-              userId: id,
-            };
-            const jwtOptions = {
-              algorithm: "HS256",
-              expiresIn: "10m",
-            };
-            const token = jsonwebtoken.sign(jwtContent, jwtSecret, jwtOptions);
-
+            const token = jwt.generateToken(id, email, "10m");
             var data = {
               to: email,
-              from: emailMailer,
+              from: EMAIL_MAILER,
               template: "forgot-password-email",
               subject: "Réinitialiser mon mot de passe",
               context: {
@@ -101,36 +79,38 @@ const forgotPasswordController = {
     try {
       const token = req.params.token;
       const { password } = req.body;
-
       if (token) {
-        jsonwebtoken.verify(token, jwtSecret, (error, decodedToken) => {
+        jwt.checkToken(token, (error, decodedToken) => {
           if (error) {
-            return res.json(MESSAGE.INVALID_TOKEN);
-          }
-        });
-      }
-      dataAuth.findUserTokenRequest(token, (error, response) => {
-        if (error) {
-          console.trace(error);
-        } else {
-          if (response.rows.length === 0) {
-            return res.json(MESSAGE.TOKEN_NOT_MATCH);
-          }
-          const { id } = response.rows[0];
-          const passwordHash = bcrypt.hashSync(password, 10);
-          dataAuth.updatePasswordRequest(
-            id,
-            passwordHash,
-            (error, response) => {
+            res.json(MESSAGE.INVALID_TOKEN);
+          } else {
+            dataAuth.findUserTokenRequest(token, (error, response) => {
               if (error) {
                 console.trace(error);
               } else {
-                return response.json(MESSAGE.SUCCESS_PASSWORD_UPDATE);
+                if (response.rows.length === 0) {
+                  return res.json(MESSAGE.TOKEN_NOT_MATCH);
+                }
+                const { id } = response.rows[0];
+
+                const passwordHash = bcrypt.hashSync(password, 10);
+                console.log(passwordHash);
+                dataAuth.updatePasswordRequest(
+                  id,
+                  passwordHash,
+                  (error, response) => {
+                    if (error) {
+                      console.trace(error);
+                    } else {
+                      return res.json(MESSAGE.SUCCESS_PASSWORD_UPDATE);
+                    }
+                  }
+                );
               }
-            }
-          );
-        }
-      });
+            });
+          }
+        });
+      }
     } catch (error) {
       console.log(error);
       res.status(401).json({

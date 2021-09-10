@@ -21,7 +21,10 @@ router.patch('/exploration/:id',auth, explorationController.updateExploration);
 router.get('/user',auth, userController.getUsers);
 router.get('/user/:id',auth, userController.getUserById);
 router.delete('/user/:id',auth, userController.deleteUser);
-router.patch('/user/:id',auth, userController.updateUser);
+router.patch('/user/:id/update/info/',auth, userController.updateUserInfo);
+router.patch('/user/:id/update/username',auth, userController.updateUsername);
+router.patch('/user/:id/update/password',auth, userController.updatePassword);
+router.patch('/user/:id/update/email',auth, userController.updateEmail);
 
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
@@ -30,13 +33,12 @@ router.post('/participate/:exploration_id',auth, participateController.createPar
 router.delete('/participate/:exploration_id',auth, participateController.deleteParticipate);
 
 router.post('/comment/:exploration_id',auth, commentController.createComment);
-router.patch('/comment/:exploration_id',auth, commentController.updateComment);
-router.delete('/comment/',auth, commentController.deleteComment);
+router.patch('/comment/:id',auth, commentController.updateComment);
+router.delete('/comment/:id',auth, commentController.deleteComment);
 
 
-router.get('/auth/forgot_password',forgotPasswordController.forgotPasswordTemplate)
+
 router.post('/auth/forgot_password',forgotPasswordController.forgotPassword);
-
 router.patch('/auth/reset_password/:token',forgotPasswordController.resetPassword);
 
 
