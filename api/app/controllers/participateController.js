@@ -6,7 +6,11 @@ const participateController = {
     const exploration_id = Number(req.params.exploration_id);
     const { user_id } = req.body;
 
-    //Participate to exploration 
+    if (!user_id) {
+      return res.json(MESSAGE.MISSING_FIEDLS);
+    }
+
+    //Participate to exploration
     dataParticipate.createParticipateRequest(
       exploration_id,
       user_id,
@@ -19,9 +23,14 @@ const participateController = {
       }
     );
   },
+
   deleteParticipate: (req, res) => {
     const exploration_id = Number(req.params.exploration_id);
     const { user_id } = req.body;
+
+    if (!user_id) {
+      return res.json(MESSAGE.MISSING_FIEDLS);
+    }
 
     //Don't participate to exploration
     dataParticipate.deleteParticipateRequest(

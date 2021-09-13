@@ -42,7 +42,7 @@ const dataAuth = {
     };
     client.query(findUserMail_query, callback);
   },
-  checkUserRequest: (email, callback) => {
+  checkEmailRequest: (email, callback) => {
     const checkUser_query = {
       text: `SELECT
         u.id,

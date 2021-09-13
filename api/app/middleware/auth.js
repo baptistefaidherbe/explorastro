@@ -10,7 +10,6 @@ module.exports = (req, res, next) => {
     //Verify token to correspond with token secret
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
 
-    //
     const userId = decodedToken.userId;
 
     const sql_query = {

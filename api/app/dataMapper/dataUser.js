@@ -30,6 +30,7 @@ const dataUser = {
     bio,
     city,
     zipcode,
+    avatar_url,
     callback
   ) => {
     const updateUser_query = {
@@ -39,9 +40,10 @@ const dataUser = {
         lastname = $3,
         bio= $4,
         city= $5,
-        zipcode = $6
+        zipcode = $6,
+        avatar_url= $7
         WHERE id= $1;`,
-      values: [id, firstname, lastname, bio, city, zipcode],
+      values: [id, firstname, lastname, bio, city, zipcode, avatar_url],
     };
     client.query(updateUser_query, callback);
   },
