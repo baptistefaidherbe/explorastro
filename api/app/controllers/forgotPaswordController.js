@@ -9,23 +9,27 @@ const forgotPasswordController = {
     try {
       const { email } = req.body;
 
+      if (!email) {
+        return res.json(MESSAGE.MISSING_INPUT);
+      }
       //Check if email exist in db
       dataAuth.findUserMailRequest(email, (error, response) => {
         if (error) {
           console.trace(error);
         } else {
-          if (response.rows.length !== 0) {
-            const { id, email } = response.rows[0];
-            const token = jwt.generateToken(id, email, "10m");
-            mailer.sendMail(email, token);
-            dataAuth.updateTokenTmpRequest(id, token, (error, response) => {
-              if (error) {
-                console.trace(error);
-              } else {
-                return res.json(MESSAGE.SUCCESS_MODIFICATION);
-              }
-            });
+          if (response.rows.length === 0) {
+            return res.json(MESSAGE.USER_NOT_EXIST);
           }
+          const { id, email } = response.rows[0];
+          const token = jwt.generateToken(id, email, "10m");
+          mailer.sendMail(email, token);
+          dataAuth.updateTokenTmpRequest(id, token, (error, response) => {
+            if (error) {
+              console.trace(error);
+            } else {
+              return res.json(MESSAGE.SUCCESS_MODIFICATION);
+            }
+          });
         }
       });
     } catch (error) {
@@ -35,10 +39,15 @@ const forgotPasswordController = {
       });
     }
   },
+
   resetPassword: async (req, res) => {
     try {
       const token = req.params.token;
       const { password } = req.body;
+
+      if (!password) {
+        return res.json(MESSAGE.MISSING_INPUT);
+      }
 
       if (token) {
         jwt.checkToken(token, (error, decodedToken) => {
@@ -73,7 +82,6 @@ const forgotPasswordController = {
         });
       }
     } catch (error) {
-      console.log(error);
       res.status(401).json({
         message: MESSAGE.INVALID_REQUEST,
       });

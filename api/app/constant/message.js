@@ -7,9 +7,11 @@ module.exports = {
     SUCCESS_MODIFICATION :       'success modification',
     SUCCESS_CREATION_EVENT :     'succes creation event',
     USER_EXIST :                 'user exist',
+    USER_NOT_EXIST  :             'User not exist',
     SUCCESS_SEND_MAIL :          'success send mail',
     INVALID_TOKEN :              'Incorrect token or expired',
     TOKEN_NOT_MATCH :            'token not match',
-    SUCCESS_PASSWORD_UPDATE :    'Success password update'
+    SUCCESS_PASSWORD_UPDATE :    'Success password update',
+    MISSING_FIEDLS :             'Missing field(s)'
     
   };
