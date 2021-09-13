@@ -9,6 +9,7 @@ const forgotPasswordController = {
     try {
       const { email } = req.body;
 
+      //Check if email exist in db
       dataAuth.findUserMailRequest(email, (error, response) => {
         if (error) {
           console.trace(error);
@@ -38,11 +39,13 @@ const forgotPasswordController = {
     try {
       const token = req.params.token;
       const { password } = req.body;
+
       if (token) {
         jwt.checkToken(token, (error, decodedToken) => {
           if (error) {
             res.json(MESSAGE.INVALID_TOKEN);
           } else {
+            //Check if user token exist in db
             dataAuth.findUserTokenRequest(token, (error, response) => {
               if (error) {
                 console.trace(error);
@@ -51,8 +54,8 @@ const forgotPasswordController = {
                   return res.json(MESSAGE.TOKEN_NOT_MATCH);
                 }
                 const { id } = response.rows[0];
-
                 const passwordHash = bcrypt.hashSync(password, 10);
+
                 dataAuth.updatePasswordRequest(
                   id,
                   passwordHash,

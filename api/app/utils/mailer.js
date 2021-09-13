@@ -1,13 +1,14 @@
 const EMAIL_MAILER = process.env.MAILER_EMAIL_ID;
 const PASSWORD_MAILER = process.env.MAILER_PASSWORD;
 const BASE_URL = process.env.BASE_URL;
-const MESSAGE = require('../constant/message');
+const MESSAGE = require("../constant/message");
 const nodemailer = require("nodemailer");
 const hbs = require("nodemailer-express-handlebars");
 const path = require("path");
 
 module.exports = {
   sendMail: (email, token) => {
+    //Configuration nodemailer
     const smtpTransport = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -28,6 +29,7 @@ module.exports = {
 
     smtpTransport.use("compile", hbs(handlebarsOptions));
 
+    //Generate mail and send email
     const data = {
       to: email,
       from: EMAIL_MAILER,

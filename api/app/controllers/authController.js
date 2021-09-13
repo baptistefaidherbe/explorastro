@@ -10,6 +10,7 @@ const authController = {
     if (!(email && password)) {
       return res.json(MESSAGE.MISSING_INPUT);
     }
+    //Check if email exist in db
     dataAuth.checkUserRequest(email, (error, result) => {
       if (error) {
         console.trace(error);
@@ -17,6 +18,7 @@ const authController = {
         if (result.rows.length == 0) {
           return res.json(MESSAGE.INVALID_CREDENTIAL);
         } else {
+          //Get passwordHAsh in db
           dataAuth.getPasswordHashRequest(email, (error, response) => {
             if (error) {
               console.trace(error);
@@ -25,7 +27,7 @@ const authController = {
               const verified = bcrypt.compareSync(password, passwordHash);
               if (verified) {
                 const { id, email } = result.rows[0];
-                const token = jwt.generateToken(id, email,"3h");
+                const token = jwt.generateToken(id, email, "3h");
 
                 res.json({
                   logged: true,
@@ -45,6 +47,7 @@ const authController = {
     const { firstname, lastname, username, email, password, city, zipcode } =
       req.body;
 
+    //Check if username and email exist in db
     dataAuth.findUserRequest(username, email, (error, response) => {
       if (error) {
         console.trace(error);
@@ -58,6 +61,8 @@ const authController = {
     });
 
     const passwordHash = bcrypt.hashSync(password, 10);
+    
+    //Create user info in db
     dataAuth.createUserRequest(
       firstname,
       lastname,

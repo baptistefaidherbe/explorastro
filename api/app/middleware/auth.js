@@ -4,8 +4,13 @@ const client = require("../database");
 
 module.exports = (req, res, next) => {
   try {
+    // Get token in request
     const token = req.headers.authorization.split(" ")[1];
+
+    //Verify token to correspond with token secret
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+
+    //
     const userId = decodedToken.userId;
 
     const sql_query = {
@@ -20,11 +25,10 @@ module.exports = (req, res, next) => {
       if (error) {
         console.trace(error);
       } else {
-        if(response.rows.length === 0){
-
-          return res.json(MESSAGE.INVALID_TOKEN)
+        if (response.rows.length === 0) {
+          return res.json(MESSAGE.INVALID_TOKEN);
         }
-        const {id} = response.rows[0];
+        const { id } = response.rows[0];
         if (id && id !== userId) {
           return res.status(404).json({
             message: MESSAGE.INVALID_USER_ID,
