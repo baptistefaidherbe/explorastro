@@ -12,16 +12,16 @@ const dataComment = {
     };
     client.query(createComment_query, callback);
   },
-  updateCommentRequest: (id, content,author_id, callback) => {
+  updateCommentRequest: (id, content, author_id, callback) => {
     const updateExploration_query = {
       text: `
         UPDATE comment
         SET content= $2,
         author_id= $3
         WHERE id= $1;`,
-      values: [id, content,author_id],
+      values: [id, content, author_id],
     };
-    console.log(updateExploration_query)
+    console.log(updateExploration_query);
     client.query(updateExploration_query, callback);
   },
   deleteCommentRequest: (id, callback) => {
