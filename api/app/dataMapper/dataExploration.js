@@ -8,20 +8,23 @@ const dataExploration = {
       exploration.name, 
       exploration.description,
       exploration.author_id,
-      geog,
+      userEvent.username,
+      exploration.geog,
       exploration.date,
       exploration.max_participants,
       exploration.is_published,
       exploration.image_url,
       json_build_object(
-      'username', json_agg(distinct(public.user.username)),
+      'username', json_agg(distinct(u.username)),
        'commentaire', json_agg(distinct(comment.id) || ', ' || comment.content )) participants
               FROM exploration 
               FULL JOIN participate on exploration.id = participate.exploration_id
-              FULL JOIN public.user on public.user.id = participate.user_id
+              FULL JOIN "user" as u on u.id = participate.user_id
               FULL JOIN comment on comment.exploration_id = exploration.id
+              FULL JOIN exploration as explor on explor.author_id = u.id
+              FULL JOIN "user" as userEvent on exploration.author_id = userEvent.id
               WHERE exploration.id IS NOT NULL
-              group by (exploration.id);`,
+              group by (exploration.id,userEvent.username);`,
     };
 
     client.query(explorations_query, callback);
@@ -33,6 +36,7 @@ const dataExploration = {
       exploration.name, 
       exploration.description,
       exploration.author_id,
+      u.username,
       geog,
       exploration.date,
       exploration.max_participants,
@@ -52,10 +56,10 @@ const dataExploration = {
       FROM exploration 
       FULL JOIN participate on exploration.id = participate.exploration_id
       FULL JOIN public.user on public.user.id = participate.user_id
-      FULL JOIN comment on comment.exploration_id = exploration.id
+      FULL JOIN "user" as u on u.id = exploration.author_id
       WHERE exploration.id IS NOT NULL
       AND exploration.id = $1
-      group by (exploration.id);`,
+      group by (exploration.id, u.username);`,
 
       values: [id],
     };
