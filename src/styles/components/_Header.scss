@@ -1,0 +1,166 @@
+header {
+  display: flex;
+  color: white;
+
+  .icons-nav1 {
+    color: #4988c7;
+    font-size: 30px;
+  }
+
+  .icons-nav2 {
+    font-size: 20px;
+  }
+
+  .header__nav {
+    display: inline-block;
+    height: 100vh;
+    width: 200px;
+    background-color: $secondary-color;
+
+    ul {
+      .logo {
+        width: 90%;
+        padding: 12px 10px;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 28px 10px;
+        cursor: pointer;
+        transition: all ease-out 120ms;
+
+        span {
+          padding: 0 5px;
+        }
+        .tooltip--profile {
+          margin-top: 330px;
+        }
+        .tooltip--exploration {
+          margin-top: 113px;
+        }
+        .tooltip {
+          display: inline-block;
+          position: absolute;
+          background-color: $secondary-color;
+          padding: 8px 15px;
+          width: 220px;
+          border-radius: 3px;
+          left: 215px;
+          opacity: 0;
+          visibility: hidden;
+          font-size: 13px;
+
+          .profile-avatar {
+            width: 25px;
+          }
+          .small-icon {
+            font-size: 15px;
+          }
+          &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: -6px;
+            top: 10px;
+            transform: rotate(45deg);
+            width: 15px;
+            height: 15px;
+            background-color: inherit;
+          }
+        }
+
+        &:hover {
+          background-color: $tertiary-color;
+
+          .icons-nav1 {
+            color: white;
+          }
+
+          .tooltip {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+
+        &.active {
+        }
+      }
+    }
+  }
+
+  .header__nav2 {
+    background-color: $secondary-color;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1;
+      padding: 0 50px;
+      align-items: center;
+
+      .flex1 {
+        flex: 10;
+
+        .input-search {
+          border-radius: 20px;
+          padding: 10px 15px;
+          width: 330px;
+          background-color: #111733;
+          border: none;
+          color: white;
+          border: none;
+        }
+
+        button {
+          margin-left: 10px;
+          border-radius: 20px;
+          border: none;
+          padding: 9px 15px;
+          background-color: #111733;
+          color: white;
+          border: 2px, solid, $quaternary-color;
+
+          .search {
+            display: flex;
+            align-items: center;
+            font-size: 0.8em;
+
+            .search-icon {
+              font-size: 15px;
+            }
+
+            span {
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+
+      .flex2 {
+        flex: 4;
+        span {
+          padding-left: 10px;
+        }
+      }
+
+      .flex3 {
+        flex: 2;
+
+        .user {
+          display: flex;
+          align-items: center;
+
+          .avatar {
+            padding-left: 10px;
+            width: 50px;
+          }
+        }
+      }
+    }
+  }
+}
