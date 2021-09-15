@@ -1,28 +1,24 @@
 /* eslint-disable react/button-has-type */
-import React from 'react';
-import './login.css';
+import React from "react";
+import imgLogin from "src/assets/img/logo-explorastro.png";
+import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 
 export default function Login() {
   return (
     <div className="login">
-      <div className="loginWrapper">
-        <div className="loginLeft">
-          <h3 className="loginLogo">Lamasocial</h3>
-          <span className="loginDesc">
-            Connect with friends and the world around you on Lamasocial.
-          </span>
+      <div className="loginBox">
+        <img src={imgLogin} alt="limgLogin" className="imgLogin" />
+        <h2>Connectez-vous et partez à la découverte du ciel !</h2>
+        <div className="inputContainer">
+          <AiOutlineUser className="iconUser" />
+          <input placeholder="Email" className="loginInput" />
+          <AiOutlineLock className="iconPassword" />
+          <input placeholder="Password" className="loginInput" />
         </div>
-        <div className="loginRight">
-          <div className="loginBox">
-            <input placeholder="Email" className="loginInput" />
-            <input placeholder="Password" className="loginInput" />
-            <button className="loginButton">Log In</button>
-            <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
-              Create a New Account
-            </button>
-          </div>
-        </div>
+        <button className="loginButton">Se connecter</button>
+        <span className="loginForgot">Mot de passe oublié</span>
+        <span className="loginRegisterButton">Créer mon compte</span>
+        <span className="copyright">©2021 - Explorastro</span>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ header {
   color: white;
 
   .icons-nav1 {
-    color: #4988c7;
+    color: $tertiary-color;
     font-size: 30px;
   }
 
@@ -16,6 +16,7 @@ header {
     height: 100vh;
     width: 200px;
     background-color: $secondary-color;
+    font-size: 1em;
 
     ul {
       .logo {
@@ -44,12 +45,12 @@ header {
           position: absolute;
           background-color: $secondary-color;
           padding: 8px 15px;
-          width: 220px;
+          width: 270px;
           border-radius: 3px;
           left: 215px;
           opacity: 0;
           visibility: hidden;
-          font-size: 13px;
+          font-size: 1em;
 
           .profile-avatar {
             width: 25px;
@@ -121,9 +122,9 @@ header {
           border-radius: 20px;
           border: none;
           padding: 9px 15px;
-          background-color: #111733;
+          background-color: $tertiary-color;
           color: white;
-          border: 2px, solid, $quaternary-color;
+      
 
           .search {
             display: flex;

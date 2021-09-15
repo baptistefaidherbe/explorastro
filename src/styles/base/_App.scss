@@ -2,11 +2,9 @@ body {
   background-image: url("src/assets/img/bg_sky.png");
   background-size: cover;
   background-repeat: no-repeat;
-  
 }
 
 .app {
-  background-color: rgba($color: $primary-color, $alpha: 0.9); 
   height: 100vh;
   box-shadow: 5px 5px 50px 5px #000000;
 }
