@@ -1,0 +1,149 @@
+.register {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: auto;
+
+  .leftBox {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+    margin-right: 200px;
+
+    .imgRegister {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    span {
+      color: white;
+      margin-bottom: 50px;
+      font-size: 1.4em;
+      letter-spacing: 3px;
+      line-height: 30px;
+      text-shadow: 3px 0px 6px #121834;
+    }
+    .backLogin {
+      font-size: 1.2em;
+      &:hover {
+        background-color: #525c88;
+        color: white;
+      }
+    }
+  }
+
+  .registerBox {
+    display: flex;
+    flex-direction: column;
+    background-color: #02080ee0;
+    border-radius: 10px;
+    padding: 20px 78px;
+    box-shadow: 9px -4px 97px 12px #121834;
+    align-items: center;
+    width: 40%;
+
+    .inputContainer {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      .identity,
+      .infos,
+      .location,
+      .security {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-left: 10px;
+
+        label {
+          padding-right: 20px;
+        }
+      }
+
+      .birth,
+      .firsname,
+      .lastname,
+      .city,
+      .zipCode,
+      .username,
+      .email,
+      .password,
+      .sexe {
+        display: flex;
+        flex-direction: column;
+        color: #757575;
+        margin: 10px 0;
+      }
+
+      .sexe {
+        color: #757575;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 5px 0;
+        width: 295px;
+
+        .sexeInput {
+          padding: 10px 35px;
+        }
+
+        input[type="radio"]:after {
+          width: 15px;
+          height: 15px;
+          top: -2px;
+          left: -1px;
+          position: relative;
+          background-color: #757575;
+          content: "";
+          display: inline-block;
+          border: 1px solid white;
+        }
+        input[type="radio"]:checked:after {
+          width: 15px;
+          height: 15px;
+          top: -2px;
+          left: -1px;
+          position: relative;
+          background-color: $primary-color;
+          content: "";
+          display: inline-block;
+          border: 1px solid white;
+        }
+
+        input {
+          margin: 0 0.8rem;
+        }
+      }
+
+      input {
+        margin: 10px 0;
+        padding: 15px 40px;
+        border-radius: 10px;
+        background-color: $primary-color;
+        border: none;
+        color: white;
+      }
+    }
+    .registerButton {
+      font-size: 1.2em;
+      &:hover {
+        background-color: #525c88;
+        color: white;
+      }
+    }
+
+    .copyright {
+      bottom: 0;
+      position: absolute;
+      padding-bottom: 10px;
+      color: #757575;
+    }
+  }
+}

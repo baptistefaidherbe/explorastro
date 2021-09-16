@@ -12,10 +12,12 @@
     flex-direction: column;
     background-color: #02080ee0;
     border-radius: 10px;
-    padding: 200px 50px;
+    padding: 100px 50px;
     box-shadow: 9px -4px 97px 12px #121834;
     align-items: center;
     position: relative;
+    font-size: 1em;
+    
 
     .imgLogin {
       width: 90%;
@@ -32,18 +34,20 @@
       position: relative;
       display: flex;
       flex-direction: column;
+      width: 100%;
+      align-items: center;
 
       .iconUser {
         position: absolute;
-        top: 9px;
-        left: 15px;
+        top: 16px;
+        left: 29px;
         color: white;
       }
 
       .iconPassword {
         position: absolute;
-        top: 60px;
-        left: 15px;
+        top: 80px;
+        left: 29px;
         color: white;
       }
 
@@ -54,6 +58,8 @@
         background-color: $primary-color;
         border: none;
         color: white;
+        width: 90%;
+        height: 50px;
       }
     }
     .loginButton {

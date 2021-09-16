@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div className="app">
       <Route exact path="/">
-        <Header /> : <Register />
+        <Header />
       </Route>
       <Switch>
         <Route path="/login">

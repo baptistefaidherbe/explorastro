@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
-import React from "react";
-import imgLogin from "src/assets/img/logo-explorastro.png";
-import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
+import React from 'react';
+import imgLogin from 'src/assets/img/logo-explorastro.png';
+import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai';
 
 export default function Login() {
   return (
