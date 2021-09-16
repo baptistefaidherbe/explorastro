@@ -17,7 +17,6 @@
     align-items: center;
     position: relative;
     font-size: 1em;
-    
 
     .imgLogin {
       width: 90%;
@@ -30,55 +29,67 @@
       margin-bottom: 50px;
     }
 
-    .inputContainer {
-      position: relative;
+    .loginForm {
       display: flex;
       flex-direction: column;
       width: 100%;
       align-items: center;
 
-      .iconUser {
-        position: absolute;
-        top: 16px;
-        left: 29px;
-        color: white;
+      .loginError{
+
+        color:#ca6161;
+        padding: 5px 0;
       }
 
-      .iconPassword {
-        position: absolute;
-        top: 80px;
-        left: 29px;
-        color: white;
-      }
+      .inputContainer {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
 
-      input {
-        margin-bottom: 15px;
-        padding: 10px 35px;
+        .iconUser {
+          position: absolute;
+          top: 16px;
+          left: 29px;
+          color: white;
+        }
+
+        .iconPassword {
+          position: absolute;
+          top: 80px;
+          left: 29px;
+          color: white;
+        }
+
+        input {
+          margin-bottom: 15px;
+          padding: 10px 35px;
+          border-radius: 30px;
+          background-color: $primary-color;
+          border: none;
+          color: white;
+          width: 90%;
+          height: 50px;
+        }
+      }
+      .loginButton {
+        padding: 10px 25px;
         border-radius: 30px;
-        background-color: $primary-color;
+        background-color: $tertiary-color;
         border: none;
-        color: white;
-        width: 90%;
-        height: 50px;
+        margin: 0 50px;
+        color: #757575;
+        margin: 20px 0;
+        cursor: pointer;
+        transition: 0.5s;
+
+        &:hover {
+          background-color: #525c88;
+          color: white;
+        }
       }
     }
-    .loginButton {
-      padding: 10px 25px;
-      border-radius: 30px;
-      background-color: $tertiary-color;
-      border: none;
-      margin: 0 50px;
-      color: #757575;
-      margin: 20px 0;
-      cursor: pointer;
-      transition: 0.5s;
-
-      &:hover {
-        background-color: #525c88;;
-        color: white;
-      }
-    }
-
     .loginForgot,
     .loginRegisterButton {
       color: #757575;
@@ -87,7 +98,7 @@
       padding: 5px 0;
 
       &:hover {
-        color: white
+        color: white;
       }
     }
 
@@ -95,7 +106,7 @@
       bottom: 0;
       position: absolute;
       padding-bottom: 10px;
-      color: #757575
+      color: #757575;
     }
   }
 }

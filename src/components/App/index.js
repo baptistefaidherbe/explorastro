@@ -1,20 +1,23 @@
-import React, { useEffect } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
-import Header from "../Header";
-import Register from "../Register";
-import Login from "../Login";
+import React, { useEffect } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Login from 'src/containers/Login';
+import PropTypes from 'prop-types';
+import Header from '../Header';
+import Register from '../Register';
 
-const App = () => {
-  useEffect(() => {}, []);
+const App = ({ isLogged, checkIsLogged }) => {
+  useEffect(() => {
+    checkIsLogged();
+  }, []);
 
   return (
     <div className="app">
       <Route exact path="/">
-        <Header />
+        {isLogged ? <Header /> : <Login />}
       </Route>
       <Switch>
         <Route path="/login">
-          <Login />
+          {isLogged ? <Redirect to="/" /> : <Login />}
         </Route>
       </Switch>
       <Route path="/register">
@@ -22,6 +25,11 @@ const App = () => {
       </Route>
     </div>
   );
+};
+
+App.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
+  checkIsLogged: PropTypes.func.isRequired,
 };
 
 export default App;

@@ -1,6 +1,6 @@
 /* eslint-disable react/button-has-type */
-import React from "react";
-import imgLogin from "src/assets/img/logo-explorastro.png";
+import React from 'react';
+import imgLogin from 'src/assets/img/logo-explorastro.png';
 
 export default function Login() {
   return (
