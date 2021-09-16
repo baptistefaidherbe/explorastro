@@ -1,4 +1,6 @@
-import { CHANGE_VALUE, SAVE_USER, LOGIN_ERROR } from 'src/actions/user';
+import {
+  CHANGE_VALUE, SAVE_USER, LOGIN_ERROR, LOGOUT,
+} from 'src/actions/user';
 
 const initialState = {
   userId: null,
@@ -35,6 +37,13 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         loginError: action.payload,
+      };
+    }
+    case LOGOUT: {
+      localStorage.removeItem('user');
+      return {
+        ...initialState,
+        logged: false,
       };
     }
     default:

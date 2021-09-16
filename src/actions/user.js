@@ -3,6 +3,7 @@ export const LOGIN = 'LOGIN';
 export const SAVE_USER = 'SAVE_USER';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const CHECK_USER_LOGGED = 'CHECK_USER_LOGGED';
+export const LOGOUT = 'LOGOUT';
 
 export const changeValue = (value, key) => ({
   type: CHANGE_VALUE,
@@ -23,4 +24,7 @@ export const loginError = (payload) => ({
 export const checkUserLogged = (payload) => ({
   type: CHECK_USER_LOGGED,
   payload,
+});
+export const logout = () => ({
+  type: LOGOUT,
 });

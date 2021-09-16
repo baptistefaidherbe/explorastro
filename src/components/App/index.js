@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from 'src/containers/Login';
 import PropTypes from 'prop-types';
-import Header from '../Header';
+import Header from 'src/containers/Header';
 import Register from '../Register';
 
 const App = ({ isLogged, checkIsLogged }) => {

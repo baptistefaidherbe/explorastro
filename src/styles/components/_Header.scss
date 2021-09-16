@@ -1,13 +1,13 @@
 header {
   display: flex;
-  color: white;
+  color: #919ee0;
 
-  .icons-nav1 {
+  .iconsNav1 {
     color: $tertiary-color;
     font-size: 30px;
   }
 
-  .icons-nav2 {
+  .iconsNav2 {
     font-size: 20px;
   }
 
@@ -55,7 +55,7 @@ header {
           .profile-avatar {
             width: 25px;
           }
-          .small-icon {
+          .smallIcon {
             font-size: 15px;
           }
           &:before {
@@ -74,7 +74,7 @@ header {
         &:hover {
           background-color: $tertiary-color;
 
-          .icons-nav1 {
+          .iconsNav1 {
             color: white;
           }
 
@@ -104,7 +104,7 @@ header {
       padding: 0 50px;
       align-items: center;
 
-      .flex1 {
+      .search {
         flex: 10;
 
         .input-search {
@@ -124,14 +124,21 @@ header {
           padding: 9px 15px;
           background-color: $tertiary-color;
           color: white;
-      
+          transition: 0.5s;
 
-          .search {
+          &:hover {
+            background-color: white;
+            color:black;
+          }
+
+
+          .searchBtn {
             display: flex;
             align-items: center;
             font-size: 0.8em;
 
-            .search-icon {
+          
+            .searchIcon {
               font-size: 15px;
             }
 
@@ -142,23 +149,44 @@ header {
         }
       }
 
-      .flex2 {
+      .notif {
         flex: 4;
-        span {
+        .alert {
           padding-left: 10px;
+
+          .bell,
+          .message {
+            font-size: 1.5em;
+            transition: 0.5s;
+            cursor: pointer;
+            &:hover {
+              color: white;
+            }
+          }
         }
       }
 
-      .flex3 {
+      .user {
         flex: 2;
 
-        .user {
+        .username {
           display: flex;
           align-items: center;
 
           .avatar {
             padding-left: 10px;
             width: 50px;
+          }
+        }
+      }
+      .logout {
+        .logoutLink {
+          display: flex;
+          align-items: center;
+          transition: 0.5s;
+
+          &:hover {
+            color: white;
           }
         }
       }
