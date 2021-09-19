@@ -24,6 +24,7 @@ const dataExploration = {
               FULL JOIN exploration as explor on explor.author_id = u.id
               FULL JOIN "user" as userEvent on exploration.author_id = userEvent.id
               WHERE exploration.id IS NOT NULL
+              AND exploration.is_published = 'true'
               group by (exploration.id,userEvent.username);`,
     };
 

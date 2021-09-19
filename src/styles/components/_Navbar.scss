@@ -1,0 +1,103 @@
+.navBar {
+  background-color: $secondary-color;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color : #959ec7;
+
+ &_container{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    padding: 0 50px;
+    align-items: center;
+
+    .navBar_search {
+      flex: 10;
+      display: flex;
+      align-items: center;
+
+      .input-search {
+        border-radius: 20px;
+        padding: 10px 15px;
+        width: 330px;
+        background-color: $tertiary-color;
+        border: none;
+        color: white;
+        border: none;
+      }
+
+      button {
+        margin-left: 10px;
+        border-radius: 20px;
+        border: none;
+        padding: 9px 15px;
+        background-color: $tertiary-color;
+        color: white;
+        transition: 0.5s;
+
+        &:hover {
+          background-color: white;
+          color: black;
+        }
+
+        .searchBtn {
+          display: flex;
+          align-items: center;
+          font-size: 0.8em;
+
+          .searchIcon {
+            font-size: 15px;
+          }
+
+          span {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+
+    .navBar_notif {
+      flex: 4;
+      .alert {
+        padding-left: 10px;
+
+        .bell,
+        .message {
+          font-size: 1.5em;
+          transition: 0.5s;
+          cursor: pointer;
+          &:hover {
+            color: white;
+          }
+        }
+      }
+    }
+
+    .navBar_user {
+      flex: 2;
+
+      .username {
+        display: flex;
+        align-items: center;
+
+        .avatar {
+          padding-left: 10px;
+          width: 50px;
+        }
+      }
+    }
+    .navBar_logout {
+      .logoutLink {
+        display: flex;
+        align-items: center;
+        transition: 0.5s;
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+}

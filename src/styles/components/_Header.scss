@@ -1,192 +1,111 @@
-header {
-  display: flex;
-  color: #919ee0;
+.sideBar {
+  display: inline-block;
+  position: fixed;
 
-  .iconsNav1 {
-    color: $tertiary-color;
-    font-size: 30px;
+  width: 255px;
+  background-image: url("src/assets/img/voieLactee.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 39%;
+  color: white;
+  top: 0;
+  bottom: 0;
+
+  &:before {
+    background: linear-gradient(16deg, rgb(0 0 0 / 73%), #0c1121);
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
   }
 
-  .iconsNav2 {
-    font-size: 20px;
-  }
-
-  .header__nav {
-    display: inline-block;
-    height: 100vh;
+  .logo {
     width: 200px;
-    background-color: $secondary-color;
-    font-size: 1em;
+    margin: 20px;
+    position: relative;
+  }
 
-    ul {
-      .logo {
-        width: 90%;
-        padding: 12px 10px;
+  &_content {
+    position: absolute;
+    text-transform: uppercase;
+
+    &_icons {
+      font-size: 1.4em;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      padding: 28px 10px;
+      cursor: pointer;
+      transition: 0.4s;
+      margin: 20px;
+
+      span {
+        padding: 0 5px;
+      }
+
+      &:hover {
+        background-color: #293363cc;
+
+        .sideBar_content_tooltip {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+    }
+    .tooltip--profile {
+      margin-top: 300px;
+    }
+    .tooltip--exploration {
+      margin-top: 100px;
+    }
+    &_tooltip {
+      display: inline-block;
+      position: absolute;
+      background-color: #1c2542;
+      padding: 8px 15px;
+      width: 370px;
+      border-radius: 3px;
+      left: 270px;
+      opacity: 0;
+      visibility: hidden;
+      font-size: 1em;
+      border-radius: 10px;
+
+      .profile-avatar {
+        width: 25px;
+      }
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: -6px;
+        top: 10px;
+        transform: rotate(45deg);
+        width: 15px;
+        height: 15px;
+        background-color: inherit;
       }
 
       li {
-        display: flex;
-        align-items: center;
-        padding: 28px 10px;
         cursor: pointer;
-        transition: all ease-out 120ms;
+        transition: 0.4s;
+        margin: 1px;
+        font-size: 0.8em;
 
         span {
           padding: 0 5px;
         }
-        .tooltip--profile {
-          margin-top: 330px;
-        }
-        .tooltip--exploration {
-          margin-top: 113px;
-        }
-        .tooltip {
-          display: inline-block;
-          position: absolute;
-          background-color: $secondary-color;
-          padding: 8px 15px;
-          width: 270px;
-          border-radius: 3px;
-          left: 215px;
-          opacity: 0;
-          visibility: hidden;
-          font-size: 1em;
-
-          .profile-avatar {
-            width: 25px;
-          }
-          .smallIcon {
-            font-size: 15px;
-          }
-          &:before {
-            content: "";
-            display: block;
-            position: absolute;
-            left: -6px;
-            top: 10px;
-            transform: rotate(45deg);
-            width: 15px;
-            height: 15px;
-            background-color: inherit;
-          }
-        }
 
         &:hover {
-          background-color: $tertiary-color;
+          background-color: #29336360;
 
-          .iconsNav1 {
-            color: white;
-          }
-
-          .tooltip {
+          .sideBar_content_tooltip {
             visibility: visible;
             opacity: 1;
-          }
-        }
-
-        &.active {
-        }
-      }
-    }
-  }
-
-  .header__nav2 {
-    background-color: $secondary-color;
-    height: 80px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      flex: 1;
-      padding: 0 50px;
-      align-items: center;
-
-      .search {
-        flex: 10;
-
-        .input-search {
-          border-radius: 20px;
-          padding: 10px 15px;
-          width: 330px;
-          background-color: #111733;
-          border: none;
-          color: white;
-          border: none;
-        }
-
-        button {
-          margin-left: 10px;
-          border-radius: 20px;
-          border: none;
-          padding: 9px 15px;
-          background-color: $tertiary-color;
-          color: white;
-          transition: 0.5s;
-
-          &:hover {
-            background-color: white;
-            color:black;
-          }
-
-
-          .searchBtn {
-            display: flex;
-            align-items: center;
-            font-size: 0.8em;
-
-          
-            .searchIcon {
-              font-size: 15px;
-            }
-
-            span {
-              margin-left: 5px;
-            }
-          }
-        }
-      }
-
-      .notif {
-        flex: 4;
-        .alert {
-          padding-left: 10px;
-
-          .bell,
-          .message {
-            font-size: 1.5em;
-            transition: 0.5s;
-            cursor: pointer;
-            &:hover {
-              color: white;
-            }
-          }
-        }
-      }
-
-      .user {
-        flex: 2;
-
-        .username {
-          display: flex;
-          align-items: center;
-
-          .avatar {
-            padding-left: 10px;
-            width: 50px;
-          }
-        }
-      }
-      .logout {
-        .logoutLink {
-          display: flex;
-          align-items: center;
-          transition: 0.5s;
-
-          &:hover {
-            color: white;
           }
         }
       }

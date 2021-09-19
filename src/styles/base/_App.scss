@@ -1,10 +1,24 @@
 body {
-  background-image: url("src/assets/img/bg_sky.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
+  background-color: $primary-color;
 
-.app {
-  height: 100vh;
-  box-shadow: 5px 5px 50px 5px #000000;
+  ::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #959ec7;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $secondary-color;
+
+  }
+
+
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 255px;
+  font-family: "Roboto", sans-serif;
 }

@@ -1,11 +1,12 @@
 .login {
   background-image: url("src/assets/img/bg_sky.png");
-  background-repeat: no-repeat;
   background-size: cover;
+  background-repeat: no-repeat;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 
   .loginBox {
     display: flex;
