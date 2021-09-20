@@ -10,7 +10,8 @@ const schema = Joi.object({
   image_url: Joi.string(),
   created_at: Joi.date(),
   updated_at: Joi.date(),
-  author_id: Joi.number()
+  author_id: Joi.number(),
+  departement: Joi.string(),
 });
 
 module.exports = schema;

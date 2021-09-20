@@ -7,9 +7,9 @@ const schema = Joi.object({
 
   username: Joi.string().alphanum().min(2).max(50),
 
-  email: Joi.string().email().min(3).max(50),
+  email: Joi.string(),
 
-  password: Joi.string().min(6).max(50),
+  password: Joi.string(),
 
   password_confirmation: Joi.valid(Joi.ref("password")),
 

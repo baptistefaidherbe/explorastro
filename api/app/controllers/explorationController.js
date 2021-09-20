@@ -66,6 +66,7 @@ const explorationController = {
       max_participants,
       is_published,
       image_url,
+      departement
     } = req.body;
 
 
@@ -78,6 +79,7 @@ const explorationController = {
       max_participants,
       is_published,
       image_url,
+      departement,
       (error, response) => {
         if (error) {
           console.trace(error);

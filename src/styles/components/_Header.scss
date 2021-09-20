@@ -1,0 +1,114 @@
+.sideBar {
+  display: inline-block;
+  position: fixed;
+
+  width: 255px;
+  background-image: url("src/assets/img/voieLactee.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 39%;
+  color: white;
+  top: 0;
+  bottom: 0;
+
+  &:before {
+    background: linear-gradient(16deg, rgb(0 0 0 / 73%), #0c1121);
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+  .logo {
+    width: 200px;
+    margin: 20px;
+    position: relative;
+  }
+
+  &_content {
+    position: absolute;
+    text-transform: uppercase;
+
+    &_icons {
+      font-size: 1.4em;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      padding: 28px 10px;
+      cursor: pointer;
+      transition: 0.4s;
+      margin: 20px;
+
+      span {
+        padding: 0 5px;
+      }
+
+      &:hover {
+        background-color: #293363cc;
+
+        .sideBar_content_tooltip {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+    }
+    .tooltip--profile {
+      margin-top: 300px;
+    }
+    .tooltip--exploration {
+      margin-top: 100px;
+    }
+    &_tooltip {
+      display: inline-block;
+      position: absolute;
+      background-color: #1c2542;
+      padding: 8px 15px;
+      width: 370px;
+      border-radius: 3px;
+      left: 270px;
+      opacity: 0;
+      visibility: hidden;
+      font-size: 1em;
+      border-radius: 10px;
+
+      .profile-avatar {
+        width: 25px;
+      }
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: -6px;
+        top: 10px;
+        transform: rotate(45deg);
+        width: 15px;
+        height: 15px;
+        background-color: inherit;
+      }
+
+      li {
+        cursor: pointer;
+        transition: 0.4s;
+        margin: 1px;
+        font-size: 0.8em;
+
+        span {
+          padding: 0 5px;
+        }
+
+        &:hover {
+          background-color: #29336360;
+
+          .sideBar_content_tooltip {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,9 +6,8 @@ const jwt = require("../utils/token");
 const authController = {
   login: (req, res) => {
     const { email, password } = req.body;
-
     if (!(email && password)) {
-      return res.json(MESSAGE.MISSING_INPUT);
+      return res.status(400).json({ message: MESSAGE.MISSING_INPUT });
     }
 
     dataAuth.checkEmailRequest(email, (error, result) => {
@@ -16,7 +15,7 @@ const authController = {
         console.trace(error);
       } else {
         if (result.rows.length == 0) {
-          return res.json(MESSAGE.INVALID_CREDENTIAL);
+          return res.status(400).json({ message: MESSAGE.INVALID_CREDENTIAL });
         } else {
           dataAuth.getPasswordHashRequest(email, (error, response) => {
             if (error) {
@@ -30,12 +29,16 @@ const authController = {
                 const token = jwt.generateToken(id, email, "3h");
 
                 res.json({
-                  logged: true,
-                  user: result.rows[0],
-                  token,
+                  login: {
+                    logged: true,
+                    user: result.rows[0],
+                    token,
+                  },
                 });
               } else {
-                return res.json(MESSAGE.INVALID_CREDENTIAL);
+                return res.status(400).json({
+                  message: MESSAGE.INVALID_CREDENTIAL,
+                });
               }
             }
           });
@@ -57,7 +60,7 @@ const authController = {
       !city ||
       !zipcode
     ) {
-      return res.json(MESSAGE.MISSING_FIEDLS);
+      return res.status(400).json({ message: MESSAGE.MISSING_FIEDLS });
     }
 
     dataAuth.findUserRequest(username, email, (error, response) => {
@@ -65,7 +68,7 @@ const authController = {
         console.trace(error);
       } else {
         if (response.rows.length !== 0) {
-          return res.json(MESSAGE.USER_EXIST);
+          return res.status(400).json({ message: MESSAGE.USER_EXIST });
         }
       }
     });
@@ -84,7 +87,9 @@ const authController = {
         if (error) {
           console.trace(error);
         } else {
-          res.json(MESSAGE.SUCCESS_MODIFICATION);
+          return res
+            .status(400)
+            .json({ message: MESSAGE.SUCCESS_MODIFICATION });
         }
       }
     );

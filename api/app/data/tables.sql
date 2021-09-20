@@ -63,3 +63,4 @@ CREATE TABLE IF NOT EXISTS "participate" (
 
 
 ALTER TABLE "user" ADD COLUMN token_temp text DEFAULT 0; 
+ALTER TABLE "exploration" ADD COLUMN departement text; 
