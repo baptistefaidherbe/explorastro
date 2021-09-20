@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Navbar from "src/containers/Navbar";
@@ -16,6 +17,8 @@ const Participate = ({
   onClickClosedModal,
   fieldZone,
   onChangeArea,
+  onChange,
+  departement,
 }) => {
   useEffect(() => {
     getEvents();
@@ -27,12 +30,6 @@ const Participate = ({
 
   return (
     <>
-      <Modal
-        togledModal={togledModal}
-        onClick={onClickClosedModal}
-        onChangeArea={onChangeArea}
-        fieldZone={fieldZone}
-      />
       <div className="container">
         <Navbar />
         <div className="participate">
@@ -58,6 +55,7 @@ const Participate = ({
                 <div className="card">ezfzefzefzef</div>
                 <div className="card">ezfzefzefzef</div>
               </div>
+
               <div className="search">
                 <GiHamburgerMenu
                   className="search_icon"
@@ -66,9 +64,17 @@ const Participate = ({
                 <div className="search_text">
                   <CgSearch className="Search_icon" />
                   <span>Rechercher</span>
+
+                  <Modal
+                    togledModal={togledModal}
+                    onClick={onClickClosedModal}
+                    onChangeArea={onChangeArea}
+                    fieldZone={fieldZone}
+                    onChange={onChange}
+                  />
                 </div>
               </div>
-              <Map explorations={explorations} fieldZone={fieldZone} />
+              <Map explorations={explorations} fieldZone={fieldZone} departement={departement} />
             </div>
           </div>
         </div>
@@ -85,6 +91,8 @@ Participate.propTypes = {
   onClickClosedModal: PropTypes.func.isRequired,
   fieldZone: PropTypes.number.isRequired,
   onChangeArea: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  departement: PropTypes.string.isRequired,
 };
 
 export default Participate;

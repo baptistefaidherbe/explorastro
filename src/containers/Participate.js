@@ -5,12 +5,14 @@ import {
   onClickModal,
   onClickClosedModal,
   onChangeArea,
+  onChange,
 } from 'src/actions/exploration';
 
 const mapStateToProps = (state) => ({
   explorations: state.exploration.explorations,
   togledModal: state.exploration.togledModal,
   fieldZone: state.exploration.fieldZone,
+  departement: state.exploration.departement,
 });
 const mapDispatchToProps = (dispatch) => ({
   getEvents: () => {
@@ -24,6 +26,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChangeArea: (zone) => {
     dispatch(onChangeArea(zone));
+  },
+  onChange: (value, key) => {
+    dispatch(onChange(value, key));
   },
 });
 

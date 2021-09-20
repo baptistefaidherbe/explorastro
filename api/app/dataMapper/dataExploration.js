@@ -14,6 +14,7 @@ const dataExploration = {
       exploration.max_participants,
       exploration.is_published,
       exploration.image_url,
+      exploration.departement,
       json_build_object(
       'username', json_agg(distinct(u.username)),
        'commentaire', json_agg(distinct(comment.id) || ', ' || comment.content )) participants
@@ -43,6 +44,7 @@ const dataExploration = {
       exploration.max_participants,
       exploration.is_published,
       exploration.image_url,
+      exploration.departement,
       json_agg(distinct(public.user.username)) participants,
       (   SELECT
         json_build_object(
@@ -93,6 +95,7 @@ const dataExploration = {
     max_participants,
     is_published,
     image_url,
+    departement,
     callback
   ) => {
     const updateExploration_query = {
@@ -104,7 +107,8 @@ const dataExploration = {
         date= $5,
         max_participants= $6,
         is_published= $7,
-        image_url=$8
+        image_url=$8,
+        departement=$9
         WHERE id= $1;`,
       values: [
         id,
@@ -115,6 +119,7 @@ const dataExploration = {
         max_participants,
         is_published,
         image_url,
+        departement
       ],
     };
     client.query(updateExploration_query, callback);

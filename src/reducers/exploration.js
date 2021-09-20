@@ -3,12 +3,14 @@ import {
   ON_CLICK_MODAL,
   ONCLICK_CLOSED_MODAL,
   ON_CHANGE_AREA,
-} from 'src/actions/exploration';
+  ON_CHANGE,
+} from "src/actions/exploration";
 
 const initialState = {
   explorations: [],
   togledModal: false,
   fieldZone: 100,
+  departement: "",
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -35,9 +37,15 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         fieldZone: action.payload,
-
       };
     }
+    case ON_CHANGE: {
+      return {
+        ...state,
+        [action.key]: action.payload,
+      };
+    }
+
     default:
       return state;
   }
