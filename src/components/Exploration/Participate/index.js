@@ -4,30 +4,38 @@ import Navbar from "src/containers/Navbar";
 import { CgSearch } from "react-icons/cg";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscTelescope } from "react-icons/vsc";
+import Modal from "src/components/Modal";
 import Event from "./Event";
 import Map from "./Map";
 
-const Participate = ({ getEvents, explorations }) => {
+const Participate = ({
+  getEvents,
+  explorations,
+  onClickModal,
+  togledModal,
+  onClickClosedModal,
+  fieldZone,
+  onChangeArea,
+}) => {
   useEffect(() => {
     getEvents();
   }, []);
+
+  const handleClick = () => {
+    onClickModal();
+  };
+
   return (
     <>
+      <Modal
+        togledModal={togledModal}
+        onClick={onClickClosedModal}
+        onChangeArea={onChangeArea}
+        fieldZone={fieldZone}
+      />
       <div className="container">
         <Navbar />
         <div className="participate">
-          <div id="myModal" className="modal">
-            <div className="modal_box">
-              <div className="modal_box-header">
-                <span className="close">&times;</span>
-                <p>ma modal</p>
-              </div>
-              <div className="modal_box-content">
-                <p>Some text in the Modal..</p>
-              </div>
-            </div>
-          </div>
-
           <div className="explorationList">
             {explorations.map((element) => (
               <Event key={element.id} exploration={element} />
@@ -51,13 +59,16 @@ const Participate = ({ getEvents, explorations }) => {
                 <div className="card">ezfzefzefzef</div>
               </div>
               <div className="search">
-                <GiHamburgerMenu className="search_icon" />
+                <GiHamburgerMenu
+                  className="search_icon"
+                  onClick={handleClick}
+                />
                 <div className="search_text">
-                  <CgSearch />
+                  <CgSearch className="Search_icon" />
                   <span>Rechercher</span>
                 </div>
               </div>
-              <Map explorations={explorations} />
+              <Map explorations={explorations} fieldZone={fieldZone} />
             </div>
           </div>
         </div>
@@ -69,6 +80,11 @@ const Participate = ({ getEvents, explorations }) => {
 Participate.propTypes = {
   getEvents: PropTypes.func.isRequired,
   explorations: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onClickModal: PropTypes.func.isRequired,
+  togledModal: PropTypes.bool.isRequired,
+  onClickClosedModal: PropTypes.func.isRequired,
+  fieldZone: PropTypes.number.isRequired,
+  onChangeArea: PropTypes.func.isRequired,
 };
 
 export default Participate;
