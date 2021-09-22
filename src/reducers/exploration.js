@@ -3,7 +3,6 @@ import {
   ON_CLICK_MODAL,
   ONCLICK_CLOSED_MODAL,
   ON_CHANGE_AREA,
-  ON_CHANGE,
   USER_GEOLOC,
   ON_SUBMIT_SEARCH_NAME,
   ON_SUBMIT_DEPARTEMENT,
@@ -48,12 +47,6 @@ const reducer = (state = initialState, action = {}) => {
         searchName: initialState.searchName,
         departement: initialState.departement,
         searchAuthor: initialState.searchAuthor,
-      };
-    }
-    case ON_CHANGE: {
-      return {
-        ...state,
-        [action.key]: action.payload,
       };
     }
     case USER_GEOLOC: {

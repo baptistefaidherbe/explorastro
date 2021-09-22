@@ -7,7 +7,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { VscTelescope } from "react-icons/vsc";
 import Modal from "src/components/Modal";
 import explosFilter from "src/selectors/filter";
-import Loader from 'src/components/Loader';
+import getDistance from "src/selectors/getDistance";
+import Loader from "src/components/Loader";
 import Event from "./Event";
 import Map from "./Map";
 
@@ -22,7 +23,6 @@ const Participate = ({
   onChange,
   departement,
   searchName,
-  onSubmit,
   searchAuthor,
   userGeoloc,
   myGeoloc,
@@ -44,7 +44,7 @@ const Participate = ({
     }
 
     async function main() {
-      const position = await getPosition(); // wait for getPosition to complete
+      const position = await getPosition();
       const myPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -54,16 +54,36 @@ const Participate = ({
 
     main();
   }, []);
+
   if (isEventLoading) {
     return <Loader />;
   }
+
+  const explos = explorations.map((element) => {
+    const lat = parseFloat(element.geog[0], 10);
+    const long = parseFloat(element.geog[1], 10);
+    const coord = [lat, long];
+    const distance = getDistance(coord, myGeoloc);
+    element.coord = coord;
+    element.distance = distance;
+    return element;
+  });
+
+  const filterEvents = explosFilter(
+    explos,
+    departement,
+    fieldZone,
+    searchName,
+    searchAuthor
+  );
+
   return (
     <>
       <div className="container">
         <Navbar />
         <div className="participate">
           <div className="explorationList">
-            {explorations.map((element) => (
+            {filterEvents.map((element) => (
               <Event key={element.id} exploration={element} />
             ))}
           </div>
@@ -81,8 +101,8 @@ const Participate = ({
                     <div className="circle">{explorations?.length}</div>
                   </div>
                 </div>
-                <div className="card">ezfzefzefzef</div>
-                <div className="card">ezfzefzefzef</div>
+                <div className="card"><h3>Dans mon département </h3></div>
+                <div className="card">Prochaine sortie dans mon département</div>
               </div>
 
               <div className="search">
@@ -100,7 +120,6 @@ const Participate = ({
                     onChangeArea={onChangeArea}
                     fieldZone={fieldZone}
                     onChange={onChange}
-                    onSubmit={onSubmit}
                     explosFilter={explosFilter}
                     searchAuthor={searchAuthor}
                     searchName={searchName}
@@ -109,13 +128,9 @@ const Participate = ({
                 </div>
               </div>
               <Map
-                explorations={explorations}
                 fieldZone={fieldZone}
-                departement={departement}
-                searchName={searchName}
-                searchAuthor={searchAuthor}
-                explosFilter={explosFilter}
                 positionGeoloc={myGeoloc}
+                filterEvents={filterEvents}
               />
             </div>
           </div>
@@ -136,7 +151,6 @@ Participate.propTypes = {
   onChange: PropTypes.func.isRequired,
   departement: PropTypes.string.isRequired,
   searchName: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   searchAuthor: PropTypes.string.isRequired,
   userGeoloc: PropTypes.func.isRequired,
   myGeoloc: PropTypes.object.isRequired,

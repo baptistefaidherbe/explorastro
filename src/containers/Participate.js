@@ -1,16 +1,15 @@
-import { connect } from 'react-redux';
-import Participate from 'src/components/Exploration/Participate';
+import { connect } from "react-redux";
+import Participate from "src/components/Exploration/Participate";
 import {
   getAllEvents,
   onClickModal,
   onClickClosedModal,
   onChangeArea,
-  onChange,
   onSubmitSearchName,
   onSubmitDepartement,
   onSubmitSearchAuthor,
   userGeoloc,
-} from 'src/actions/exploration';
+} from "src/actions/exploration";
 
 const mapStateToProps = (state) => ({
   explorations: state.exploration.explorations,
@@ -37,28 +36,13 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChange: (value, key) => {
     switch (key) {
-      case 'searchName':
+      case "searchName":
         dispatch(onSubmitSearchName(value, key));
         break;
-      case 'departement':
+      case "departement":
         dispatch(onSubmitDepartement(value, key));
         break;
-      case 'searchAuthor':
-        dispatch(onSubmitSearchAuthor(value, key));
-        break;
-      default:
-    }
-    dispatch(onChange(value, key));
-  },
-  onSubmit: (value, key) => {
-    switch (key) {
-      case 'searchName':
-        dispatch(onSubmitSearchName(value, key));
-        break;
-      case 'departement':
-        dispatch(onSubmitDepartement(value, key));
-        break;
-      case 'searchAuthor':
+      case "searchAuthor":
         dispatch(onSubmitSearchAuthor(value, key));
         break;
       default:
