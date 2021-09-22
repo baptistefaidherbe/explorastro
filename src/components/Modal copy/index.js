@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Modal = ({ togledModal, onClick, onChangeArea, fieldZone }) => {
+const Modal = ({ togledModal, onClick, onChangeArea, fieldZonez }) => {
   const handleOnclick = () => {
     onClick();
   };

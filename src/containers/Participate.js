@@ -6,6 +6,10 @@ import {
   onClickClosedModal,
   onChangeArea,
   onChange,
+  onSubmitSearchName,
+  onSubmitDepartement,
+  onSubmitSearchAuthor,
+  userGeoloc,
 } from 'src/actions/exploration';
 
 const mapStateToProps = (state) => ({
@@ -13,6 +17,10 @@ const mapStateToProps = (state) => ({
   togledModal: state.exploration.togledModal,
   fieldZone: state.exploration.fieldZone,
   departement: state.exploration.departement,
+  searchName: state.exploration.searchName,
+  searchAuthor: state.exploration.searchAuthor,
+  myGeoloc: state.exploration.myGeoloc,
+  isEventLoading: state.exploration.isEventLoading,
 });
 const mapDispatchToProps = (dispatch) => ({
   getEvents: () => {
@@ -28,7 +36,36 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(onChangeArea(zone));
   },
   onChange: (value, key) => {
+    switch (key) {
+      case 'searchName':
+        dispatch(onSubmitSearchName(value, key));
+        break;
+      case 'departement':
+        dispatch(onSubmitDepartement(value, key));
+        break;
+      case 'searchAuthor':
+        dispatch(onSubmitSearchAuthor(value, key));
+        break;
+      default:
+    }
     dispatch(onChange(value, key));
+  },
+  onSubmit: (value, key) => {
+    switch (key) {
+      case 'searchName':
+        dispatch(onSubmitSearchName(value, key));
+        break;
+      case 'departement':
+        dispatch(onSubmitDepartement(value, key));
+        break;
+      case 'searchAuthor':
+        dispatch(onSubmitSearchAuthor(value, key));
+        break;
+      default:
+    }
+  },
+  userGeoloc: (value) => {
+    dispatch(userGeoloc(value));
   },
 });
 

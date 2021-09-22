@@ -6,6 +6,8 @@ import { CgSearch } from "react-icons/cg";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscTelescope } from "react-icons/vsc";
 import Modal from "src/components/Modal";
+import explosFilter from "src/selectors/filter";
+import Loader from 'src/components/Loader';
 import Event from "./Event";
 import Map from "./Map";
 
@@ -19,15 +21,42 @@ const Participate = ({
   onChangeArea,
   onChange,
   departement,
+  searchName,
+  onSubmit,
+  searchAuthor,
+  userGeoloc,
+  myGeoloc,
+  isEventLoading,
 }) => {
   useEffect(() => {
     getEvents();
   }, []);
-
   const handleClick = () => {
     onClickModal();
   };
 
+  useEffect(() => {
+    function getPosition() {
+      // Simple wrapper
+      return new Promise((res, rej) => {
+        navigator.geolocation.getCurrentPosition(res, rej);
+      });
+    }
+
+    async function main() {
+      const position = await getPosition(); // wait for getPosition to complete
+      const myPosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      userGeoloc(myPosition);
+    }
+
+    main();
+  }, []);
+  if (isEventLoading) {
+    return <Loader />;
+  }
   return (
     <>
       <div className="container">
@@ -71,10 +100,23 @@ const Participate = ({
                     onChangeArea={onChangeArea}
                     fieldZone={fieldZone}
                     onChange={onChange}
+                    onSubmit={onSubmit}
+                    explosFilter={explosFilter}
+                    searchAuthor={searchAuthor}
+                    searchName={searchName}
+                    departement={departement}
                   />
                 </div>
               </div>
-              <Map explorations={explorations} fieldZone={fieldZone} departement={departement} />
+              <Map
+                explorations={explorations}
+                fieldZone={fieldZone}
+                departement={departement}
+                searchName={searchName}
+                searchAuthor={searchAuthor}
+                explosFilter={explosFilter}
+                positionGeoloc={myGeoloc}
+              />
             </div>
           </div>
         </div>
@@ -93,6 +135,12 @@ Participate.propTypes = {
   onChangeArea: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   departement: PropTypes.string.isRequired,
+  searchName: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  searchAuthor: PropTypes.string.isRequired,
+  userGeoloc: PropTypes.func.isRequired,
+  myGeoloc: PropTypes.object.isRequired,
+  isEventLoading: PropTypes.bool.isRequired,
 };
 
 export default Participate;
