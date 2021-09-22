@@ -32,34 +32,20 @@ export default function Map({
   const LocationMarker = () => {
     const map = useMap();
 
-    // useEffect(() => {
-    //   map.eachLayer((layer) => {
-    //     if (layer.options.name !== "tiles") {
-    //       // map.removeLayer(layer);
-    //       console.log(layer.options.radius);
-    //     }
-    //   });
-    // });
-
     useEffect(() => {
       map.eachLayer((layer) => {
-        if (layer?.options?.name === "toto") {
+        if (layer?.options?.name === "circle") {
           map.removeLayer(layer);
         }
       });
       const radius = fieldZone * 1000;
       const circle = L.circle(positionGeoloc, radius, {
         color: "#220033",
-        name: "toto",
+        name: "circle",
       });
 
       const layerGroup = L.layerGroup([circle]);
       layerGroup.addTo(map);
-      // layerGroup.eachLayer((layer) => {
-      //   if (layerGroup.getLayers().length > 1) {
-      //     layerGroup.removeLayer(layer);
-      //   }
-      // });
     }, [fieldZone]);
 
     const getDistance = (coord) => {
@@ -95,6 +81,7 @@ export default function Map({
       searchName,
       searchAuthor
     );
+    console.log(filterEvents)
     return (
       <>
         <MarkerClusterGroup className="MarkerClusterGroup">

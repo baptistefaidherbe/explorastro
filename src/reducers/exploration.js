@@ -4,17 +4,19 @@ import {
   ONCLICK_CLOSED_MODAL,
   ON_CHANGE_AREA,
   ON_CHANGE,
-  ON_SUBMIT,
   USER_GEOLOC,
-} from 'src/actions/exploration';
+  ON_SUBMIT_SEARCH_NAME,
+  ON_SUBMIT_DEPARTEMENT,
+  ON_SUBMIT_SEARCH_AUTHOR,
+} from "src/actions/exploration";
 
 const initialState = {
   explorations: [],
   togledModal: false,
   fieldZone: 0,
-  departement: '',
-  searchName: '',
-  searchAuthor: '',
+  departement: "Choisisez un département",
+  searchName: "",
+  searchAuthor: "",
   myGeoloc: {},
   isEventLoading: true,
 };
@@ -52,14 +54,6 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         [action.key]: action.payload,
-        departement: initialState.departement,
-      };
-    }
-    case ON_SUBMIT: {
-      return {
-        ...state,
-        [action.key]: action.payload,
-        fieldZone: initialState.fieldZone,
       };
     }
     case USER_GEOLOC: {
@@ -67,6 +61,33 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         myGeoloc: action.payload,
         isEventLoading: false,
+      };
+    }
+    case ON_SUBMIT_SEARCH_NAME: {
+      return {
+        ...state,
+        [action.key]: action.payload,
+        fieldZone: initialState.fieldZone,
+        searchAuthor: initialState.searchAuthor,
+        departement: initialState.departement,
+      };
+    }
+    case ON_SUBMIT_DEPARTEMENT: {
+      return {
+        ...state,
+        [action.key]: action.payload,
+        fieldZone: initialState.fieldZone,
+        searchAuthor: initialState.searchAuthor,
+        searchName: initialState.searchName,
+      };
+    }
+    case ON_SUBMIT_SEARCH_AUTHOR: {
+      return {
+        ...state,
+        [action.key]: action.payload,
+        fieldZone: initialState.fieldZone,
+        searchName: initialState.searchName,
+        departement: initialState.departement,
       };
     }
     default:

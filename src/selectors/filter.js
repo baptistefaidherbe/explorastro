@@ -7,7 +7,7 @@ const explosFilter = (
 ) => {
   const test = explos.filter((element) => {
     let result;
-    if (departement !== '') {
+    if (departement !== 'Choisisez un département') {
       result = element.departement === departement;
     }
     else if (fieldZone && !searchName) {

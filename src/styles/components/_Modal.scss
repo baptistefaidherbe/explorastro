@@ -36,8 +36,11 @@
     justify-content: center;
     flex-wrap: wrap;
 
-    .col {
+    form {
       display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
     }
 
     label {
@@ -52,13 +55,6 @@
     select {
       margin: 15px;
       padding: 10px;
-    }
-
-    button {
-      &:hover {
-        background-color: #525c88;
-        color: white;
-      }
     }
   }
 }

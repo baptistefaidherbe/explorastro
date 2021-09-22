@@ -102,6 +102,9 @@ const Participate = ({
                     onChange={onChange}
                     onSubmit={onSubmit}
                     explosFilter={explosFilter}
+                    searchAuthor={searchAuthor}
+                    searchName={searchName}
+                    departement={departement}
                   />
                 </div>
               </div>

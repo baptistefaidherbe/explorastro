@@ -8,7 +8,9 @@ const Modal = ({
   onChangeArea,
   fieldZone,
   onChange,
-  onSubmit,
+  searchAuthor,
+  searchName,
+  departement,
 }) => {
   const handleOnchangeArea = (event) => {
     const { value } = event.target;
@@ -19,57 +21,51 @@ const Modal = ({
     const { value, name } = event.target;
     onChange(value, name);
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSubmit(event.target[0].value, event.target[0].name);
-  };
+
   return (
     <>
       {togledModal ? (
         <div className="modal_box">
           <div className="modal_box-content">
-            <div className="col">
-              <form onSubmit={handleSubmit}>
-                <label htmlFor="searchName">
-                  Rechercher par nom de sortie :
-                  <input
-                    type="search"
-                    placeholder="nom de l'exploration"
-                    className="input-search"
-                    name="searchName"
-                    onChange={handleOnchange}
-                  />
-                  <button>Rechercher</button>
-                </label>
-              </form>
-              <form onSubmit={handleSubmit}>
-                <label htmlFor="departement">
-                  Rechercher par département :
-                  <select name="departement" id="departement">
-                    <option value="">Choisisez un département</option>
-                    {dpt.map((element) => (
-                      <option key={element.num_dep} value={element.dep_name}>
-                        {element.dep_name}
-                      </option>
-                    ))}
-                  </select>
-                  <button>Rechercher</button>
-                </label>
-              </form>
-            </div>
-            <div className="col">
-              <form onSubmit={handleSubmit}>
-                <label htmlFor="searchAuthor">
-                  Rechercher par organisateur :
-                  <input
-                    type="search"
-                    placeholder="nom de l'organisateur"
-                    className="input-search"
-                    name="searchAuthor"
-                  />
-                  <button>Rechercher</button>
-                </label>
-              </form>
+            <form>
+              <label htmlFor="searchName">
+                Rechercher par nom de sortie :
+                <input
+                  type="search"
+                  placeholder="nom de l'exploration"
+                  className="input-search"
+                  name="searchName"
+                  onChange={handleOnchange}
+                  value={searchName}
+                />
+              </label>
+              <label htmlFor="departement">
+                Rechercher par département :
+                <select
+                  onChange={handleOnchange}
+                  name="departement"
+                  id="departement"
+                  value={departement}
+                >
+                  <option value="">Choisisez un département</option>
+                  {dpt.map((element) => (
+                    <option key={element.num_dep} value={element.dep_name}>
+                      {element.dep_name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label htmlFor="searchAuthor">
+                Rechercher par organisateur :
+                <input
+                  type="search"
+                  placeholder="nom de l'organisateur"
+                  className="input-search"
+                  name="searchAuthor"
+                  value={searchAuthor}
+                  onChange={handleOnchange}
+                />
+              </label>
               <label htmlFor="distance">
                 Dans un rayon autour de : {fieldZone} km
                 <input
@@ -83,7 +79,7 @@ const Modal = ({
                   onChange={handleOnchangeArea}
                 />
               </label>
-            </div>
+            </form>
           </div>
         </div>
       ) : (
@@ -99,6 +95,9 @@ Modal.propTypes = {
   fieldZone: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  searchAuthor: PropTypes.string.isRequired,
+  searchName: PropTypes.string.isRequired,
+  departement: PropTypes.string.isRequired,
 };
 
 export default Modal;
