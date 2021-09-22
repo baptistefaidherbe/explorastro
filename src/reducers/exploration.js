@@ -4,13 +4,19 @@ import {
   ONCLICK_CLOSED_MODAL,
   ON_CHANGE_AREA,
   ON_CHANGE,
-} from "src/actions/exploration";
+  ON_SUBMIT,
+  USER_GEOLOC,
+} from 'src/actions/exploration';
 
 const initialState = {
   explorations: [],
   togledModal: false,
-  fieldZone: 100,
-  departement: "",
+  fieldZone: 0,
+  departement: '',
+  searchName: '',
+  searchAuthor: '',
+  myGeoloc: {},
+  isEventLoading: true,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -37,15 +43,32 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         fieldZone: action.payload,
+        searchName: initialState.searchName,
+        departement: initialState.departement,
+        searchAuthor: initialState.searchAuthor,
       };
     }
     case ON_CHANGE: {
       return {
         ...state,
         [action.key]: action.payload,
+        departement: initialState.departement,
       };
     }
-
+    case ON_SUBMIT: {
+      return {
+        ...state,
+        [action.key]: action.payload,
+        fieldZone: initialState.fieldZone,
+      };
+    }
+    case USER_GEOLOC: {
+      return {
+        ...state,
+        myGeoloc: action.payload,
+        isEventLoading: false,
+      };
+    }
     default:
       return state;
   }

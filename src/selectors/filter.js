@@ -1,9 +1,36 @@
-// eslint-disable-next-line import/prefer-default-export
-export function filterExploration(sortie, value) {
-  const Explorationfilter = sortie.filter(
-    (result) => result.departement === value
-  );
+const explosFilter = (
+  explos,
+  departement,
+  fieldZone,
+  searchName,
+  searchAuthor,
+) => {
+  const test = explos.filter((element) => {
+    let result;
+    if (departement !== '') {
+      result = element.departement === departement;
+    }
+    else if (fieldZone && !searchName) {
+      result = element.distance <= fieldZone;
+    }
+    else if (searchName !== '' && !fieldZone) {
+      result = element.name.includes(searchName);
+    }
+    else if (searchName !== '' && fieldZone) {
+      result = element.name.includes(searchName) && element.distance <= fieldZone;
+    }
+    else if (searchAuthor !== '' && !fieldZone) {
+      result = element.username === searchAuthor;
+    }
+    else if (searchAuthor !== '' && fieldZone) {
+      result = element.username === searchAuthor && element.distance <= fieldZone;
+    }
+    else {
+      result = element;
+    }
+    return result;
+  });
+  return test;
+};
 
-  return Explorationfilter;
-}
-
+export default explosFilter;

@@ -1,18 +1,24 @@
-import { connect } from 'react-redux';
-import Participate from 'src/components/Exploration/Participate';
+import { connect } from "react-redux";
+import Participate from "src/components/Exploration/Participate";
 import {
   getAllEvents,
   onClickModal,
   onClickClosedModal,
   onChangeArea,
   onChange,
-} from 'src/actions/exploration';
+  onSubmit,
+  userGeoloc,
+} from "src/actions/exploration";
 
 const mapStateToProps = (state) => ({
   explorations: state.exploration.explorations,
   togledModal: state.exploration.togledModal,
   fieldZone: state.exploration.fieldZone,
   departement: state.exploration.departement,
+  searchName: state.exploration.searchName,
+  searchAuthor: state.exploration.searchAuthor,
+  myGeoloc: state.exploration.myGeoloc,
+  isEventLoading: state.exploration.isEventLoading,
 });
 const mapDispatchToProps = (dispatch) => ({
   getEvents: () => {
@@ -29,6 +35,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onChange: (value, key) => {
     dispatch(onChange(value, key));
+  },
+  onSubmit: (value, key) => {
+    dispatch(onSubmit(value, key));
+  },
+  userGeoloc: (value) => {
+    dispatch(userGeoloc(value));
   },
 });
 

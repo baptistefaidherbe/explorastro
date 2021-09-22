@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import {
-  MapContainer, TileLayer, Marker, Popup, useMap,
-} from 'react-leaflet';
-import { Link } from 'react-router-dom';
-import L from 'leaflet';
-import home from 'src/assets/img/home.svg';
-import markerIcon from 'src/assets/img/location.svg';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
-import { FaInfoCircle } from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { Link } from "react-router-dom";
+import L from "leaflet";
+import home from "src/assets/img/home.svg";
+import markerIcon from "src/assets/img/location.svg";
+import MarkerClusterGroup from "react-leaflet-markercluster";
+import { FaInfoCircle } from "react-icons/fa";
 
 const telescopIcon = L.icon({
   iconUrl: markerIcon,
@@ -26,46 +24,42 @@ export default function Map({
   explorations,
   fieldZone,
   departement,
+  searchName,
+  searchAuthor,
+  explosFilter,
+  positionGeoloc,
 }) {
-  function LocationMarker() {
-    const [positionGeoloc, setPosition] = useState(null);
+  const LocationMarker = () => {
     const map = useMap();
-    let explosFilter;
-    let explos;
+
+    // useEffect(() => {
+    //   map.eachLayer((layer) => {
+    //     if (layer.options.name !== "tiles") {
+    //       // map.removeLayer(layer);
+    //       console.log(layer.options.radius);
+    //     }
+    //   });
+    // });
 
     useEffect(() => {
-      let isCancelled = false;
-      // Localisation de l'utilisateur
-      map.locate().on('locationfound', (e) => {
-        if (!isCancelled) {
-          setPosition(e.latlng);
-
-          map.flyTo(e.latlng, map.getZoom());
-
-          let circle;
-
-          map.eachLayer((layer) => {
-            if (
-              layer.options.name !== 'tiles'
-              // && layer.name !== 'MarkerClusterGroup'
-              // && layer.name !== 'marker'
-            ) {
-              map.removeLayer(layer);
-            }
-          });
-
-          const radius = fieldZone * 1000;
-          circle = L.circle(e.latlng, radius, { color: '#220033' });
-
-          // rendu géométrique
-          circle = L.circle(e.latlng, radius, { color: '#220033' });
-          circle.addTo(map);
+      map.eachLayer((layer) => {
+        if (layer?.options?.name === "toto") {
+          map.removeLayer(layer);
         }
       });
+      const radius = fieldZone * 1000;
+      const circle = L.circle(positionGeoloc, radius, {
+        color: "#220033",
+        name: "toto",
+      });
 
-      return () => {
-        isCancelled = true;
-      };
+      const layerGroup = L.layerGroup([circle]);
+      layerGroup.addTo(map);
+      // layerGroup.eachLayer((layer) => {
+      //   if (layerGroup.getLayers().length > 1) {
+      //     layerGroup.removeLayer(layer);
+      //   }
+      // });
     }, [fieldZone]);
 
     const getDistance = (coord) => {
@@ -83,75 +77,57 @@ export default function Map({
       }
       return distance;
     };
-    if (explorations && explorations.length > 0) {
-      explos = explorations.map((element) => {
-        const lat = parseFloat(element.geog[0], 10);
-        const long = parseFloat(element.geog[1], 10);
-        const coord = [lat, long];
-        const distance = getDistance(coord);
-        element.coord = coord;
-        element.distance = distance;
-        return element;
-      });
-      explosFilter = explos.filter((element) => {
-        let result;
-        if (departement && !fieldZone) {
-          result = element.departement === departement;
-        }
-        else if (fieldZone && !departement) {
-          result = element.distance <= fieldZone;
-        }
-        else if (fieldZone && departement) {
-          if (
-            element.distance <= fieldZone
-            && element.departement === departement
-          ) {
-            result = element;
-          }
-        }
-        else {
-          result = element;
-        }
-        return result;
-      });
-    }
-    return (
-      positionGeoloc && (
-        <>
-          <MarkerClusterGroup
-            name="MarkerClusterGroup"
-            className="MarkerClusterGroup"
-          >
-            {explosFilter.map((element) => (
-              <Marker
-                key={element.id}
-                name="marker"
-                position={element.coord}
-                icon={telescopIcon}
-              >
-                <Popup name="popup" className="map-popup">
-                  <h3>{element.name}</h3>
-                  <img src={element.image_url} alt={element.name} />
-                  <Link
-                    className="button --secondary"
-                    to={`/exploration/${element.id}`}
-                  >
-                    <span className="icon">
-                      <FaInfoCircle />
-                    </span>
-                    <span>Informations</span>
-                  </Link>
-                </Popup>
-              </Marker>
-            ))}
-          </MarkerClusterGroup>
-          <Marker position={positionGeoloc} icon={homeIcon}>
-            <Popup>Votre domicile</Popup>
-          </Marker>
-        </>
-      )
+
+    const explos = explorations.map((element) => {
+      const lat = parseFloat(element.geog[0], 10);
+      const long = parseFloat(element.geog[1], 10);
+      const coord = [lat, long];
+      const distance = getDistance(coord);
+      element.coord = coord;
+      element.distance = distance;
+      return element;
+    });
+
+    const filterEvents = explosFilter(
+      explos,
+      departement,
+      fieldZone,
+      searchName,
+      searchAuthor
     );
-  }
+    return (
+      <>
+        <MarkerClusterGroup className="MarkerClusterGroup">
+          <h1>toto</h1>
+          {filterEvents.map((element) => (
+            <Marker
+              key={element.id}
+              position={element.coord}
+              icon={telescopIcon}
+            >
+              <Popup name="popup" className="map-popup">
+                <h3>{element.name}</h3>
+                <img src={element.image_url} alt={element.name} />
+                <Link
+                  className="button --secondary"
+                  to={`/exploration/${element.id}`}
+                >
+                  <span className="icon">
+                    <FaInfoCircle />
+                  </span>
+                  <span>Informations</span>
+                </Link>
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+        <Marker position={positionGeoloc} icon={homeIcon}>
+          <Popup>Votre domicile</Popup>
+        </Marker>
+      </>
+    );
+  };
+
   return (
     <MapContainer
       // Centering on the map of france
@@ -168,7 +144,7 @@ export default function Map({
         name="tiles"
       />
       {/* Add Markers events astro on the map */}
-      {explorations.length > 0 ? <LocationMarker /> : ''}
+      <LocationMarker />
     </MapContainer>
   );
 }
@@ -177,4 +153,11 @@ Map.propTypes = {
   explorations: PropTypes.arrayOf(PropTypes.object).isRequired,
   fieldZone: PropTypes.number.isRequired,
   departement: PropTypes.string.isRequired,
+  searchName: PropTypes.string.isRequired,
+  searchAuthor: PropTypes.string.isRequired,
+  explosFilter: PropTypes.func.isRequired,
+  positionGeoloc: PropTypes.object,
+};
+Map.defaultProps = {
+  positionGeoloc: { lat: 43.8882303, lng: 1.5446796 },
 };
