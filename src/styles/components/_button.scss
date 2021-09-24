@@ -8,4 +8,9 @@ button {
   margin: 15px 0;
   cursor: pointer;
   transition: 0.5s;
+
+  &:hover {
+    background-color: #525c88;
+    color: white;
+  }
 }

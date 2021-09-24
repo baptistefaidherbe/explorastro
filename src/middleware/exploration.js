@@ -1,4 +1,4 @@
-import { GET_ALL_EVENTS, saveAllEvents } from 'src/actions/exploration';
+import { GET_ALL_EVENTS, saveAllEvents, GET_EVENTS } from 'src/actions/exploration';
 import api from './utils/api';
 
 const exploration = (store) => (next) => (action) => {

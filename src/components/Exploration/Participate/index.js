@@ -1,16 +1,16 @@
 /* eslint-disable max-len */
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Navbar from 'src/containers/Navbar';
-import { CgSearch } from 'react-icons/cg';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { VscTelescope } from 'react-icons/vsc';
-import Modal from 'src/components/Modal';
-import explosFilter from 'src/selectors/filter';
-import getDistance from 'src/selectors/getDistance';
-import Loader from 'src/components/Loader';
-import Event from './Event';
-import Map from './Map';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import Navbar from "src/containers/Navbar";
+import { CgSearch } from "react-icons/cg";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { VscTelescope } from "react-icons/vsc";
+import Modal from "src/components/Modal";
+import explosFilter from "src/selectors/filter";
+import getDistance from "src/selectors/getDistance";
+import Loader from "src/components/Loader";
+import Event from "./Event";
+import Map from "./Map";
 
 const Participate = ({
   getEvents,
@@ -37,7 +37,6 @@ const Participate = ({
 
   useEffect(() => {
     function getPosition() {
-      // Simple wrapper
       return new Promise((res, rej) => {
         navigator.geolocation.getCurrentPosition(res, rej);
       });
@@ -87,56 +86,31 @@ const Participate = ({
               <Event key={element.id} exploration={element} />
             ))}
           </div>
-          <div className="stat">
-            <div className="stat_title">
-              <h1>La carte des explorations</h1>
-              <p>Sélectioner la sortie désirée</p>
-            </div>
-            <div className="stat_container">
-              <div className="item">
-                <div className="card">
-                  <VscTelescope className="iconTelescope" />
-                  <h3>Explorations en cours</h3>
-                  <div className="nbrExploration">
-                    <div className="circle">{explorations?.length}</div>
-                  </div>
-                </div>
-                <div className="card">
-                  <h3>Dans mon département </h3>
-                </div>
-                <div className="card">
-                  Prochaine sortie dans mon département
-                </div>
-              </div>
+          <div className="map">
+            <div className="search">
+              <GiHamburgerMenu className="search_icon" onClick={handleClick} />
+              <div className="search_text">
+                <CgSearch className="Search_icon" />
+                <span>La carte des explorations</span>
 
-              <div className="search">
-                <GiHamburgerMenu
-                  className="search_icon"
-                  onClick={handleClick}
+                <Modal
+                  togledModal={togledModal}
+                  onClick={onClickClosedModal}
+                  onChangeArea={onChangeArea}
+                  fieldZone={fieldZone}
+                  onChange={onChange}
+                  explosFilter={explosFilter}
+                  searchAuthor={searchAuthor}
+                  searchName={searchName}
+                  departement={departement}
                 />
-                <div className="search_text">
-                  <CgSearch className="Search_icon" />
-                  <span>Rechercher</span>
-
-                  <Modal
-                    togledModal={togledModal}
-                    onClick={onClickClosedModal}
-                    onChangeArea={onChangeArea}
-                    fieldZone={fieldZone}
-                    onChange={onChange}
-                    explosFilter={explosFilter}
-                    searchAuthor={searchAuthor}
-                    searchName={searchName}
-                    departement={departement}
-                  />
-                </div>
               </div>
-              <Map
-                fieldZone={fieldZone}
-                positionGeoloc={myGeoloc}
-                filterEvents={filterEvents}
-              />
             </div>
+            <Map
+              fieldZone={fieldZone}
+              positionGeoloc={myGeoloc}
+              filterEvents={filterEvents}
+            />
           </div>
         </div>
       </div>

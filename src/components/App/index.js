@@ -4,6 +4,7 @@ import Login from 'src/containers/Login';
 import PropTypes from 'prop-types';
 import Participate from 'src/containers/Participate';
 import Component from 'src/utils/Component';
+import Create from 'src/components/Exploration/Create';
 import Register from '../Register';
 
 const App = ({ isLogged, checkIsLogged }) => {
@@ -20,7 +21,9 @@ const App = ({ isLogged, checkIsLogged }) => {
         <Route path="/participate">
           <Component Login={Login} Children={Participate} isLogged={isLogged} />
         </Route>
-
+        <Route path="/create">
+          <Component Login={Login} Children={Create} isLogged={isLogged} />
+        </Route>
         <Route path="/register">
           <Register />
         </Route>

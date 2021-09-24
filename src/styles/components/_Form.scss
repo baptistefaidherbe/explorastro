@@ -1,0 +1,174 @@
+.create {
+  padding: 34px;
+  height: calc(100vh-80px);
+  color: #959ec7;
+
+  ::placeholder {
+    color: #959ec7;
+  }
+  .grp1 {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 40%;
+      margin-right: 40px;
+
+      .imgEvent {
+        width: 100%;
+      }
+      .uploadBtn {
+        width: 30%;
+        padding: 15px 0;
+      }
+      h3 {
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+
+      .comments {
+        overflow: auto;
+        height: 300px;
+        margin-bottom: 30px;
+
+        &_box {
+          background-color: $secondary-color;
+          padding: 30px;
+          display: flex;
+          margin-bottom: 10px;
+
+          .author_img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+
+          .content {
+            padding: 0 10px;
+
+            .test {
+              display: flex;
+              justify-content: space-between;
+              .author {
+                &_name {
+                  font-weight: bold;
+                }
+              }
+
+              .delete {
+                font-size: 1em;
+                display: flex;
+                align-items: center;
+
+                .deleteIcon {
+                  color: #ffa5a5;
+                  font-size: 1.3em;
+                }
+              }
+            }
+            p {
+              margin-top: 10px;
+              text-align: justify;
+              font-size: 0.9em;
+            }
+          }
+        }
+      }
+    }
+
+    .grp2 {
+      display: flex;
+      flex-direction: column;
+
+      .name,
+      textarea {
+        margin-bottom: 25px;
+        padding: 10px;
+        background-color: $secondary-color;
+        border: none;
+        color: #959ec7;
+      }
+
+      textarea {
+        resize: none;
+      }
+
+      .grp3 {
+        display: flex;
+        background-color: $secondary-color;
+        align-items: center;
+        justify-content: center;
+
+        input,
+        select {
+          margin: 0 10px;
+          padding: 10px 0;
+          border: none;
+          background-color: $tertiary-color;
+          color: #959ec7;
+
+        }
+
+        label {
+          padding: 20px;
+        }
+      }
+      .leaflet-container {
+        height: 330px;
+        margin: 25px 0;
+
+        .leaflet-popup-content-wrapper {
+          background-color: #0c1121;
+          color: white;
+        }
+        .leaflet-popup-tip-container .leaflet-popup-tip {
+          background-color: #0c1121;
+        }
+
+        .marker-cluster-small {
+          box-shadow: 2px 0px 42px 2px rgb(141 144 251);
+          background-color: rgb(63 68 210 / 74%);
+          div {
+            background-color: rgb(68 74 230 / 64%);
+            color: white;
+          }
+        }
+      }
+
+      .maxPerson,
+      .published {
+        display: flex;
+        align-items: center;
+      }
+
+      .swPublished {
+        margin-left: 10px;
+      }
+      input[type="range"] {
+        -webkit-appearance: none;
+        background-color: $tertiary-color;
+        width: 200px;
+        height: 20px;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        background-color: #959ec7;
+        opacity: 0.5;
+        width: 10px;
+        height: 26px;
+      }
+
+      .submiteBtn {
+        margin: 0 auto;
+        width: 30%;
+        padding: 15px 0;
+        margin-top: 25px;
+      }
+    }
+  }
+}

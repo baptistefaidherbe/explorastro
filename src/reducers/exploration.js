@@ -11,7 +11,7 @@ import {
 
 const initialState = {
   explorations: [],
-  togledModal: false,
+  togledModal: true,
   fieldZone: 0,
   departement: "Choisisez un département",
   searchName: "",

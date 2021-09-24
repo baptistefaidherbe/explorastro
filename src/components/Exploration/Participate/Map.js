@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import {
-  MapContainer, TileLayer, Marker, Popup, useMap,
-} from 'react-leaflet';
-import { Link } from 'react-router-dom';
-import L from 'leaflet';
-import home from 'src/assets/img/home.svg';
-import markerIcon from 'src/assets/img/location.svg';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
-import { FaInfoCircle } from 'react-icons/fa';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { Link } from "react-router-dom";
+import L from "leaflet";
+import home from "src/assets/img/home.svg";
+import markerIcon from "src/assets/img/location.svg";
+import MarkerClusterGroup from "react-leaflet-markercluster";
+import { FaInfoCircle } from "react-icons/fa";
 
 const telescopIcon = L.icon({
   iconUrl: markerIcon,
@@ -28,14 +26,14 @@ export default function Map({ fieldZone, positionGeoloc, filterEvents }) {
 
     useEffect(() => {
       map.eachLayer((layer) => {
-        if (layer?.options?.name === 'circle') {
+        if (layer?.options?.name === "circle") {
           map.removeLayer(layer);
         }
       });
       const radius = fieldZone * 1000;
       const circle = L.circle(positionGeoloc, radius, {
-        color: '#220033',
-        name: 'circle',
+        color: "#220033",
+        name: "circle",
       });
 
       const layerGroup = L.layerGroup([circle]);
@@ -85,7 +83,6 @@ export default function Map({ fieldZone, positionGeoloc, filterEvents }) {
     >
       {/* Add layer dark map */}
       <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url={`https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${process.env.STADIA_API_KEY}`}
         name="tiles"
       />

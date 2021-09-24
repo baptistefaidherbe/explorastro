@@ -7,6 +7,7 @@ export const USER_GEOLOC = "USER_GEOLOC";
 export const ON_SUBMIT_SEARCH_NAME = 'ON_SUBMIT_SEARCH_NAME';
 export const ON_SUBMIT_DEPARTEMENT = 'ON_SUBMIT_DEPARTEMENT';
 export const ON_SUBMIT_SEARCH_AUTHOR = 'ON_SUBMIT_SEARCH_AUTHOR';
+export const GET_EVENTS = 'GET_EVENTS';
 
 export const getAllEvents = () => ({
   type: GET_ALL_EVENTS,
@@ -42,5 +43,9 @@ export const onSubmitDepartement = (payload, key) => ({
 export const onSubmitSearchAuthor = (payload, key) => ({
   type: ON_SUBMIT_SEARCH_AUTHOR,
   key,
+  payload,
+});
+export const getEvents = (payload) => ({
+  type: GET_EVENTS,
   payload,
 });
