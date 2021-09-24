@@ -10,7 +10,12 @@ const explosFilter = (
     if (departement !== 'Choisisez un département') {
       result = element.departement === departement;
     }
+    else if (searchAuthor !== '' && fieldZone) {
+      console.log('ici')
+      result = element.username.includes(searchAuthor) && element.distance <= fieldZone;
+    }
     else if (fieldZone && !searchName) {
+      console.log('icii')
       result = element.distance <= fieldZone;
     }
     else if (searchName !== '' && !fieldZone) {
@@ -20,10 +25,7 @@ const explosFilter = (
       result = element.name.includes(searchName) && element.distance <= fieldZone;
     }
     else if (searchAuthor !== '' && !fieldZone) {
-      result = element.username === searchAuthor;
-    }
-    else if (searchAuthor !== '' && fieldZone) {
-      result = element.username === searchAuthor && element.distance <= fieldZone;
+      result = element.username.includes(searchAuthor);
     }
     else {
       result = element;

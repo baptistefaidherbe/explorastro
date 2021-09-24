@@ -10,6 +10,7 @@ const Event = ({ exploration }) => (
     <div className="description">{exploration.description}</div>
     <div className="author"><span>Organisateur : </span>{exploration.username}</div>
     <div className="date"><span>Date de l'exploration : </span>{exploration.date}</div>
+    <div className="departement"><span>Lieu : </span>{exploration.departement}</div>
     <button className="button">Participer</button>
   </div>
 );

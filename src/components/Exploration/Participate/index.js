@@ -1,16 +1,16 @@
 /* eslint-disable max-len */
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import Navbar from "src/containers/Navbar";
-import { CgSearch } from "react-icons/cg";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { VscTelescope } from "react-icons/vsc";
-import Modal from "src/components/Modal";
-import explosFilter from "src/selectors/filter";
-import getDistance from "src/selectors/getDistance";
-import Loader from "src/components/Loader";
-import Event from "./Event";
-import Map from "./Map";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Navbar from 'src/containers/Navbar';
+import { CgSearch } from 'react-icons/cg';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { VscTelescope } from 'react-icons/vsc';
+import Modal from 'src/components/Modal';
+import explosFilter from 'src/selectors/filter';
+import getDistance from 'src/selectors/getDistance';
+import Loader from 'src/components/Loader';
+import Event from './Event';
+import Map from './Map';
 
 const Participate = ({
   getEvents,
@@ -43,16 +43,16 @@ const Participate = ({
       });
     }
 
-    async function main() {
+    setTimeout(async () => {
       const position = await getPosition();
       const myPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
       userGeoloc(myPosition);
-    }
+    }, 1000);
 
-    main();
+    // main();
   }, []);
 
   if (isEventLoading) {
@@ -74,7 +74,7 @@ const Participate = ({
     departement,
     fieldZone,
     searchName,
-    searchAuthor
+    searchAuthor,
   );
 
   return (
@@ -101,8 +101,12 @@ const Participate = ({
                     <div className="circle">{explorations?.length}</div>
                   </div>
                 </div>
-                <div className="card"><h3>Dans mon département </h3></div>
-                <div className="card">Prochaine sortie dans mon département</div>
+                <div className="card">
+                  <h3>Dans mon département </h3>
+                </div>
+                <div className="card">
+                  Prochaine sortie dans mon département
+                </div>
               </div>
 
               <div className="search">

@@ -44,9 +44,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         fieldZone: action.payload,
-        searchName: initialState.searchName,
         departement: initialState.departement,
-        searchAuthor: initialState.searchAuthor,
       };
     }
     case USER_GEOLOC: {
@@ -60,7 +58,6 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         [action.key]: action.payload,
-        fieldZone: initialState.fieldZone,
         searchAuthor: initialState.searchAuthor,
         departement: initialState.departement,
       };
@@ -78,7 +75,6 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         [action.key]: action.payload,
-        fieldZone: initialState.fieldZone,
         searchName: initialState.searchName,
         departement: initialState.departement,
       };
