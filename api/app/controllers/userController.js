@@ -20,7 +20,7 @@ const userController = {
       if (error) {
         console.trace(error);
       } else {
-        res.json({ exploration: response.rows[0] });
+        res.json(response.rows[0]);
       }
     });
   },

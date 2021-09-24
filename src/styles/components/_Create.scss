@@ -1,0 +1,55 @@
+.create {
+  padding: 34px;
+  height: calc(100vh-80px);
+  color: #959ec7;
+  width: 100%;
+
+  .events {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .card {
+      background-color: $secondary-color;
+      width: 250px;
+      margin: 30px 10px;
+      .img {
+        width: 100%;
+      }
+      .content {
+        padding: 10px;
+
+        .inputName{
+            padding: 10px;
+        }
+
+        .name,
+        .date,
+        .departement {
+          display: flex;
+          flex-direction: column;
+          padding: 5px 0;
+        }
+        .maxPerson {
+          padding: 5px 0;
+          display: flex;
+        }
+
+        span {
+          font-weight: bold;
+          margin-right: 5px;
+          color: #465182;
+          padding: 10px 0;
+        }
+
+        p {
+          font-size: 0.9em;
+        }
+        .button {
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

@@ -1,22 +1,22 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
-import React from "react";
-import Navbar from "src/containers/Navbar";
-import explorationImg from "src/assets/img/bg_sky2.png";
-import dpt from "src/data/departements-region.json";
-import Switch from "react-switch";
-import PropTypes from "prop-types";
-import Comment from "./Comment";
-import Map from "./Map";
+import React from 'react';
+import Navbar from 'src/containers/Navbar';
+import explorationImg from 'src/assets/img/bg_sky2.png';
+import dpt from 'src/data/departements-region.json';
+import Switch from 'react-switch';
+import PropTypes from 'prop-types';
+import Comment from './Comment';
+import Map from './Map';
 
-const Create = ({ getCoordLocation }) => {
+const Form = ({ getCoordLocation }) => {
   const handleOnchange = () => {
-    console.log("toto");
+    console.log('toto');
   };
   return (
     <div className="container">
       <Navbar />
-      <div className="create">
+      <div className="form">
         <div className="grp1">
           <div className="left">
             <img
@@ -120,8 +120,8 @@ const Create = ({ getCoordLocation }) => {
   );
 };
 
-export default Create;
+export default Form;
 
-Create.propTypes = {
+Form.propTypes = {
   getCoordLocation: PropTypes.func.isRequired,
 };

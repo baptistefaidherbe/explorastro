@@ -4,7 +4,7 @@ import Login from 'src/containers/Login';
 import PropTypes from 'prop-types';
 import Participate from 'src/containers/Participate';
 import Component from 'src/utils/Component';
-import Create from 'src/components/Exploration/Create';
+import Create from 'src/containers/Create';
 import Register from '../Register';
 
 const App = ({ isLogged, checkIsLogged }) => {

@@ -1,16 +1,15 @@
 /* eslint-disable max-len */
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import Navbar from "src/containers/Navbar";
-import { CgSearch } from "react-icons/cg";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { VscTelescope } from "react-icons/vsc";
-import Modal from "src/components/Modal";
-import explosFilter from "src/selectors/filter";
-import getDistance from "src/selectors/getDistance";
-import Loader from "src/components/Loader";
-import Event from "./Event";
-import Map from "./Map";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Navbar from 'src/containers/Navbar';
+import { CgSearch } from 'react-icons/cg';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import Modal from 'src/components/Modal';
+import explosFilter from 'src/selectors/filter';
+import getDistance from 'src/selectors/getDistance';
+import Loader from 'src/components/Loader';
+import Event from './Event';
+import Map from './Map';
 
 const Participate = ({
   getEvents,

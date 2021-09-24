@@ -38,6 +38,7 @@ const explorationController = {
 
   createExploration: (req, res) => {
     const { name, author_id } = req.body;
+    console.log(req.body);
 
     if (!(name && author_id)) {
       return res.json(MESSAGE.MISSING_FIEDLS);

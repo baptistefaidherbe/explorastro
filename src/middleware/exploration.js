@@ -1,4 +1,11 @@
-import { GET_ALL_EVENTS, saveAllEvents, GET_EVENTS } from 'src/actions/exploration';
+import {
+  GET_ALL_EVENTS,
+  saveAllEvents,
+  ON_SUBMIT_NAME,
+  GET_MY_EVENTS,
+  saveMyEvents,
+  addNewExploration,
+} from 'src/actions/exploration';
 import api from './utils/api';
 
 const exploration = (store) => (next) => (action) => {
@@ -15,6 +22,44 @@ const exploration = (store) => (next) => (action) => {
         }
       };
       getAllEvents();
+      break;
+    }
+    case GET_MY_EVENTS: {
+      const postName = async () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const { id } = user.user;
+        try {
+          const resp = await api.get(`/user/${id}`);
+          store.dispatch(saveMyEvents(resp.data));
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
+      };
+      postName();
+      break;
+    }
+
+    case ON_SUBMIT_NAME: {
+      const postName = async () => {
+        const state = store.getState();
+        const user = JSON.parse(localStorage.getItem('user'));
+        const { id } = user.user;
+        const data = {
+          name: state.exploration.name,
+          author_id: id,
+        };
+        try {
+          await api.post('/exploration', data);
+          store.dispatch(addNewExploration());
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
+      };
+      postName();
       break;
     }
 

@@ -10,7 +10,36 @@ const dataUser = {
   },
   getUserByIdRequest: (id, callback) => {
     const getUserById_query = {
-      text: `SELECT * FROM "user" WHERE "id" = $1;`,
+      text: `SELECT
+      u.id,
+      u.firstname,
+      u.lastname,
+      u.username,
+      u.email,
+      u.avatar_url,
+      u.bio,
+      u.city,
+      u.zipcode,
+      u.role_id,
+      (   SELECT
+          json_agg(exploration)  explorationCreate
+          FROM
+          "user" u
+          FULL JOIN exploration on u.id = exploration.author_id
+          where u.id = $1
+        ),
+        ( SELECT
+          json_agg(exploration)  explorationParticipate
+          FROM
+          "user" u
+          FULL JOIN participate on u.id = participate.user_id
+          FULL JOIN exploration on participate.exploration_id = exploration.id
+          where u.id = $1
+        )
+      
+      FROM "user" u
+      where u.id = $1
+      GROUP BY u.id;`,
 
       values: [id],
     };

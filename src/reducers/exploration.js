@@ -7,6 +7,8 @@ import {
   ON_SUBMIT_SEARCH_NAME,
   ON_SUBMIT_DEPARTEMENT,
   ON_SUBMIT_SEARCH_AUTHOR,
+  ON_CHANGE_NAME,
+  SAVE_MY_EVENTS,
 } from "src/actions/exploration";
 
 const initialState = {
@@ -18,6 +20,8 @@ const initialState = {
   searchAuthor: "",
   myGeoloc: {},
   isEventLoading: true,
+  name: "",
+  myEvents: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -79,6 +83,21 @@ const reducer = (state = initialState, action = {}) => {
         departement: initialState.departement,
       };
     }
+    case ON_CHANGE_NAME: {
+      return {
+        ...state,
+        name: action.payload,
+      };
+    }
+    case SAVE_MY_EVENTS: {
+      return {
+        ...state,
+        myEvents: action.payload,
+        isEventLoading: false,
+        name: initialState.name,
+      };
+    }
+
     default:
       return state;
   }
