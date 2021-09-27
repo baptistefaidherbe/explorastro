@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import Login from 'src/containers/Login';
-import PropTypes from 'prop-types';
-import Participate from 'src/containers/Participate';
-import Component from 'src/utils/Component';
-import Create from 'src/containers/Create';
-import Register from '../Register';
+import React, { useEffect } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+import Login from "src/containers/Login";
+import PropTypes from "prop-types";
+import Participate from "src/containers/Participate";
+import Component from "src/utils/Component";
+import Create from "src/containers/Create";
+import FormEvent from "src/containers/FormEvent";
+import Register from "../Register";
 
 const App = ({ isLogged, checkIsLogged }) => {
   useEffect(() => {
@@ -24,6 +25,17 @@ const App = ({ isLogged, checkIsLogged }) => {
         <Route path="/create">
           <Component Login={Login} Children={Create} isLogged={isLogged} />
         </Route>
+        <Route
+          path="/formEvent/:id"
+          render={(prop) => (
+            <Component
+              Login={Login}
+              Children={FormEvent}
+              id={Number(prop.match.params.id)}
+              isLogged={isLogged}
+            />
+          )}
+        />
         <Route path="/register">
           <Register />
         </Route>

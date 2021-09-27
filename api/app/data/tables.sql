@@ -71,3 +71,6 @@ ADD CONSTRAINT comment_exploration_id_fkey
    FOREIGN KEY (exploration_id)
    REFERENCES exploration(id)
    ON DELETE CASCADE default 1;
+
+   ALTER TABLE "exploration"
+   ALTER COLUMN is_published SET NOT NULL DEFAULT false;

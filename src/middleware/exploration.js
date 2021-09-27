@@ -5,6 +5,10 @@ import {
   GET_MY_EVENTS,
   saveMyEvents,
   addNewExploration,
+  ON_DELETE_EVENT,
+  GET_EVENT_DATA,
+  saveEventToModify,
+  ON_SUBMIT_EVENT,
 } from 'src/actions/exploration';
 import api from './utils/api';
 
@@ -25,7 +29,7 @@ const exploration = (store) => (next) => (action) => {
       break;
     }
     case GET_MY_EVENTS: {
-      const postName = async () => {
+      const getMyEvents = async () => {
         const user = JSON.parse(localStorage.getItem('user'));
         const { id } = user.user;
         try {
@@ -37,12 +41,12 @@ const exploration = (store) => (next) => (action) => {
           console.log(error);
         }
       };
-      postName();
+      getMyEvents();
       break;
     }
 
     case ON_SUBMIT_NAME: {
-      const postName = async () => {
+      const submitName = async () => {
         const state = store.getState();
         const user = JSON.parse(localStorage.getItem('user'));
         const { id } = user.user;
@@ -59,7 +63,64 @@ const exploration = (store) => (next) => (action) => {
           console.log(error);
         }
       };
-      postName();
+      submitName();
+      break;
+    }
+    case ON_DELETE_EVENT: {
+      const deleteEvent = async () => {
+        const id = action.payload;
+        try {
+          await api.delete(`/exploration/${id}`);
+          store.dispatch(addNewExploration());
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
+      };
+      deleteEvent();
+      break;
+    }
+
+    case GET_EVENT_DATA: {
+      const getOneEvent = async () => {
+        const id = action.payload;
+        try {
+          const resp = await api.get(`/exploration/${id}`);
+          store.dispatch(saveEventToModify(resp.data));
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
+      };
+      getOneEvent();
+      break;
+    }
+
+    case ON_SUBMIT_EVENT: {
+      const submitEvent = async () => {
+        const state = store.getState();
+        const id = action.payload;
+
+        const data = {
+          name: state.exploration.eventToModify.name,
+          description: state.exploration.eventToModify.description,
+          geog: state.exploration.eventToModify.geog,
+          date: state.exploration.eventToModify.date,
+          max_participants: state.exploration.eventToModify.max_participants,
+          is_published: state.exploration.eventToModify.is_published,
+          departement: state.exploration.eventToModify.departement,
+        };
+        try {
+          await api.patch(`/exploration/${id}`, data);
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
+      };
+      submitEvent();
       break;
     }
 

@@ -14,11 +14,13 @@ const telescopIcon = L.icon({
 });
 
 export default function Map({ getCoordLocation, coord }) {
+  console.log(coord);
+
   return (
     <div className="createEventForm__form__map">
       <MapContainer
         // Centering on the map of france
-        center={coord.length === 2 ? coord : [44.840291, 2.109375]}
+        center={coord !== null && coord.length === 2 ? coord : [44.840291, 2.109375]}
         zoom={6}
         maxZoom={18}
         minZoom={3}
@@ -30,7 +32,7 @@ export default function Map({ getCoordLocation, coord }) {
           name="tiles"
         />
         {/* Add Markers events astro on the map */}
-        {coord.length === 2 ? (
+        {coord !== null && coord.length === 2 ? (
           <ControlGeocoder coordLocation={getCoordLocation} />
         ) : (
           <ControlGeocoder coordLocation={getCoordLocation} coord={coord} />
@@ -38,7 +40,7 @@ export default function Map({ getCoordLocation, coord }) {
 
         <Marker
           names="marker"
-          position={coord.length === 2 ? coord : [44.840291, 2.109375]}
+          position={coord !== null && coord.length === 2 ? coord : [0, 0]}
           icon={telescopIcon}
         />
       </MapContainer>

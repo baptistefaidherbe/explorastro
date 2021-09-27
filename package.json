@@ -49,10 +49,12 @@
   },
   "dependencies": {
     "axios": "^0.21.4",
+    "dayjs": "^1.10.7",
     "generator-oclock-react": "^0.0.14",
     "leaflet": "^1.7.1",
     "leaflet-control-geocoder": "^2.3.0",
     "leaflet-knn": "^0.1.0",
+    "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.6",

@@ -4,12 +4,16 @@ import {
   onSubmitName,
   onChangeName,
   getMyEvents,
+  onDeleteEvent,
+  eventLoading,
+  removLastID,
 } from 'src/actions/exploration';
 
 const mapStateToProps = (state) => ({
   explorationcreate: state.exploration.myEvents.explorationcreate,
   isEventLoading: state.exploration.isEventLoading,
   name: state.exploration.name,
+  lastId: state.exploration.lastId,
 });
 const mapDispatchToProps = (dispatch) => ({
   onSubmit: () => {
@@ -20,6 +24,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getMyEvents: () => {
     dispatch(getMyEvents());
+  },
+  onDelete: (value) => {
+    dispatch(onDeleteEvent(value));
+  },
+  eventLoading: () => {
+    dispatch(eventLoading());
+  },
+  removLastID: () => {
+    dispatch(removLastID());
   },
 });
 

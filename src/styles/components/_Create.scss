@@ -19,8 +19,12 @@
       .content {
         padding: 10px;
 
-        .inputName{
-            padding: 10px;
+        .createBtn{
+          display: flex;
+          justify-content: center;
+        }
+        .inputName {
+          padding: 10px;
         }
 
         .name,
@@ -45,9 +49,25 @@
         p {
           font-size: 0.9em;
         }
-        .button {
+        .button-containt {
           display: flex;
-          justify-content: center;
+          justify-content: space-around;
+        
+          button {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+
+            .pencilIcon {
+              font-size: 1.4em;
+              color: cornflowerblue;
+            }
+            .deleteIcon {
+              font-size: 1.4em;
+              color:brown;
+            }
+          }
+          
         }
       }
     }

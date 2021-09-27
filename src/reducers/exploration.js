@@ -9,19 +9,28 @@ import {
   ON_SUBMIT_SEARCH_AUTHOR,
   ON_CHANGE_NAME,
   SAVE_MY_EVENTS,
-} from "src/actions/exploration";
+  SAVE_EVENT_TO_MODIFY,
+  ON_CHANGE_EVENT,
+  ON_PUBLISHED,
+  GET_COORD_LOCATION,
+  EVENT_LOADING,
+  SAVE_LAST_ID,
+  REMOVE_LAST_ID,
+} from 'src/actions/exploration';
 
 const initialState = {
   explorations: [],
-  togledModal: true,
+  togledModal: false,
   fieldZone: 0,
-  departement: "Choisisez un département",
-  searchName: "",
-  searchAuthor: "",
+  departement: 'Choisisez un département',
+  searchName: '',
+  searchAuthor: '',
   myGeoloc: {},
   isEventLoading: true,
-  name: "",
+  name: '',
   myEvents: [],
+  eventToModify: {},
+  lastId: null,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -95,6 +104,57 @@ const reducer = (state = initialState, action = {}) => {
         myEvents: action.payload,
         isEventLoading: false,
         name: initialState.name,
+      };
+    }
+    case SAVE_EVENT_TO_MODIFY: {
+      return {
+        ...state,
+        eventToModify: action.payload,
+      };
+    }
+    case ON_CHANGE_EVENT: {
+      return {
+        ...state,
+        eventToModify: {
+          ...state.eventToModify,
+          [action.key]: action.payload,
+        },
+      };
+    }
+    case ON_PUBLISHED: {
+      return {
+        ...state,
+        eventToModify: {
+          ...state.eventToModify,
+          is_published: !state.eventToModify.is_published,
+        },
+      };
+    }
+    case GET_COORD_LOCATION: {
+      return {
+        ...state,
+        eventToModify: {
+          ...state.eventToModify,
+          geog: action.payload,
+        },
+      };
+    }
+    case EVENT_LOADING: {
+      return {
+        ...state,
+        isEventLoading: initialState.isEventLoading,
+      };
+    }
+    case SAVE_LAST_ID: {
+      return {
+        ...state,
+        lastId: action.payload,
+      };
+    }
+    case REMOVE_LAST_ID: {
+      return {
+        ...state,
+        lastId: initialState.lastId,
       };
     }
 
