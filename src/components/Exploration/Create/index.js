@@ -1,14 +1,14 @@
 /* eslint-disable react/button-has-type */
-import React, { useEffect } from "react";
-import explorationImg from "src/assets/img/bg_sky2.png";
-import Navbar from "src/containers/Navbar";
-import Loader from "src/components/Loader";
-import PropTypes from "prop-types";
-import { ImUsers } from "react-icons/im";
-import { Link } from "react-router-dom";
-import { BsPencil } from "react-icons/bs";
-import { TiDeleteOutline } from "react-icons/ti";
-import * as dayjs from "dayjs";
+import React, { useEffect } from 'react';
+import explorationImg from 'src/assets/img/bg_sky2.png';
+import Navbar from 'src/containers/Navbar';
+import Loader from 'src/components/Loader';
+import PropTypes from 'prop-types';
+import { ImUsers } from 'react-icons/im';
+import { Link } from 'react-router-dom';
+import { BsPencil } from 'react-icons/bs';
+import { TiDeleteOutline } from 'react-icons/ti';
+import * as dayjs from 'dayjs';
 
 const Create = ({
   getMyEvents,
@@ -68,8 +68,8 @@ const Create = ({
               </div>
             </form>
           </div>
-          {explorationcreate[0] !== null &&
-            explorationcreate.map((element) => (
+          {explorationcreate[0] !== null
+            && explorationcreate.map((element) => (
               <div key={element.id} className="card">
                 <img
                   src={element.image_url ? element.image_url : explorationImg}
@@ -85,28 +85,28 @@ const Create = ({
                     <span>Date de l'exploration : </span>
                     <p>
                       {element.date
-                        ? dayjs(element.date).format("DD-MM-YYYY à HH:mm")
-                        : "-"}
+                        ? dayjs(element.date).format('DD-MM-YYYY à HH:mm')
+                        : '-'}
                     </p>
                   </div>
                   <div className="departement">
                     <span>Lieu : </span>
-                    <p>{element.departement ? element.departement : "-"}</p>
+                    <p>{element.departement ? element.departement : '-'}</p>
                   </div>
                   <div className="maxPerson">
                     <ImUsers />
                     <p>
                       {element.max_participants
                         ? element.max_participants
-                        : "-"}
+                        : '-'}
                     </p>
                   </div>
                   <div className="published">
-                  <span>Publié : </span>
+                    <span>Publié : </span>
                     <p>
                       {element.is_published
                         ? 'Publié'
-                        : "Non publié"}
+                        : 'Non publié'}
                     </p>
                   </div>
                   <div className="button-containt">

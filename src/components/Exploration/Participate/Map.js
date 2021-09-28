@@ -51,11 +51,8 @@ export default function Map({ fieldZone, positionGeoloc, filterEvents }) {
             >
               <Popup name="popup" className="map-popup">
                 <h3>{element.name}</h3>
-                <img src={element.image_url} alt={element.name} />
-                <Link
-                  className="button --secondary"
-                  to={`/exploration/${element.id}`}
-                >
+                {/* <img src={element.image_url} alt={element.name} /> */}
+                <Link to={`/exploration/${element.id}`}>
                   <span className="icon">
                     <FaInfoCircle />
                   </span>

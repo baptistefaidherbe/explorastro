@@ -21,6 +21,10 @@
 
       h2 {
         font-size: 1.4em;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
 
       .img {
@@ -30,6 +34,10 @@
       }
       .description {
         text-align: justify;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
       }
       .author {
         padding: 10px 0;

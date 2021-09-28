@@ -1,6 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React from "react";
 import PropTypes from "prop-types";
+import * as dayjs from "dayjs";
 import explorationImg from "src/assets/img/bg_sky2.png";
 
 const Event = ({ exploration }) => (
@@ -18,7 +19,7 @@ const Event = ({ exploration }) => (
     </div>
     <div className="date">
       <span>Date de l'exploration : </span>
-      {exploration.date}
+      {dayjs(exploration.date).format("DD-MM-YYYY à HH:mm")}
     </div>
     <div className="departement">
       <span>Lieu : </span>
