@@ -94,7 +94,6 @@ Modal.propTypes = {
   onChangeArea: PropTypes.func.isRequired,
   fieldZone: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   searchAuthor: PropTypes.string.isRequired,
   searchName: PropTypes.string.isRequired,
   departement: PropTypes.string.isRequired,

@@ -1,15 +1,15 @@
 /* eslint-disable max-len */
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import Navbar from "src/containers/Navbar";
-import { CgSearch } from "react-icons/cg";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { VscTelescope } from "react-icons/vsc";
-import Modal from "src/components/Modal";
-import explosFilter from "src/selectors/filter";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Navbar from 'src/containers/Navbar';
+import { CgSearch } from 'react-icons/cg';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import Modal from 'src/components/Modal';
+import explosFilter from 'src/selectors/filter';
+import getDistance from 'src/selectors/getDistance';
 import Loader from 'src/components/Loader';
-import Event from "./Event";
-import Map from "./Map";
+import Event from './Event';
+import Map from './Map';
 
 const Participate = ({
   getEvents,
@@ -22,7 +22,6 @@ const Participate = ({
   onChange,
   departement,
   searchName,
-  onSubmit,
   searchAuthor,
   userGeoloc,
   myGeoloc,
@@ -37,87 +36,80 @@ const Participate = ({
 
   useEffect(() => {
     function getPosition() {
-      // Simple wrapper
       return new Promise((res, rej) => {
         navigator.geolocation.getCurrentPosition(res, rej);
       });
     }
 
-    async function main() {
-      const position = await getPosition(); // wait for getPosition to complete
+    setTimeout(async () => {
+      const position = await getPosition();
       const myPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
       userGeoloc(myPosition);
-    }
+    }, 1000);
 
-    main();
+    // main();
   }, []);
+
   if (isEventLoading) {
     return <Loader />;
   }
+
+  const explos = explorations.map((element) => {
+    const lat = parseFloat(element.geog[0], 10);
+    const long = parseFloat(element.geog[1], 10);
+    const coord = [lat, long];
+    const distance = getDistance(coord, myGeoloc);
+    element.coord = coord;
+    element.distance = distance;
+    return element;
+  });
+
+  const filterEvents = explosFilter(
+    explos,
+    departement,
+    fieldZone,
+    searchName,
+    searchAuthor,
+  );
+
   return (
     <>
       <div className="container">
         <Navbar />
         <div className="participate">
           <div className="explorationList">
-            {explorations.map((element) => (
+            {filterEvents.map((element) => (
               <Event key={element.id} exploration={element} />
             ))}
           </div>
-          <div className="stat">
-            <div className="stat_title">
-              <h1>La carte des explorations</h1>
-              <p>Sélectioner la sortie désirée</p>
-            </div>
-            <div className="stat_container">
-              <div className="item">
-                <div className="card">
-                  <VscTelescope className="iconTelescope" />
-                  <h3>Explorations en cours</h3>
-                  <div className="nbrExploration">
-                    <div className="circle">{explorations?.length}</div>
-                  </div>
-                </div>
-                <div className="card">ezfzefzefzef</div>
-                <div className="card">ezfzefzefzef</div>
-              </div>
+          <div className="map">
+            <div className="search">
+              <GiHamburgerMenu className="search_icon" onClick={handleClick} />
+              <div className="search_text">
+                <CgSearch className="Search_icon" />
+                <span>La carte des explorations</span>
 
-              <div className="search">
-                <GiHamburgerMenu
-                  className="search_icon"
-                  onClick={handleClick}
+                <Modal
+                  togledModal={togledModal}
+                  onClick={onClickClosedModal}
+                  onChangeArea={onChangeArea}
+                  fieldZone={fieldZone}
+                  onChange={onChange}
+                  explosFilter={explosFilter}
+                  searchAuthor={searchAuthor}
+                  searchName={searchName}
+                  departement={departement}
                 />
-                <div className="search_text">
-                  <CgSearch className="Search_icon" />
-                  <span>Rechercher</span>
-
-                  <Modal
-                    togledModal={togledModal}
-                    onClick={onClickClosedModal}
-                    onChangeArea={onChangeArea}
-                    fieldZone={fieldZone}
-                    onChange={onChange}
-                    onSubmit={onSubmit}
-                    explosFilter={explosFilter}
-                    searchAuthor={searchAuthor}
-                    searchName={searchName}
-                    departement={departement}
-                  />
-                </div>
               </div>
-              <Map
-                explorations={explorations}
-                fieldZone={fieldZone}
-                departement={departement}
-                searchName={searchName}
-                searchAuthor={searchAuthor}
-                explosFilter={explosFilter}
-                positionGeoloc={myGeoloc}
-              />
             </div>
+            <Map
+              fieldZone={fieldZone}
+              positionGeoloc={myGeoloc}
+              filterEvents={filterEvents}
+            />
           </div>
         </div>
       </div>
@@ -136,7 +128,6 @@ Participate.propTypes = {
   onChange: PropTypes.func.isRequired,
   departement: PropTypes.string.isRequired,
   searchName: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   searchAuthor: PropTypes.string.isRequired,
   userGeoloc: PropTypes.func.isRequired,
   myGeoloc: PropTypes.object.isRequired,

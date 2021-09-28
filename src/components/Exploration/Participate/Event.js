@@ -6,10 +6,24 @@ import explorationImg from "src/assets/img/bg_sky2.png";
 const Event = ({ exploration }) => (
   <div className="card">
     <h2>{exploration.name}</h2>
-    <img src={explorationImg} alt="explorationImg" className="img" />
-    <div className="description">{exploration.description}</div>
-    <div className="author"><span>Organisateur : </span>{exploration.username}</div>
-    <div className="date"><span>Date de l'exploration : </span>{exploration.date}</div>
+    <img
+      src={exploration.image_url ? exploration.image_url : explorationImg}
+      alt="explorationImg"
+      className="img"
+    />
+    <div className="description"> <span>Description : </span>{exploration.description}</div>
+    <div className="author">
+      <span>Organisateur : </span>
+      {exploration.username}
+    </div>
+    <div className="date">
+      <span>Date de l'exploration : </span>
+      {exploration.date}
+    </div>
+    <div className="departement">
+      <span>Lieu : </span>
+      {exploration.departement}
+    </div>
     <button className="button">Participer</button>
   </div>
 );

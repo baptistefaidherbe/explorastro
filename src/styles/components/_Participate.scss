@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 0.8em;
 
     .card {
       width: 80%;
@@ -25,6 +26,7 @@
       .img {
         width: 100%;
         padding: 10px 0;
+        height: 166px;
       }
       .description {
         text-align: justify;
@@ -39,11 +41,17 @@
         display: flex;
         flex-direction: column;
       }
+      .departement {
+        padding: 8px 0;
+        display: flex;
+        flex-direction: column;
+      }
       span {
         font-weight: bold;
+        padding: 5px 0;
       }
       .button {
-        font-size: 1em;
+        font-size: 0.8em;
         &:hover {
           background-color: #525c88;
           color: white;
@@ -51,120 +59,63 @@
       }
     }
   }
-  .stat {
+  .map {
     width: 70%;
     height: 100vh;
     height: calc(100vh-80px);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    padding: 10px;
 
-    &_title {
-      padding-bottom: 8px;
-      margin-left: 10px;
-      h1 {
-        font-size: 1.5em;
-        color: #959ec7;
-      }
-
-      p {
-        font-size: 1em;
-        color: #6571a7;
-      }
-    }
-    &_container {
+    .search {
+      padding: 5px;
+      background-color: $secondary-color;
+      color: white;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      position: relative;
 
-      .item {
-        display: flex;
-        flex-wrap: wrap;
+      &_icon {
+        font-size: 1.5em;
+        margin: 10px;
+        color: #6571a7;
+        cursor: pointer;
+        transition: 0.4s;
 
-        .card {
-          padding: 30px 30px;
-          background-color: $secondary-color;
-          margin: 10px;
-          border-radius: 5px;
-          color: #959ec7;
-          text-align: center;
-
-          .iconTelescope {
-            font-size: 3em;
-            color: white;
-          }
-
-          h3 {
-            padding-bottom: 10px;
-          }
-
-          .nbrExploration {
-            display: flex;
-            justify-content: center;
-            .circle {
-              background-color: #41a7ff;
-              font-size: 3em;
-              color: white;
-              padding: 3px 8px;
-              box-shadow: 2px 1px 17px -2px #f4f4f4;
-              border-radius: 10px;
-            }
-          }
-        }
-      }
-      
-      .search {
-        padding: 5px;
-        background-color: $secondary-color;
-        width: 95%;
-        color: white;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        display: flex;
-        position: relative;
-
-        &_icon {
-          font-size: 1.5em;
-          margin: 10px;
-          color: #6571a7;
-          cursor: pointer;
-          transition: 0.4s;
-
-          &:hover {
-            color: white;
-          }
-        }
-
-        &_text {
-          display: flex;
-          align-items: center;
-
-          span {
-            color: #6571a7;
-            padding-left: 10px;
-          }
-        }
-      }
-      .leaflet-container {
-        width: 95%;
-        height: 660px;
-
-        .leaflet-popup-content-wrapper {
-          background-color: #0c1121;
+        &:hover {
           color: white;
         }
-        .leaflet-popup-tip-container .leaflet-popup-tip {
-          background-color: #0c1121;
-        }
+      }
 
-        .marker-cluster-small {
-          box-shadow: 2px 0px 42px 2px rgb(141 144 251);
-          background-color: rgb(63 68 210 / 74%);
-          div {
-            background-color: rgb(68 74 230 / 64%);
-            color: white;
-          }
+      &_text {
+        display: flex;
+        align-items: center;
+
+        span {
+          color: #6571a7;
+          padding-left: 10px;
+        }
+      }
+    }
+
+    .leaflet-container {
+      width: 100%;
+      .leaflet-popup-content-wrapper {
+        background-color: #0c1121;
+        color: white;
+        
+      }
+      .leaflet-popup-tip-container .leaflet-popup-tip {
+        background-color: #0c1121;
+      }
+
+      .marker-cluster-small {
+        box-shadow: 2px 0px 42px 2px rgb(141 144 251);
+        background-color: rgb(63 68 210 / 74%);
+        div {
+          background-color: rgb(68 74 230 / 64%);
+          color: white;
         }
       }
     }

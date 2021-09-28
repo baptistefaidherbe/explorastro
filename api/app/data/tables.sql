@@ -64,3 +64,13 @@ CREATE TABLE IF NOT EXISTS "participate" (
 
 ALTER TABLE "user" ADD COLUMN token_temp text DEFAULT 0; 
 ALTER TABLE "exploration" ADD COLUMN departement text; 
+
+ALTER TABLE "comment"
+DROP CONSTRAINT comment_exploration_id_fkey,
+ADD CONSTRAINT comment_exploration_id_fkey
+   FOREIGN KEY (exploration_id)
+   REFERENCES exploration(id)
+   ON DELETE CASCADE default 1;
+
+   ALTER TABLE "exploration"
+   ALTER COLUMN is_published SET NOT NULL DEFAULT false;

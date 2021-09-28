@@ -1,0 +1,189 @@
+.formEvent {
+  padding: 34px;
+  color: #959ec7;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  z-index: 1;
+
+  ::placeholder {
+    color: #959ec7;
+  }
+  &_content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
+
+    .imgEvent {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      height: 300px;
+
+      .img {
+        width: 100%;
+      }
+
+      .uploadBtn {
+        padding: 15px;
+        position: absolute;
+        bottom: 10px;
+      }
+    }
+    h3 {
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    .comments {
+      overflow: auto;
+      height: 300px;
+      width: 100%;
+
+      &_box {
+        background-color: $secondary-color;
+        padding: 30px;
+        display: flex;
+        margin-bottom: 10px;
+
+        .author_img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+        }
+
+        .content {
+          padding: 0 10px;
+
+          .test {
+            display: flex;
+            justify-content: space-between;
+            .author {
+              &_name {
+                font-weight: bold;
+              }
+            }
+
+            .delete {
+              font-size: 1em;
+              display: flex;
+              align-items: center;
+
+              .deleteIcon {
+                color: #ffa5a5;
+                font-size: 1.3em;
+              }
+            }
+          }
+          p {
+            margin-top: 10px;
+            text-align: justify;
+            font-size: 0.9em;
+          }
+        }
+      }
+    }
+
+    .name,
+    textarea {
+      margin-bottom: 25px;
+      padding: 10px;
+      background-color: $secondary-color;
+      border: none;
+      color: #959ec7;
+    }
+
+    .name{
+      margin-top: 25px;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    input,
+    select {
+      padding: 10px 0;
+      border: none;
+      background-color: $tertiary-color;
+      color: #959ec7;
+    }
+
+    select {
+      margin: 0 10px;
+    }
+
+    label {
+      padding: 20px;
+
+      .date{
+        margin-left: 10px;
+      }
+    }
+
+    .leaflet-container {
+      height: 330px;
+      margin: 25px 0;
+
+      .leaflet-popup-content-wrapper {
+        background-color: #0c1121;
+        color: white;
+      }
+      .leaflet-popup-tip-container .leaflet-popup-tip {
+        background-color: #0c1121;
+      }
+
+      .marker-cluster-small {
+        box-shadow: 2px 0px 42px 2px rgb(141 144 251);
+        background-color: rgb(63 68 210 / 74%);
+        div {
+          background-color: rgb(68 74 230 / 64%);
+          color: white;
+        }
+      }
+    }
+
+    .maxPerson,
+    .published {
+      display: flex;
+      align-items: center;
+    }
+
+    .swPublished {
+      margin-left: 10px;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      background-color: $tertiary-color;
+      width: 200px;
+      height: 20px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background-color: #959ec7;
+      opacity: 0.5;
+      width: 10px;
+      height: 26px;
+    }
+
+
+    .grp {
+      background-color: $secondary-color;
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &_button{
+    display: flex;
+    justify-content: center;
+
+    .submiteBtn {
+      margin: 0 10px;
+      width: 20%;
+      padding: 15px 0;
+      margin-top: 25px;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { Link } from "react-router-dom";
@@ -20,15 +20,7 @@ const homeIcon = L.icon({
   iconSize: [30, 30],
 });
 
-export default function Map({
-  explorations,
-  fieldZone,
-  departement,
-  searchName,
-  searchAuthor,
-  explosFilter,
-  positionGeoloc,
-}) {
+export default function Map({ fieldZone, positionGeoloc, filterEvents }) {
   const LocationMarker = () => {
     const map = useMap();
 
@@ -48,44 +40,9 @@ export default function Map({
       layerGroup.addTo(map);
     }, [fieldZone]);
 
-    const getDistance = (coord) => {
-      let distance;
-      if (coord && positionGeoloc) {
-        const markerFrom = L.circleMarker(coord);
-        const markerTo = L.circleMarker([
-          positionGeoloc.lat,
-          positionGeoloc.lng,
-        ]);
-        const from = markerFrom.getLatLng();
-        const to = markerTo.getLatLng();
-
-        distance = from.distanceTo(to).toFixed(0) / 1000;
-      }
-      return distance;
-    };
-
-    const explos = explorations.map((element) => {
-      const lat = parseFloat(element.geog[0], 10);
-      const long = parseFloat(element.geog[1], 10);
-      const coord = [lat, long];
-      const distance = getDistance(coord);
-      element.coord = coord;
-      element.distance = distance;
-      return element;
-    });
-
-    const filterEvents = explosFilter(
-      explos,
-      departement,
-      fieldZone,
-      searchName,
-      searchAuthor
-    );
-    console.log(filterEvents)
     return (
       <>
         <MarkerClusterGroup className="MarkerClusterGroup">
-          <h1>toto</h1>
           {filterEvents.map((element) => (
             <Marker
               key={element.id}
@@ -126,7 +83,6 @@ export default function Map({
     >
       {/* Add layer dark map */}
       <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url={`https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${process.env.STADIA_API_KEY}`}
         name="tiles"
       />
@@ -137,14 +93,7 @@ export default function Map({
 }
 
 Map.propTypes = {
-  explorations: PropTypes.arrayOf(PropTypes.object).isRequired,
   fieldZone: PropTypes.number.isRequired,
-  departement: PropTypes.string.isRequired,
-  searchName: PropTypes.string.isRequired,
-  searchAuthor: PropTypes.string.isRequired,
-  explosFilter: PropTypes.func.isRequired,
-  positionGeoloc: PropTypes.object,
-};
-Map.defaultProps = {
-  positionGeoloc: { lat: 43.8882303, lng: 1.5446796 },
+  positionGeoloc: PropTypes.object.isRequired,
+  filterEvents: PropTypes.array.isRequired,
 };

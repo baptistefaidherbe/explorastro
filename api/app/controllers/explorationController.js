@@ -19,7 +19,7 @@ const explorationController = {
       if (error) {
         console.trace(error);
       } else {
-        res.json({ exploration: response.rows[0] });
+        res.json(response.rows[0]);
       }
     });
   },
@@ -38,6 +38,7 @@ const explorationController = {
 
   createExploration: (req, res) => {
     const { name, author_id } = req.body;
+    console.log(req.body);
 
     if (!(name && author_id)) {
       return res.json(MESSAGE.MISSING_FIEDLS);
@@ -65,10 +66,8 @@ const explorationController = {
       date,
       max_participants,
       is_published,
-      image_url,
-      departement
+      departement,
     } = req.body;
-
 
     dataExploration.updateExplorationRequest(
       id,
@@ -78,8 +77,25 @@ const explorationController = {
       date,
       max_participants,
       is_published,
-      image_url,
       departement,
+      (error, response) => {
+        if (error) {
+          console.trace(error);
+        } else {
+          res.json(MESSAGE.SUCCESS_MODIFICATION);
+        }
+      }
+    );
+  },
+
+  updateExplorationImage: (req, res) => {
+    const id = Number(req.params.id);
+    const { file } = req;
+    const image_url = `http://${process.env.PGHOST}:3000/uploads/${file.filename}`;
+    console.log(image_url)
+    dataExploration.updateExplorationImage(
+      id,
+      image_url,
       (error, response) => {
         if (error) {
           console.trace(error);

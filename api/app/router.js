@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const auth = require("./middleware/auth");
+const upload = require('./middleware/multer');
 
 const explorationController = require("./controllers/explorationController");
 const userController = require("./controllers/userController");
@@ -30,6 +31,13 @@ router.post(
   auth,
   validate("body", explorationSchema),
   explorationController.createExploration
+);
+
+
+router.post(
+  "/exploration/:id/upload",
+  auth,upload.single('image'),
+  explorationController.updateExplorationImage
 );
 router.patch(
   "/exploration/:id",

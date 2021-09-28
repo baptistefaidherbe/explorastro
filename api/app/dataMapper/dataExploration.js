@@ -46,16 +46,16 @@ const dataExploration = {
       exploration.image_url,
       exploration.departement,
       json_agg(distinct(public.user.username)) participants,
-      (   SELECT
-        json_build_object(
-        'comment',json_agg(comment),
-        'author', json_agg(u.username))
-        FROM "comment"
-        FULL JOIN exploration on comment.exploration_id = exploration.id
-        FULL JOIN "user" u on comment.author_id = u.id
-        WHERE exploration.id = $1
-        AND comment.id IS NOT NULL
-      )
+      ( 
+        SELECT json_agg(item)
+        FROM (
+          SELECT content, u.username, comment.id 
+          FROM "comment"
+          FULL JOIN "user" u on comment.author_id = u.id
+          FULL JOIN "exploration" on comment.exploration_id = exploration.id
+          WHERE exploration.id= $1
+        ) item
+      ) AS Comments
       FROM exploration 
       FULL JOIN participate on exploration.id = participate.exploration_id
       FULL JOIN public.user on public.user.id = participate.user_id
@@ -94,7 +94,6 @@ const dataExploration = {
     date,
     max_participants,
     is_published,
-    image_url,
     departement,
     callback
   ) => {
@@ -107,8 +106,7 @@ const dataExploration = {
         date= $5,
         max_participants= $6,
         is_published= $7,
-        image_url=$8,
-        departement=$9
+        departement=$8
         WHERE id= $1;`,
       values: [
         id,
@@ -118,11 +116,28 @@ const dataExploration = {
         date,
         max_participants,
         is_published,
-        image_url,
         departement
       ],
     };
     client.query(updateExploration_query, callback);
+  },
+  updateExplorationImage: (
+    id,
+    image_url,
+    callback
+  ) => {
+    const updateExplorationImg_query = {
+      text: `
+        UPDATE exploration
+        SET image_url = $2
+        WHERE id= $1;`,
+      values: [
+        id,
+        image_url
+      ],
+    };
+    console.log(updateExplorationImg_query)
+    client.query(updateExplorationImg_query, callback);
   },
 };
 module.exports = dataExploration;

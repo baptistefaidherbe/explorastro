@@ -6,7 +6,7 @@ const schema = Joi.object({
   geog: Joi.array().items(Joi.number()),
   date: Joi.date(),
   max_participants: Joi.number(),
-  is_published: Joi.boolean(),
+  is_published: Joi.boolean().empty(['', null]).default(false),
   image_url: Joi.string(),
   created_at: Joi.date(),
   updated_at: Joi.date(),
