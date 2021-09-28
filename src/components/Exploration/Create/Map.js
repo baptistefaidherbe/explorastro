@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import L from "leaflet";
-import markerIcon from "src/assets/img/location.svg";
-import ControlGeocoder from "./ControlGeocoder";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import L from 'leaflet';
+import markerIcon from 'src/assets/img/location.svg';
+import ControlGeocoder from './ControlGeocoder';
 
 const telescopIcon = L.icon({
   iconUrl: markerIcon,

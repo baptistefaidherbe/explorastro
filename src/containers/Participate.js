@@ -1,55 +1,19 @@
-import { connect } from "react-redux";
-import Participate from "src/components/Exploration/Participate";
-import {
-  getAllEvents,
-  onClickModal,
-  onClickClosedModal,
-  onChangeArea,
-  onSubmitSearchName,
-  onSubmitDepartement,
-  onSubmitSearchAuthor,
-  userGeoloc,
-} from "src/actions/exploration";
+import { connect } from 'react-redux';
+import Participate from 'src/components/Exploration/Participate';
+import { getEventData, onChangeEvent, onSubmitComment } from 'src/actions/exploration';
 
 const mapStateToProps = (state) => ({
-  explorations: state.exploration.explorations,
-  togledModal: state.exploration.togledModal,
-  fieldZone: state.exploration.fieldZone,
-  departement: state.exploration.departement,
-  searchName: state.exploration.searchName,
-  searchAuthor: state.exploration.searchAuthor,
-  myGeoloc: state.exploration.myGeoloc,
-  isEventLoading: state.exploration.isEventLoading,
+  eventToModify: state.exploration.eventToModify,
 });
 const mapDispatchToProps = (dispatch) => ({
-  getEvents: () => {
-    dispatch(getAllEvents());
-  },
-  onClickModal: () => {
-    dispatch(onClickModal());
-  },
-  onClickClosedModal: () => {
-    dispatch(onClickClosedModal());
-  },
-  onChangeArea: (zone) => {
-    dispatch(onChangeArea(zone));
+  getEventData: (value) => {
+    dispatch(getEventData(value));
   },
   onChange: (value, key) => {
-    switch (key) {
-      case "searchName":
-        dispatch(onSubmitSearchName(value, key));
-        break;
-      case "departement":
-        dispatch(onSubmitDepartement(value, key));
-        break;
-      case "searchAuthor":
-        dispatch(onSubmitSearchAuthor(value, key));
-        break;
-      default:
-    }
+    dispatch(onChangeEvent(value, key));
   },
-  userGeoloc: (value) => {
-    dispatch(userGeoloc(value));
+  onSubmit: (value) => {
+    dispatch(onSubmitComment(value));
   },
 });
 

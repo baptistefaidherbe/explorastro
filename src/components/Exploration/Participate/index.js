@@ -1,137 +1,117 @@
-/* eslint-disable max-len */
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Navbar from 'src/containers/Navbar';
-import { CgSearch } from 'react-icons/cg';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import Modal from 'src/components/Modal';
-import explosFilter from 'src/selectors/filter';
-import getDistance from 'src/selectors/getDistance';
-import Loader from 'src/components/Loader';
-import Event from './Event';
-import Map from './Map';
+/* eslint-disable react/button-has-type */
+import React, { useEffect } from "react";
+import Navbar from "src/components/Navbar";
+import PropTypes from "prop-types";
+import explorationImg from "src/assets/img/bg_sky2.png";
+import avatar from "src/assets/img/avatar.png";
+import * as dayjs from "dayjs";
+import Map from "./Map";
+import Comment from "./Comment";
+import Participant from "./Participant";
 
 const Participate = ({
-  getEvents,
-  explorations,
-  onClickModal,
-  togledModal,
-  onClickClosedModal,
-  fieldZone,
-  onChangeArea,
+  id,
+  getEventData,
+  eventToModify,
   onChange,
-  departement,
-  searchName,
-  searchAuthor,
-  userGeoloc,
-  myGeoloc,
-  isEventLoading,
+  onSubmit,
 }) => {
   useEffect(() => {
-    getEvents();
+    getEventData(id);
   }, []);
-  const handleClick = () => {
-    onClickModal();
+
+  const hangleOnchange = (e) => {
+    onChange(e.target.value, e.target.name);
   };
 
-  useEffect(() => {
-    function getPosition() {
-      return new Promise((res, rej) => {
-        navigator.geolocation.getCurrentPosition(res, rej);
-      });
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    setTimeout(async () => {
-      const position = await getPosition();
-      const myPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      userGeoloc(myPosition);
-    }, 1000);
-
-    // main();
-  }, []);
-
-  if (isEventLoading) {
-    return <Loader />;
-  }
-
-  const explos = explorations.map((element) => {
-    const lat = parseFloat(element.geog[0], 10);
-    const long = parseFloat(element.geog[1], 10);
-    const coord = [lat, long];
-    const distance = getDistance(coord, myGeoloc);
-    element.coord = coord;
-    element.distance = distance;
-    return element;
-  });
-
-  const filterEvents = explosFilter(
-    explos,
-    departement,
-    fieldZone,
-    searchName,
-    searchAuthor,
-  );
+    onSubmit(id);
+  };
 
   return (
-    <>
-      <div className="container">
-        <Navbar />
-        <div className="participate">
-          <div className="explorationList">
-            {filterEvents.map((element) => (
-              <Event key={element.id} exploration={element} />
-            ))}
+    <div className="container">
+      <Navbar />
+      <div className="participate">
+        <div className="participate_content">
+          <div className="banner">
+            <img
+              src={
+                eventToModify.image_url
+                  ? eventToModify.image_url
+                  : explorationImg
+              }
+              alt="explorationImg"
+              className="imgBanner"
+            />
+            <div className="author">
+              <img src={avatar} alt="imgAvatar" className="imgAvatar" />
+              <span>Organisateur : {eventToModify.username} </span>
+            </div>
           </div>
-          <div className="map">
-            <div className="search">
-              <GiHamburgerMenu className="search_icon" onClick={handleClick} />
-              <div className="search_text">
-                <CgSearch className="Search_icon" />
-                <span>La carte des explorations</span>
-
-                <Modal
-                  togledModal={togledModal}
-                  onClick={onClickClosedModal}
-                  onChangeArea={onChangeArea}
-                  fieldZone={fieldZone}
-                  onChange={onChange}
-                  explosFilter={explosFilter}
-                  searchAuthor={searchAuthor}
-                  searchName={searchName}
-                  departement={departement}
-                />
+          <div className="info">
+            <div className="name">
+              <h1>{eventToModify.name}</h1>
+            </div>
+            <div className="description">
+              <span>{eventToModify.description}</span>
+            </div>
+            <div className="grp">
+              <div className="date">
+                <span>
+                  Date de l'exploration :{" "}
+                  {dayjs(eventToModify.date).format("DD-MM-YYYY à HH:mm")}
+                </span>
+              </div>
+              <div className="weather">
+                <span>Météo : soleil</span>
               </div>
             </div>
-            <Map
-              fieldZone={fieldZone}
-              positionGeoloc={myGeoloc}
-              filterEvents={filterEvents}
-            />
+            <Map coord={eventToModify.geog ? eventToModify.geog : null} />
+            <div className="participant">
+              <span>
+                Nombre de participants{" "}
+                {eventToModify.participants !== "undefined"
+                  ? eventToModify.participants?.length
+                  : 0}
+                /{eventToModify.max_participants}
+              </span>
+              <div className="participant_member">
+                {eventToModify.participants?.map((element) => (
+                  <Participant key={element} username={element} />
+                ))}
+              </div>
+            </div>
+            <div className="comments">
+              <span>Commentaires : </span>
+              <form onSubmit={handleSubmit} className="comments_send">
+                <input
+                  type="text"
+                  className="comments_send_input"
+                  onChange={hangleOnchange}
+                  name="sendComment"
+                  placeholder="Saisir votre commentaire"
+                />
+                <button className="comments_send_btn">Envoyer</button>
+              </form>
+              {eventToModify.comments?.map((element) => (
+                <Comment key={element.id} {...element} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-Participate.propTypes = {
-  getEvents: PropTypes.func.isRequired,
-  explorations: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onClickModal: PropTypes.func.isRequired,
-  togledModal: PropTypes.bool.isRequired,
-  onClickClosedModal: PropTypes.func.isRequired,
-  fieldZone: PropTypes.number.isRequired,
-  onChangeArea: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  departement: PropTypes.string.isRequired,
-  searchName: PropTypes.string.isRequired,
-  searchAuthor: PropTypes.string.isRequired,
-  userGeoloc: PropTypes.func.isRequired,
-  myGeoloc: PropTypes.object.isRequired,
-  isEventLoading: PropTypes.bool.isRequired,
-};
-
 export default Participate;
+
+Participate.propTypes = {
+  id: PropTypes.number.isRequired,
+  getEventData: PropTypes.func.isRequired,
+  eventToModify: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
