@@ -1,4 +1,4 @@
-button {
+button, .button {
   padding: 10px 25px;
   border-radius: 10px;
   background-color: $tertiary-color;
@@ -8,6 +8,8 @@ button {
   margin: 15px 0;
   cursor: pointer;
   transition: 0.5s;
+  text-align: center;
+  font-size: 1em;
 
   &:hover {
     background-color: #525c88;

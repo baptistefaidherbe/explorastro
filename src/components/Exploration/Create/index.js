@@ -43,6 +43,7 @@ const Create = ({
   if (isEventLoading) {
     return <Loader />;
   }
+
   return (
     <div className="container">
       <Navbar />
@@ -71,7 +72,7 @@ const Create = ({
             explorationcreate.map((element) => (
               <div key={element.id} className="card">
                 <img
-                  src={explorationImg}
+                  src={element.image_url ? element.image_url : explorationImg}
                   alt="explorationImg"
                   className="img"
                 />
@@ -98,6 +99,14 @@ const Create = ({
                       {element.max_participants
                         ? element.max_participants
                         : "-"}
+                    </p>
+                  </div>
+                  <div className="published">
+                  <span>Publié : </span>
+                    <p>
+                      {element.is_published
+                        ? 'Publié'
+                        : "Non publié"}
                     </p>
                   </div>
                   <div className="button-containt">

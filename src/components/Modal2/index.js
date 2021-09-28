@@ -8,9 +8,9 @@ const Modal = ({ togledModal, onClickModal }) => {
     onClickModal();
   };
 
-  useEffect(() => () => {
-    onClickModal();
-  }, []);
+  // useEffect(() => {
+  //   onClickModal();
+  // }, []);
   return (
     <>
       {togledModal ? (
@@ -24,7 +24,7 @@ const Modal = ({ togledModal, onClickModal }) => {
             </div>
             <div className="modal2_box-content">
               <p> Vos modifications ont bien été enregistrées avec succès</p>
-              <Link to="/create">
+              <Link onClick={handleOnclick} to="/create">
                 <button>Mes sorties</button>
               </Link>
             </div>

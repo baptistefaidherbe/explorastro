@@ -107,6 +107,7 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
     case SAVE_EVENT_TO_MODIFY: {
+      console.log(action.payload);
       return {
         ...state,
         eventToModify: action.payload,

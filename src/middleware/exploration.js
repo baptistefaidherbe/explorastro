@@ -9,18 +9,19 @@ import {
   GET_EVENT_DATA,
   saveEventToModify,
   ON_SUBMIT_EVENT,
-} from 'src/actions/exploration';
-import api from './utils/api';
+  UPLOAD_EXPLORATION_ILLUSTRATION,
+  saveExplorationIllustration,
+} from "src/actions/exploration";
+import api from "./utils/api";
 
 const exploration = (store) => (next) => (action) => {
   switch (action.type) {
     case GET_ALL_EVENTS: {
       const getAllEvents = async () => {
         try {
-          const resp = await api.get('/exploration');
+          const resp = await api.get("/exploration");
           store.dispatch(saveAllEvents(resp.data));
-        }
-        catch (err) {
+        } catch (err) {
           // eslint-disable-next-line no-console
           console.error(err);
         }
@@ -30,13 +31,12 @@ const exploration = (store) => (next) => (action) => {
     }
     case GET_MY_EVENTS: {
       const getMyEvents = async () => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem("user"));
         const { id } = user.user;
         try {
           const resp = await api.get(`/user/${id}`);
           store.dispatch(saveMyEvents(resp.data));
-        }
-        catch (error) {
+        } catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
         }
@@ -48,17 +48,16 @@ const exploration = (store) => (next) => (action) => {
     case ON_SUBMIT_NAME: {
       const submitName = async () => {
         const state = store.getState();
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem("user"));
         const { id } = user.user;
         const data = {
           name: state.exploration.name,
           author_id: id,
         };
         try {
-          await api.post('/exploration', data);
+          await api.post("/exploration", data);
           store.dispatch(addNewExploration());
-        }
-        catch (error) {
+        } catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
         }
@@ -72,8 +71,7 @@ const exploration = (store) => (next) => (action) => {
         try {
           await api.delete(`/exploration/${id}`);
           store.dispatch(addNewExploration());
-        }
-        catch (error) {
+        } catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
         }
@@ -88,8 +86,7 @@ const exploration = (store) => (next) => (action) => {
         try {
           const resp = await api.get(`/exploration/${id}`);
           store.dispatch(saveEventToModify(resp.data));
-        }
-        catch (error) {
+        } catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
         }
@@ -114,13 +111,31 @@ const exploration = (store) => (next) => (action) => {
         };
         try {
           await api.patch(`/exploration/${id}`, data);
-        }
-        catch (error) {
+        } catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
         }
       };
       submitEvent();
+      break;
+    }
+    case UPLOAD_EXPLORATION_ILLUSTRATION: {
+      const formData = new FormData();
+      formData.append("image", action.payload, action.payload.name);
+      const handleUploadIllustration = async () => {
+        try {
+          await api.post(`/exploration/${action.id}/upload`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          store.dispatch(saveExplorationIllustration(action.id));
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error.response);
+        }
+      };
+      handleUploadIllustration();
       break;
     }
 

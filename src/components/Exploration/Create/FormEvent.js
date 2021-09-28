@@ -1,16 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
-import React, { useEffect } from 'react';
-import Navbar from 'src/containers/Navbar';
-import explorationImg from 'src/assets/img/bg_sky2.png';
-import dpt from 'src/data/departements-region.json';
-import Modal from 'src/components/Modal2';
-import Switch from 'react-switch';
-import * as dayjs from 'dayjs';
-import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
-import Comment from './Comment';
-import Map from './Map';
+import React, { useEffect } from "react";
+import Navbar from "src/containers/Navbar";
+import explorationImg from "src/assets/img/bg_sky2.png";
+import dpt from "src/data/departements-region.json";
+import Modal from "src/components/Modal2";
+import Switch from "react-switch";
+import { Link } from "react-router-dom";
+import * as dayjs from "dayjs";
+import PropTypes from "prop-types";
+import { isEmpty } from "lodash";
+import Comment from "./Comment";
+import Map from "./Map";
 
 const FormEvent = ({
   id,
@@ -22,6 +23,7 @@ const FormEvent = ({
   onSubmit,
   togledModal,
   onClickModal,
+  uploadIllustration,
 }) => {
   useEffect(() => {
     getEventData(id);
@@ -34,6 +36,9 @@ const FormEvent = ({
   const handleOnSubmit = (e) => {
     e.preventDefault();
     onSubmit(id);
+  };
+
+  const handleClick = () => {
     onClickModal();
   };
 
@@ -41,8 +46,13 @@ const FormEvent = ({
     onPublished();
   };
 
+  const handleIllustrationUpload = (event) => {
+    console.log('titi')
+    uploadIllustration(event.target.files[0], id);
+  };
+
   return isEmpty(eventToModify) ? (
-    ''
+    ""
   ) : (
     <div className="container">
       <Modal onClickModal={onClickModal} togledModal={togledModal} />
@@ -51,8 +61,15 @@ const FormEvent = ({
       <div className="formEvent">
         <form className="formEvent_content" onSubmit={handleOnSubmit}>
           <div className="imgEvent">
-            <img src={explorationImg} alt="explorationImg" className="img" />
-            <button className="uploadBtn">Upload Image</button>
+            <img src={eventToModify.image_url ? eventToModify.image_url : explorationImg} alt="explorationImg" className="img" />
+            <input
+              className=" button uploadBtn"
+              type="file"
+              name="image"
+              id="upload-illustration"
+              accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
+              onChange={handleIllustrationUpload}
+            />
           </div>
           {eventToModify?.comments[0].content !== null && (
             <>
@@ -71,7 +88,7 @@ const FormEvent = ({
             className="name"
             name="name"
             onChange={handleOnchange}
-            value={eventToModify.name ? eventToModify.name : ''}
+            value={eventToModify.name ? eventToModify.name : ""}
           />
 
           <textarea
@@ -80,7 +97,7 @@ const FormEvent = ({
             rows="10"
             cols="70"
             placeholder="Description"
-            value={eventToModify.description ? eventToModify.description : ''}
+            value={eventToModify.description ? eventToModify.description : ""}
             onChange={handleOnchange}
           />
           <div className="grp">
@@ -92,8 +109,8 @@ const FormEvent = ({
                 name="date"
                 value={
                   eventToModify.date
-                    ? dayjs(eventToModify.date).format('YYYY-MM-DDTHH:mm')
-                    : dayjs().format('YYYY-MM-DDTHH:mm')
+                    ? dayjs(eventToModify.date).format("YYYY-MM-DDTHH:mm")
+                    : dayjs().format("YYYY-MM-DDTHH:mm")
                 }
                 onChange={handleOnchange}
               />
@@ -105,7 +122,7 @@ const FormEvent = ({
                 name="departement"
                 className="departement"
                 value={
-                  eventToModify.departement ? eventToModify.departement : ''
+                  eventToModify.departement ? eventToModify.departement : ""
                 }
               >
                 <option value="">Choisisez un département</option>
@@ -149,7 +166,14 @@ const FormEvent = ({
               />
             </label>
           </div>
-          <button className="submiteBtn">Modifier</button>
+          <div className="formEvent_button">
+            <button onClick={handleClick} className="submiteBtn" id="submit">
+              Modifier
+            </button>
+            <Link to="/create" className="button submiteBtn">
+              Annuler
+            </Link>
+          </div>
         </form>
       </div>
     </div>
@@ -168,4 +192,5 @@ FormEvent.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   togledModal: PropTypes.bool.isRequired,
   onClickModal: PropTypes.func.isRequired,
+  uploadIllustration: PropTypes.func.isRequired,
 };

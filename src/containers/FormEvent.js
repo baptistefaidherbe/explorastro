@@ -7,6 +7,7 @@ import {
   getCoordLocation,
   onSubmitEvent,
   onClickModal,
+  uploadExplorationIllustration,
 } from "src/actions/exploration";
 
 const mapStateToProps = (state) => ({
@@ -31,6 +32,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onClickModal: () => {
     dispatch(onClickModal());
+  },
+  uploadIllustration: (value, id) => {
+    dispatch(uploadExplorationIllustration(value, id));
   },
 });
 

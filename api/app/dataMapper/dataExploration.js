@@ -94,7 +94,6 @@ const dataExploration = {
     date,
     max_participants,
     is_published,
-    image_url,
     departement,
     callback
   ) => {
@@ -107,8 +106,7 @@ const dataExploration = {
         date= $5,
         max_participants= $6,
         is_published= $7,
-        image_url=$8,
-        departement=$9
+        departement=$8
         WHERE id= $1;`,
       values: [
         id,
@@ -118,11 +116,28 @@ const dataExploration = {
         date,
         max_participants,
         is_published,
-        image_url,
         departement
       ],
     };
     client.query(updateExploration_query, callback);
+  },
+  updateExplorationImage: (
+    id,
+    image_url,
+    callback
+  ) => {
+    const updateExplorationImg_query = {
+      text: `
+        UPDATE exploration
+        SET image_url = $2
+        WHERE id= $1;`,
+      values: [
+        id,
+        image_url
+      ],
+    };
+    console.log(updateExplorationImg_query)
+    client.query(updateExplorationImg_query, callback);
   },
 };
 module.exports = dataExploration;

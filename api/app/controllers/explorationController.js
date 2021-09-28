@@ -66,10 +66,8 @@ const explorationController = {
       date,
       max_participants,
       is_published,
-      image_url,
-      departement
+      departement,
     } = req.body;
-
 
     dataExploration.updateExplorationRequest(
       id,
@@ -79,8 +77,25 @@ const explorationController = {
       date,
       max_participants,
       is_published,
-      image_url,
       departement,
+      (error, response) => {
+        if (error) {
+          console.trace(error);
+        } else {
+          res.json(MESSAGE.SUCCESS_MODIFICATION);
+        }
+      }
+    );
+  },
+
+  updateExplorationImage: (req, res) => {
+    const id = Number(req.params.id);
+    const { file } = req;
+    const image_url = `http://${process.env.PGHOST}:3000/uploads/${file.filename}`;
+    console.log(image_url)
+    dataExploration.updateExplorationImage(
+      id,
+      image_url,
       (error, response) => {
         if (error) {
           console.trace(error);

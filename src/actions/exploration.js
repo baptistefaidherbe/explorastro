@@ -16,12 +16,14 @@ export const ON_DELETE_EVENT = "ON_DELETE_EVENT";
 export const GET_EVENT_DATA = "GET_EVENT_DATA";
 export const SAVE_EVENT_TO_MODIFY = "SAVE_EVENT_TO_MODIFY";
 export const ON_CHANGE_EVENT = "ON_CHANGE_EVENT";
-export const ON_PUBLISHED = 'ON_PUBLISHED';
-export const GET_COORD_LOCATION = 'GET_COORD_LOCATION';
-export const EVENT_LOADING = 'EVENT_LOADING';
-export const ON_SUBMIT_EVENT = 'ON_SUBMIT_EVENT';
-export const SAVE_LAST_ID = 'SAVE_LAST_ID';
-export const REMOVE_LAST_ID = 'REMOVE_LAST_ID';
+export const ON_PUBLISHED = "ON_PUBLISHED";
+export const GET_COORD_LOCATION = "GET_COORD_LOCATION";
+export const EVENT_LOADING = "EVENT_LOADING";
+export const ON_SUBMIT_EVENT = "ON_SUBMIT_EVENT";
+export const SAVE_LAST_ID = "SAVE_LAST_ID";
+export const REMOVE_LAST_ID = "REMOVE_LAST_ID";
+export const UPLOAD_EXPLORATION_ILLUSTRATION =
+  "UPLOAD_EXPLORATION_ILLUSTRATION";
 
 export const getAllEvents = () => ({
   type: GET_ALL_EVENTS,
@@ -115,4 +117,13 @@ export const saveLastId = (payload) => ({
 });
 export const removLastID = () => ({
   type: REMOVE_LAST_ID,
+});
+export const uploadExplorationIllustration = (payload, id) => ({
+  type: UPLOAD_EXPLORATION_ILLUSTRATION,
+  payload,
+  id,
+});
+export const saveExplorationIllustration = (payload) => ({
+  type: GET_EVENT_DATA,
+  payload,
 });
