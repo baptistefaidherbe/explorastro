@@ -12,8 +12,6 @@ const telescopIcon = L.icon({
 });
 
 export default function Map({ coord }) {
-  console.log(coord);
-
   return coord ? (
     <MapContainer
       // Centering on the map of france

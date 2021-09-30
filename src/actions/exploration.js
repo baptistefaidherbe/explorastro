@@ -24,6 +24,10 @@ export const SAVE_LAST_ID = 'SAVE_LAST_ID';
 export const REMOVE_LAST_ID = 'REMOVE_LAST_ID';
 export const UPLOAD_EXPLORATION_ILLUSTRATION = 'UPLOAD_EXPLORATION_ILLUSTRATION';
 export const ON_SUBMIT_COMMENT = 'ON_SUBMIT_COMMENT';
+export const ON_CLICK_DELETE_COMMENT = 'ON_CLICK_DELETE_COMMENT';
+export const RESET_INPUT_COMMENT = 'RESET_INPUT_COMMENT';
+export const ON_CLICK_PARTICIPATE = 'ON_CLICK_PARTICIPATE';
+export const ON_CLICK_NOT_PARTICIPATE = 'ON_CLICK_NOT_PARTICIPATE';
 
 export const getAllEvents = () => ({
   type: GET_ALL_EVENTS,
@@ -130,4 +134,20 @@ export const callEventData = (payload) => ({
 export const onSubmitComment = (payload) => ({
   type: ON_SUBMIT_COMMENT,
   payload,
+});
+export const onClickDeleteComment = (id, idEvent) => ({
+  type: ON_CLICK_DELETE_COMMENT,
+  id,
+  idEvent,
+});
+export const resetInputComment = () => ({
+  type: RESET_INPUT_COMMENT,
+});
+export const onClickParticipate = (id) => ({
+  type: ON_CLICK_PARTICIPATE,
+  id,
+});
+export const onClickNotParticipate = (id) => ({
+  type: ON_CLICK_NOT_PARTICIPATE,
+  id,
 });

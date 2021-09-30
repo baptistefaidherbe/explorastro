@@ -12,6 +12,10 @@ import {
   UPLOAD_EXPLORATION_ILLUSTRATION,
   callEventData,
   ON_SUBMIT_COMMENT,
+  ON_CLICK_DELETE_COMMENT,
+  resetInputComment,
+  ON_CLICK_PARTICIPATE,
+  ON_CLICK_NOT_PARTICIPATE,
 } from 'src/actions/exploration';
 import api from './utils/api';
 
@@ -158,6 +162,7 @@ const exploration = (store) => (next) => (action) => {
         try {
           await api.post(`/exploration/${id}/comment`, data);
           store.dispatch(callEventData(id));
+          store.dispatch(resetInputComment());
         }
         catch (error) {
           // eslint-disable-next-line no-console
@@ -165,6 +170,60 @@ const exploration = (store) => (next) => (action) => {
         }
       };
       submitComment();
+      break;
+    }
+    case ON_CLICK_DELETE_COMMENT: {
+      const deleteComment = async () => {
+        const { id, idEvent } = action;
+
+        try {
+          await api.delete(`/comment/${id}`);
+          store.dispatch(callEventData(idEvent));
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error.response);
+        }
+      };
+      deleteComment();
+      break;
+    }
+    case ON_CLICK_PARTICIPATE: {
+      const participate = async () => {
+        const state = store.getState();
+        const { id } = action;
+        const data = {
+          user_id: state.exploration.eventToModify.author_id,
+        };
+        try {
+          await api.post(`/participate/${id}`, data);
+          store.dispatch(callEventData(id));
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error.response);
+        }
+      };
+      participate();
+      break;
+    }
+    case ON_CLICK_NOT_PARTICIPATE: {
+      const notParticipate = async () => {
+        const state = store.getState();
+        const { id } = action;
+        const data = {
+          user_id: state.exploration.eventToModify.author_id,
+        };
+        try {
+          await api.delete(`/participate/${id}`, { data: { user_id: state.exploration.eventToModify.author_id } });
+          store.dispatch(callEventData(id));
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error.response);
+        }
+      };
+      notParticipate();
       break;
     }
 

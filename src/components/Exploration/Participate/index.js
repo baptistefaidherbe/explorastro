@@ -1,13 +1,14 @@
 /* eslint-disable react/button-has-type */
-import React, { useEffect } from "react";
-import Navbar from "src/components/Navbar";
-import PropTypes from "prop-types";
-import explorationImg from "src/assets/img/bg_sky2.png";
-import avatar from "src/assets/img/avatar.png";
-import * as dayjs from "dayjs";
-import Map from "./Map";
-import Comment from "./Comment";
-import Participant from "./Participant";
+import React, { useEffect } from 'react';
+import Navbar from 'src/containers/Navbar';
+import PropTypes from 'prop-types';
+import explorationImg from 'src/assets/img/bg_sky2.png';
+import avatar from 'src/assets/img/avatar.png';
+import * as dayjs from 'dayjs';
+import Loader from 'src/components/Loader';
+import Map from './Map';
+import Comment from './Comment';
+import Participant from './Participant';
 
 const Participate = ({
   id,
@@ -15,6 +16,10 @@ const Participate = ({
   eventToModify,
   onChange,
   onSubmit,
+  sendComment,
+  onClickParticipate,
+  isEventLoading,
+  onClickNotParticipate,
 }) => {
   useEffect(() => {
     getEventData(id);
@@ -26,8 +31,25 @@ const Participate = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     onSubmit(id);
+  };
+
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if (isEventLoading) {
+    return <Loader />;
+  }
+
+  const findUserParticipate = eventToModify?.participants?.find(
+    (element) => element === user.user.username,
+  );
+
+  const handleClickParticipate = () => {
+    onClickParticipate(id);
+  };
+
+  const handleClickNotParticipate = () => {
+    onClickNotParticipate(id);
   };
 
   return (
@@ -60,8 +82,8 @@ const Participate = ({
             <div className="grp">
               <div className="date">
                 <span>
-                  Date de l'exploration :{" "}
-                  {dayjs(eventToModify.date).format("DD-MM-YYYY à HH:mm")}
+                  Date de l'exploration :{' '}
+                  {dayjs(eventToModify.date).format('DD-MM-YYYY à HH:mm')}
                 </span>
               </div>
               <div className="weather">
@@ -71,17 +93,27 @@ const Participate = ({
             <Map coord={eventToModify.geog ? eventToModify.geog : null} />
             <div className="participant">
               <span>
-                Nombre de participants{" "}
-                {eventToModify.participants !== "undefined"
+                Nombre de participants{' '}
+                {eventToModify.participants
+                && eventToModify.participants[0] !== null
                   ? eventToModify.participants?.length
                   : 0}
                 /{eventToModify.max_participants}
               </span>
               <div className="participant_member">
-                {eventToModify.participants?.map((element) => (
-                  <Participant key={element} username={element} />
-                ))}
+                {eventToModify.participants
+                && eventToModify.participants[0] !== null
+                  ? eventToModify.participants?.map((element) => (
+                    <Participant key={element} username={element} />
+                  ))
+                  : ''}
               </div>
+
+              {!findUserParticipate ? (
+                <button onClick={handleClickParticipate}>Participer</button>
+              ) : (
+                <button onClick={handleClickNotParticipate}>Ne plus participer</button>
+              )}
             </div>
             <div className="comments">
               <span>Commentaires : </span>
@@ -92,12 +124,16 @@ const Participate = ({
                   onChange={hangleOnchange}
                   name="sendComment"
                   placeholder="Saisir votre commentaire"
+                  value={sendComment}
                 />
                 <button className="comments_send_btn">Envoyer</button>
               </form>
-              {eventToModify.comments?.map((element) => (
-                <Comment key={element.id} {...element} />
-              ))}
+              {eventToModify.comments
+              && eventToModify.comments[0].content !== null
+                ? eventToModify.comments?.map((element) => (
+                  <Comment key={element.id} {...element} />
+                ))
+                : ''}
             </div>
           </div>
         </div>
@@ -114,4 +150,12 @@ Participate.propTypes = {
   eventToModify: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  sendComment: PropTypes.string,
+  onClickParticipate: PropTypes.func.isRequired,
+  isEventLoading: PropTypes.bool.isRequired,
+  onClickNotParticipate: PropTypes.func.isRequired,
+};
+
+Participate.defaultProps = {
+  sendComment: '',
 };

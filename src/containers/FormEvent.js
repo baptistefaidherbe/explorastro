@@ -8,6 +8,7 @@ import {
   onSubmitEvent,
   onClickModal,
   uploadExplorationIllustration,
+  onClickDeleteComment,
 } from 'src/actions/exploration';
 
 const mapStateToProps = (state) => ({
@@ -35,6 +36,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   uploadIllustration: (value, id) => {
     dispatch(uploadExplorationIllustration(value, id));
+  },
+  onClickDelete: (id) => {
+    dispatch(onClickDeleteComment(id));
   },
 });
 

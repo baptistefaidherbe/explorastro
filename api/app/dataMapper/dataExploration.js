@@ -54,6 +54,7 @@ const dataExploration = {
           FULL JOIN "user" u on comment.author_id = u.id
           FULL JOIN "exploration" on comment.exploration_id = exploration.id
           WHERE exploration.id= $1
+          ORDER BY (comment.created_at) DESC
         ) item
       ) AS Comments
       FROM exploration 

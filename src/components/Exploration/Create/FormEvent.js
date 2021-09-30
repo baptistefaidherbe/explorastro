@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import * as dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import Comment from './Comment';
+import Comment from 'src/containers/Comment';
 import Map from './Map';
 
 const FormEvent = ({
@@ -91,7 +91,11 @@ const FormEvent = ({
               <h3>Commentaires</h3>
               <div className="comments">
                 {eventToModify.comments.map((element) => (
-                  <Comment key={element.id} element={element} />
+                  <Comment
+                    key={element.id}
+                    idEvent={id}
+                    element={element}
+                  />
                 ))}
               </div>
             </>

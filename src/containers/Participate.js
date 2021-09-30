@@ -1,9 +1,13 @@
 import { connect } from 'react-redux';
 import Participate from 'src/components/Exploration/Participate';
-import { getEventData, onChangeEvent, onSubmitComment } from 'src/actions/exploration';
+import {
+  getEventData, onChangeEvent, onSubmitComment, onClickParticipate, onClickNotParticipate,
+} from 'src/actions/exploration';
 
 const mapStateToProps = (state) => ({
   eventToModify: state.exploration.eventToModify,
+  sendComment: state.exploration.eventToModify.sendComment,
+  isEventLoading: state.exploration.isEventLoading,
 });
 const mapDispatchToProps = (dispatch) => ({
   getEventData: (value) => {
@@ -14,6 +18,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSubmit: (value) => {
     dispatch(onSubmitComment(value));
+  },
+  onClickParticipate: (id) => {
+    dispatch(onClickParticipate(id));
+  },
+  onClickNotParticipate: (id) => {
+    dispatch(onClickNotParticipate(id));
   },
 });
 
