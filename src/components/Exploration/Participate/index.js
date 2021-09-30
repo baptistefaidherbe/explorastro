@@ -1,11 +1,12 @@
 /* eslint-disable react/button-has-type */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from 'src/containers/Navbar';
 import PropTypes from 'prop-types';
 import explorationImg from 'src/assets/img/bg_sky2.png';
 import avatar from 'src/assets/img/avatar.png';
 import * as dayjs from 'dayjs';
 import Loader from 'src/components/Loader';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import Map from './Map';
 import Comment from './Comment';
 import Participant from './Participant';
@@ -21,9 +22,26 @@ const Participate = ({
   isEventLoading,
   onClickNotParticipate,
 }) => {
+  const [items, setLength] = useState(Array.from({ length: 5 }));
+  const [hasmore, setHasmore] = useState(true);
+
   useEffect(() => {
     getEventData(id);
   }, []);
+
+  if (isEventLoading) {
+    return <Loader />;
+  }
+
+  const fetchMoreData = () => {
+    if (items.length >= 16) {
+      setHasmore(false);
+      return;
+    }
+    setTimeout(() => {
+      setLength(items.concat(Array.from({ length: 5 })));
+    }, 1000);
+  };
 
   const hangleOnchange = (e) => {
     onChange(e.target.value, e.target.name);
@@ -35,10 +53,6 @@ const Participate = ({
   };
 
   const user = JSON.parse(localStorage.getItem('user'));
-
-  if (isEventLoading) {
-    return <Loader />;
-  }
 
   const findUserParticipate = eventToModify?.participants?.find(
     (element) => element === user.user.username,
@@ -112,7 +126,9 @@ const Participate = ({
               {!findUserParticipate ? (
                 <button onClick={handleClickParticipate}>Participer</button>
               ) : (
-                <button onClick={handleClickNotParticipate}>Ne plus participer</button>
+                <button onClick={handleClickNotParticipate}>
+                  Ne plus participer
+                </button>
               )}
             </div>
             <div className="comments">
@@ -128,12 +144,23 @@ const Participate = ({
                 />
                 <button className="comments_send_btn">Envoyer</button>
               </form>
-              {eventToModify.comments
-              && eventToModify.comments[0].content !== null
-                ? eventToModify.comments?.map((element) => (
-                  <Comment key={element.id} {...element} />
-                ))
-                : ''}
+
+              <InfiniteScroll
+                dataLength={items.length}
+                next={fetchMoreData}
+                hasMore={hasmore}
+                loader={<h4>Chargement...</h4>}
+                endMessage={<p>Plus de message</p>}
+              >
+                {eventToModify.comments
+                && eventToModify.comments[0].content !== null
+                  ? eventToModify.comments
+                    ?.filter((item, index) => index < items.length)
+                    .map((element) => (
+                      <Comment key={element.id} {...element} />
+                    ))
+                  : ''}
+              </InfiniteScroll>
             </div>
           </div>
         </div>

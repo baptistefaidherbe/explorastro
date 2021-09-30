@@ -111,6 +111,14 @@
           }
         }
 
+        .infinite-scroll-component__outerdiv {
+          width: 100%;
+        }
+        .infinite-scroll-component {
+            overflow: none !important;
+          }
+
+      
         .comment {
           background-color: $secondary-color;
           padding: 10px;
