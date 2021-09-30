@@ -5,7 +5,6 @@ const participateController = {
   createParticipate: (req, res) => {
     const exploration_id = Number(req.params.exploration_id);
     const { user_id } = req.body;
-
     if (!user_id) {
       return res.json(MESSAGE.MISSING_FIEDLS);
     }
@@ -27,7 +26,6 @@ const participateController = {
   deleteParticipate: (req, res) => {
     const exploration_id = Number(req.params.exploration_id);
     const { user_id } = req.body;
-
     if (!user_id) {
       return res.json(MESSAGE.MISSING_FIEDLS);
     }

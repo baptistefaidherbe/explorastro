@@ -1,8 +1,8 @@
 const Joi = require("joi");
 
 const schema = Joi.object({
-  name: Joi.string().min(3).max(50),
-  description: Joi.string().min(3).max(280),
+  name: Joi.string().min(1).max(50),
+  description: Joi.string(),
   geog: Joi.array().items(Joi.number()),
   date: Joi.date(),
   max_participants: Joi.number(),

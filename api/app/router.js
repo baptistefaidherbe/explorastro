@@ -89,7 +89,7 @@ router.delete(
 );
 
 router.post(
-  "/comment/:exploration_id",
+  "/exploration/:exploration_id/comment",
   auth,
   validate("body", commentSchema),
   commentController.createComment

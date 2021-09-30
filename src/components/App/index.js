@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
-import Login from "src/containers/Login";
-import PropTypes from "prop-types";
-import Participate from "src/containers/Participate";
-import Component from "src/utils/Component";
-import Create from "src/containers/Create";
-import FormEvent from "src/containers/FormEvent";
-import Register from "../Register";
+import React, { useEffect } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Login from 'src/containers/Login';
+import PropTypes from 'prop-types';
+import MapExploration from 'src/containers/MapExploration';
+import Component from 'src/utils/Component';
+import Participate from 'src/containers/Participate';
+import Create from 'src/containers/Create';
+import FormEvent from 'src/containers/FormEvent';
+import Register from '../Register';
 
 const App = ({ isLogged, checkIsLogged }) => {
   useEffect(() => {
@@ -17,10 +18,10 @@ const App = ({ isLogged, checkIsLogged }) => {
     <div className="app">
       <Switch>
         <Route exact path="/">
-          <Component Login={Login} Children={Participate} isLogged={isLogged} />
+          <Component Login={Login} Children={MapExploration} isLogged={isLogged} />
         </Route>
-        <Route path="/participate">
-          <Component Login={Login} Children={Participate} isLogged={isLogged} />
+        <Route path="/map">
+          <Component Login={Login} Children={MapExploration} isLogged={isLogged} />
         </Route>
         <Route path="/create">
           <Component Login={Login} Children={Create} isLogged={isLogged} />
@@ -31,6 +32,17 @@ const App = ({ isLogged, checkIsLogged }) => {
             <Component
               Login={Login}
               Children={FormEvent}
+              id={Number(prop.match.params.id)}
+              isLogged={isLogged}
+            />
+          )}
+        />
+        <Route
+          path="/exploration/:id"
+          render={(prop) => (
+            <Component
+              Login={Login}
+              Children={Participate}
               id={Number(prop.match.params.id)}
               isLogged={isLogged}
             />

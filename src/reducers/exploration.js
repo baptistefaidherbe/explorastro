@@ -16,6 +16,8 @@ import {
   EVENT_LOADING,
   SAVE_LAST_ID,
   REMOVE_LAST_ID,
+  RESET_INPUT_COMMENT,
+
 } from 'src/actions/exploration';
 
 const initialState = {
@@ -31,6 +33,7 @@ const initialState = {
   myEvents: [],
   eventToModify: {},
   lastId: null,
+  toggledParticipate: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -107,10 +110,10 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
     case SAVE_EVENT_TO_MODIFY: {
-      console.log(action.payload);
       return {
         ...state,
         eventToModify: action.payload,
+        isEventLoading: false,
       };
     }
     case ON_CHANGE_EVENT: {
@@ -156,6 +159,15 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         lastId: initialState.lastId,
+      };
+    }
+    case RESET_INPUT_COMMENT: {
+      return {
+        ...state,
+        eventToModify: {
+          ...state.eventToModify,
+          sendComment: '',
+        },
       };
     }
 

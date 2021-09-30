@@ -55,6 +55,7 @@
 
         .content {
           padding: 0 10px;
+          width: 100%;
 
           .test {
             display: flex;
@@ -69,10 +70,16 @@
               font-size: 1em;
               display: flex;
               align-items: center;
+              transition: 0.5s;
 
               .deleteIcon {
-                color: #ffa5a5;
+                color: #dd75a9;
                 font-size: 1.3em;
+
+              }
+              &:hover {
+                color: #fdb0d7;
+                cursor: pointer;
               }
             }
           }
@@ -94,7 +101,7 @@
       color: #959ec7;
     }
 
-    .name{
+    .name {
       margin-top: 25px;
     }
 
@@ -117,7 +124,7 @@
     label {
       padding: 20px;
 
-      .date{
+      .date {
         margin-left: 10px;
       }
     }
@@ -168,14 +175,13 @@
       height: 26px;
     }
 
-
     .grp {
       background-color: $secondary-color;
       display: flex;
       justify-content: center;
     }
   }
-  &_button{
+  &_button {
     display: flex;
     justify-content: center;
 

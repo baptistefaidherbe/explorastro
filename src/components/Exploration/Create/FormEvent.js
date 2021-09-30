@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
-import React, { useEffect } from "react";
-import Navbar from "src/containers/Navbar";
-import explorationImg from "src/assets/img/bg_sky2.png";
-import dpt from "src/data/departements-region.json";
-import Modal from "src/components/Modal2";
-import Switch from "react-switch";
-import { Link } from "react-router-dom";
-import * as dayjs from "dayjs";
-import PropTypes from "prop-types";
-import { isEmpty } from "lodash";
-import Comment from "./Comment";
-import Map from "./Map";
+import React, { useEffect } from 'react';
+import Navbar from 'src/containers/Navbar';
+import explorationImg from 'src/assets/img/bg_sky2.png';
+import dpt from 'src/data/departements-region.json';
+import Modal from 'src/components/Modal2';
+import Switch from 'react-switch';
+import { Link } from 'react-router-dom';
+import * as dayjs from 'dayjs';
+import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
+import Comment from 'src/containers/Comment';
+import Map from './Map';
 
 const FormEvent = ({
   id,
@@ -39,7 +39,15 @@ const FormEvent = ({
   };
 
   const handleClick = () => {
-    onClickModal();
+    if (
+      eventToModify.name !== null
+      && eventToModify.description !== null
+      && eventToModify.date !== null
+      && eventToModify.geog !== null
+      && eventToModify.max_participants !== null
+    ) {
+      onClickModal();
+    }
   };
 
   const handlePublished = () => {
@@ -47,12 +55,11 @@ const FormEvent = ({
   };
 
   const handleIllustrationUpload = (event) => {
-    console.log('titi')
     uploadIllustration(event.target.files[0], id);
   };
 
   return isEmpty(eventToModify) ? (
-    ""
+    ''
   ) : (
     <div className="container">
       <Modal onClickModal={onClickModal} togledModal={togledModal} />
@@ -61,7 +68,15 @@ const FormEvent = ({
       <div className="formEvent">
         <form className="formEvent_content" onSubmit={handleOnSubmit}>
           <div className="imgEvent">
-            <img src={eventToModify.image_url ? eventToModify.image_url : explorationImg} alt="explorationImg" className="img" />
+            <img
+              src={
+                eventToModify.image_url
+                  ? eventToModify.image_url
+                  : explorationImg
+              }
+              alt="explorationImg"
+              className="img"
+            />
             <input
               className=" button uploadBtn"
               type="file"
@@ -76,7 +91,11 @@ const FormEvent = ({
               <h3>Commentaires</h3>
               <div className="comments">
                 {eventToModify.comments.map((element) => (
-                  <Comment key={element.id} element={element} />
+                  <Comment
+                    key={element.id}
+                    idEvent={id}
+                    element={element}
+                  />
                 ))}
               </div>
             </>
@@ -88,7 +107,8 @@ const FormEvent = ({
             className="name"
             name="name"
             onChange={handleOnchange}
-            value={eventToModify.name ? eventToModify.name : ""}
+            required="required"
+            value={eventToModify.name ? eventToModify.name : ''}
           />
 
           <textarea
@@ -96,8 +116,9 @@ const FormEvent = ({
             name="description"
             rows="10"
             cols="70"
+            required="required"
             placeholder="Description"
-            value={eventToModify.description ? eventToModify.description : ""}
+            value={eventToModify.description ? eventToModify.description : ''}
             onChange={handleOnchange}
           />
           <div className="grp">
@@ -107,10 +128,11 @@ const FormEvent = ({
                 className="date"
                 type="datetime-local"
                 name="date"
+                required="required"
                 value={
                   eventToModify.date
-                    ? dayjs(eventToModify.date).format("YYYY-MM-DDTHH:mm")
-                    : dayjs().format("YYYY-MM-DDTHH:mm")
+                    ? dayjs(eventToModify.date).format('YYYY-MM-DDTHH:mm')
+                    : ''
                 }
                 onChange={handleOnchange}
               />
@@ -121,8 +143,9 @@ const FormEvent = ({
                 onChange={handleOnchange}
                 name="departement"
                 className="departement"
+                required="required"
                 value={
-                  eventToModify.departement ? eventToModify.departement : ""
+                  eventToModify.departement ? eventToModify.departement : ''
                 }
               >
                 <option value="">Choisisez un département</option>
@@ -145,13 +168,13 @@ const FormEvent = ({
               <input
                 type="range"
                 name="max_participants"
-                min="0"
+                min="1"
                 max="50"
                 step="1"
                 value={
                   eventToModify.max_participants
                     ? eventToModify.max_participants
-                    : 0
+                    : 1
                 }
                 onChange={handleOnchange}
               />

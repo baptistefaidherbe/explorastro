@@ -74,3 +74,15 @@ ADD CONSTRAINT comment_exploration_id_fkey
 
    ALTER TABLE "exploration"
    ALTER COLUMN is_published SET NOT NULL DEFAULT false;
+
+   ALTER TABLE "exploration"
+   ALTER COLUMN max_participants SET NOT NULL DEFAULT 0;
+
+   ALTER TABLE "user"
+   ALTER COLUMN avatar_url SET DEFAULT http://localhost:3000/uploads/avatar.png;
+
+   ALTER TABLE "user"
+   ALTER COLUMN avatar_url SET NOT NULL;
+
+
+

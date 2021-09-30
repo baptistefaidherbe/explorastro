@@ -49,11 +49,12 @@ const dataExploration = {
       ( 
         SELECT json_agg(item)
         FROM (
-          SELECT content, u.username, comment.id 
+          SELECT content, u.username, comment.id, u.avatar_url, comment.created_at
           FROM "comment"
           FULL JOIN "user" u on comment.author_id = u.id
           FULL JOIN "exploration" on comment.exploration_id = exploration.id
           WHERE exploration.id= $1
+          ORDER BY (comment.created_at) DESC
         ) item
       ) AS Comments
       FROM exploration 

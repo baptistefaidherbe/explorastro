@@ -1,29 +1,33 @@
-export const GET_ALL_EVENTS = "GET_ALL_EVENTS";
-export const SAVE_ALL_EVENTS = "SAVE_ALL_EVENTS";
-export const ON_CLICK_MODAL = "ON_CLICK_MODAL";
-export const ONCLICK_CLOSED_MODAL = "ONCLICK_CLOSED_MODAL";
-export const ON_CHANGE_AREA = "ON_CHANGE_AREA";
-export const USER_GEOLOC = "USER_GEOLOC";
-export const ON_SUBMIT_SEARCH_NAME = "ON_SUBMIT_SEARCH_NAME";
-export const ON_SUBMIT_DEPARTEMENT = "ON_SUBMIT_DEPARTEMENT";
-export const ON_SUBMIT_SEARCH_AUTHOR = "ON_SUBMIT_SEARCH_AUTHOR";
-export const ON_SUBMIT_NAME = "ON_SUBMIT_NAME";
-export const ON_CHANGE_NAME = "ON_CHANGE_NAME";
-export const GET_MY_EVENTS = "GET_MY_EVENTS";
-export const SAVE_MY_EVENTS = "SAVE_MY_EVENTS";
-export const ADD_NEW_EXPLORATION = "ADD_NEW_EXPLORATION";
-export const ON_DELETE_EVENT = "ON_DELETE_EVENT";
-export const GET_EVENT_DATA = "GET_EVENT_DATA";
-export const SAVE_EVENT_TO_MODIFY = "SAVE_EVENT_TO_MODIFY";
-export const ON_CHANGE_EVENT = "ON_CHANGE_EVENT";
-export const ON_PUBLISHED = "ON_PUBLISHED";
-export const GET_COORD_LOCATION = "GET_COORD_LOCATION";
-export const EVENT_LOADING = "EVENT_LOADING";
-export const ON_SUBMIT_EVENT = "ON_SUBMIT_EVENT";
-export const SAVE_LAST_ID = "SAVE_LAST_ID";
-export const REMOVE_LAST_ID = "REMOVE_LAST_ID";
-export const UPLOAD_EXPLORATION_ILLUSTRATION =
-  "UPLOAD_EXPLORATION_ILLUSTRATION";
+export const GET_ALL_EVENTS = 'GET_ALL_EVENTS';
+export const SAVE_ALL_EVENTS = 'SAVE_ALL_EVENTS';
+export const ON_CLICK_MODAL = 'ON_CLICK_MODAL';
+export const ONCLICK_CLOSED_MODAL = 'ONCLICK_CLOSED_MODAL';
+export const ON_CHANGE_AREA = 'ON_CHANGE_AREA';
+export const USER_GEOLOC = 'USER_GEOLOC';
+export const ON_SUBMIT_SEARCH_NAME = 'ON_SUBMIT_SEARCH_NAME';
+export const ON_SUBMIT_DEPARTEMENT = 'ON_SUBMIT_DEPARTEMENT';
+export const ON_SUBMIT_SEARCH_AUTHOR = 'ON_SUBMIT_SEARCH_AUTHOR';
+export const ON_SUBMIT_NAME = 'ON_SUBMIT_NAME';
+export const ON_CHANGE_NAME = 'ON_CHANGE_NAME';
+export const GET_MY_EVENTS = 'GET_MY_EVENTS';
+export const SAVE_MY_EVENTS = 'SAVE_MY_EVENTS';
+export const ADD_NEW_EXPLORATION = 'ADD_NEW_EXPLORATION';
+export const ON_DELETE_EVENT = 'ON_DELETE_EVENT';
+export const GET_EVENT_DATA = 'GET_EVENT_DATA';
+export const SAVE_EVENT_TO_MODIFY = 'SAVE_EVENT_TO_MODIFY';
+export const ON_CHANGE_EVENT = 'ON_CHANGE_EVENT';
+export const ON_PUBLISHED = 'ON_PUBLISHED';
+export const GET_COORD_LOCATION = 'GET_COORD_LOCATION';
+export const EVENT_LOADING = 'EVENT_LOADING';
+export const ON_SUBMIT_EVENT = 'ON_SUBMIT_EVENT';
+export const SAVE_LAST_ID = 'SAVE_LAST_ID';
+export const REMOVE_LAST_ID = 'REMOVE_LAST_ID';
+export const UPLOAD_EXPLORATION_ILLUSTRATION = 'UPLOAD_EXPLORATION_ILLUSTRATION';
+export const ON_SUBMIT_COMMENT = 'ON_SUBMIT_COMMENT';
+export const ON_CLICK_DELETE_COMMENT = 'ON_CLICK_DELETE_COMMENT';
+export const RESET_INPUT_COMMENT = 'RESET_INPUT_COMMENT';
+export const ON_CLICK_PARTICIPATE = 'ON_CLICK_PARTICIPATE';
+export const ON_CLICK_NOT_PARTICIPATE = 'ON_CLICK_NOT_PARTICIPATE';
 
 export const getAllEvents = () => ({
   type: GET_ALL_EVENTS,
@@ -123,7 +127,27 @@ export const uploadExplorationIllustration = (payload, id) => ({
   payload,
   id,
 });
-export const saveExplorationIllustration = (payload) => ({
+export const callEventData = (payload) => ({
   type: GET_EVENT_DATA,
   payload,
+});
+export const onSubmitComment = (payload) => ({
+  type: ON_SUBMIT_COMMENT,
+  payload,
+});
+export const onClickDeleteComment = (id, idEvent) => ({
+  type: ON_CLICK_DELETE_COMMENT,
+  id,
+  idEvent,
+});
+export const resetInputComment = () => ({
+  type: RESET_INPUT_COMMENT,
+});
+export const onClickParticipate = (id) => ({
+  type: ON_CLICK_PARTICIPATE,
+  id,
+});
+export const onClickNotParticipate = (id) => ({
+  type: ON_CLICK_NOT_PARTICIPATE,
+  id,
 });

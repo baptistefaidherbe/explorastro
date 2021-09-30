@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import FormEvent from "src/components/Exploration/Create/FormEvent";
+import { connect } from 'react-redux';
+import FormEvent from 'src/components/Exploration/Create/FormEvent';
 import {
   getEventData,
   onChangeEvent,
@@ -8,7 +8,8 @@ import {
   onSubmitEvent,
   onClickModal,
   uploadExplorationIllustration,
-} from "src/actions/exploration";
+  onClickDeleteComment,
+} from 'src/actions/exploration';
 
 const mapStateToProps = (state) => ({
   eventToModify: state.exploration.eventToModify,
@@ -35,6 +36,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   uploadIllustration: (value, id) => {
     dispatch(uploadExplorationIllustration(value, id));
+  },
+  onClickDelete: (id) => {
+    dispatch(onClickDeleteComment(id));
   },
 });
 
