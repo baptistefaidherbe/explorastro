@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import L from "leaflet";
 import markerIcon from "src/assets/img/location.svg";
+import GeocoderReverse from "./GeocoderReverse";
 
 const telescopIcon = L.icon({
   iconUrl: markerIcon,
@@ -26,7 +27,7 @@ export default function Map({ coord }) {
         url={`https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${process.env.STADIA_API_KEY}`}
         name="tiles"
       />
-
+      <GeocoderReverse coord={coord} />
       <Marker
         names="marker"
         position={coord !== null && coord.length === 2 ? coord : [0, 0]}

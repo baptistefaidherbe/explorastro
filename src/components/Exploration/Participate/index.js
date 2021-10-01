@@ -7,6 +7,9 @@ import avatar from 'src/assets/img/avatar.png';
 import * as dayjs from 'dayjs';
 import Loader from 'src/components/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Link } from 'react-router-dom';
+import { IoIosArrowBack } from 'react-icons/io';
+import getIconWeather from 'src/selectors/iconWeather';
 import Map from './Map';
 import Comment from './Comment';
 import Participant from './Participant';
@@ -21,6 +24,8 @@ const Participate = ({
   onClickParticipate,
   isEventLoading,
   onClickNotParticipate,
+  getWeather,
+  weather,
 }) => {
   const [items, setLength] = useState(Array.from({ length: 5 }));
   const [hasmore, setHasmore] = useState(true);
@@ -28,6 +33,10 @@ const Participate = ({
   useEffect(() => {
     getEventData(id);
   }, []);
+
+  useEffect(() => {
+    getWeather(eventToModify?.geog);
+  }, [eventToModify]);
 
   if (isEventLoading) {
     return <Loader />;
@@ -66,11 +75,20 @@ const Participate = ({
     onClickNotParticipate(id);
   };
 
+  if (!weather.weather) {
+    return <Loader />;
+  }
+
   return (
     <div className="container">
       <Navbar />
       <div className="participate">
         <div className="participate_content">
+          <div className="buttonZone">
+            <Link className="button backMap" to="/map">
+              <IoIosArrowBack /> Revenir sur la carte
+            </Link>
+          </div>
           <div className="banner">
             <img
               src={
@@ -101,13 +119,24 @@ const Participate = ({
                 </span>
               </div>
               <div className="weather">
-                <span>Météo : soleil</span>
+                <span>Météo : </span>
+                <div className="temp">
+                  {getIconWeather(weather.weather[0].icon)}
+                  {weather.temp}°{' '}
+                </div>
+                <div className="weather_info">
+                  <span>
+                    Vitesse du vent : {Math.round(weather.wind_speed * 3.6)} km/h{' '}
+                  </span>
+                  <span>Humidité : {weather.humidity} % </span>
+                  <span>Nuages : {weather.clouds} %</span>
+                </div>
               </div>
             </div>
             <Map coord={eventToModify.geog ? eventToModify.geog : null} />
             <div className="participant">
               <span>
-                Nombre de participants{' '}
+                Nombre d'explorateurs{' '}
                 {eventToModify.participants
                 && eventToModify.participants[0] !== null
                   ? eventToModify.participants?.length
@@ -150,7 +179,7 @@ const Participate = ({
                 next={fetchMoreData}
                 hasMore={hasmore}
                 loader={<h4>Chargement...</h4>}
-                endMessage={<p>Plus de message</p>}
+                endMessage={' '}
               >
                 {eventToModify.comments
                 && eventToModify.comments[0].content !== null
@@ -181,6 +210,8 @@ Participate.propTypes = {
   onClickParticipate: PropTypes.func.isRequired,
   isEventLoading: PropTypes.bool.isRequired,
   onClickNotParticipate: PropTypes.func.isRequired,
+  getWeather: PropTypes.func.isRequired,
+  weather: PropTypes.object.isRequired,
 };
 
 Participate.defaultProps = {

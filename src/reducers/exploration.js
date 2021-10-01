@@ -17,6 +17,7 @@ import {
   SAVE_LAST_ID,
   REMOVE_LAST_ID,
   RESET_INPUT_COMMENT,
+  SAVE_WEATHER,
 
 } from 'src/actions/exploration';
 
@@ -34,6 +35,7 @@ const initialState = {
   eventToModify: {},
   lastId: null,
   toggledParticipate: false,
+  weather: {},
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -168,6 +170,12 @@ const reducer = (state = initialState, action = {}) => {
           ...state.eventToModify,
           sendComment: '',
         },
+      };
+    }
+    case SAVE_WEATHER: {
+      return {
+        ...state,
+        weather: action.payload,
       };
     }
 

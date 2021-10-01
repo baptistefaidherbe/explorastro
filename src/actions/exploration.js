@@ -28,6 +28,8 @@ export const ON_CLICK_DELETE_COMMENT = 'ON_CLICK_DELETE_COMMENT';
 export const RESET_INPUT_COMMENT = 'RESET_INPUT_COMMENT';
 export const ON_CLICK_PARTICIPATE = 'ON_CLICK_PARTICIPATE';
 export const ON_CLICK_NOT_PARTICIPATE = 'ON_CLICK_NOT_PARTICIPATE';
+export const GET_WEATHER = 'GET_WEATHER';
+export const SAVE_WEATHER = 'SAVE_WEATHER';
 
 export const getAllEvents = () => ({
   type: GET_ALL_EVENTS,
@@ -150,4 +152,12 @@ export const onClickParticipate = (id) => ({
 export const onClickNotParticipate = (id) => ({
   type: ON_CLICK_NOT_PARTICIPATE,
   id,
+});
+export const getWeather = (payload) => ({
+  type: GET_WEATHER,
+  payload,
+});
+export const saveWeather = (payload) => ({
+  type: SAVE_WEATHER,
+  payload,
 });

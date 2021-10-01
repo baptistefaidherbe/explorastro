@@ -1,13 +1,19 @@
-import { connect } from 'react-redux';
-import Participate from 'src/components/Exploration/Participate';
+import { connect } from "react-redux";
+import Participate from "src/components/Exploration/Participate";
 import {
-  getEventData, onChangeEvent, onSubmitComment, onClickParticipate, onClickNotParticipate,
-} from 'src/actions/exploration';
+  getEventData,
+  onChangeEvent,
+  onSubmitComment,
+  onClickParticipate,
+  onClickNotParticipate,
+  getWeather,
+} from "src/actions/exploration";
 
 const mapStateToProps = (state) => ({
   eventToModify: state.exploration.eventToModify,
   sendComment: state.exploration.eventToModify.sendComment,
   isEventLoading: state.exploration.isEventLoading,
+  weather: state.exploration.weather,
 });
 const mapDispatchToProps = (dispatch) => ({
   getEventData: (value) => {
@@ -24,6 +30,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onClickNotParticipate: (id) => {
     dispatch(onClickNotParticipate(id));
+  },
+  getWeather: (value) => {
+    dispatch(getWeather(value));
   },
 });
 
