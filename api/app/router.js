@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const auth = require("./middleware/auth");
-const upload = require('./middleware/multer');
+const upload = require("./middleware/multer");
 
 const explorationController = require("./controllers/explorationController");
 const userController = require("./controllers/userController");
@@ -11,6 +11,8 @@ const participateController = require("./controllers/participateController");
 const commentController = require("./controllers/commentController");
 const authController = require("./controllers/authController");
 const forgotPasswordController = require("./controllers/forgotPaswordController");
+const conversationController = require("./controllers/conversationController");
+const messageController = require("./controllers/messageController");
 
 const validate = require("./validations/validate");
 const {
@@ -33,10 +35,10 @@ router.post(
   explorationController.createExploration
 );
 
-
 router.post(
   "/exploration/:id/upload",
-  auth,upload.single('image'),
+  auth,
+  upload.single("image"),
   explorationController.updateExplorationImage
 );
 router.patch(
@@ -112,5 +114,11 @@ router.patch(
   validate("body", userSchema),
   forgotPasswordController.resetPassword
 );
+
+router.post("/conversation", auth, conversationController.postConversation);
+router.get("/conversation/:username", auth, conversationController.getConversation);
+
+router.post("/message", auth, messageController.postMessage);
+router.get("/message/:conversationId", auth, messageController.getMessage);
 
 module.exports = router;

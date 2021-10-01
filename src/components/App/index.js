@@ -9,8 +9,9 @@ import Create from 'src/containers/Create';
 import FormEvent from 'src/containers/FormEvent';
 import Register from '../Register';
 
-const App = ({ isLogged, checkIsLogged }) => {
+const App = ({ isLogged, checkIsLogged, wsConnect }) => {
   useEffect(() => {
+    wsConnect();
     checkIsLogged();
   }, []);
 
@@ -60,8 +61,13 @@ const App = ({ isLogged, checkIsLogged }) => {
 };
 
 App.propTypes = {
-  isLogged: PropTypes.bool.isRequired,
+  isLogged: PropTypes.bool,
   checkIsLogged: PropTypes.func.isRequired,
+  wsConnect: PropTypes.func.isRequired,
+};
+
+App.defaultProps = {
+  isLogged: false,
 };
 
 export default App;
