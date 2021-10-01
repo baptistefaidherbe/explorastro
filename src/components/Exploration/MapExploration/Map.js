@@ -25,7 +25,6 @@ const homeIcon = L.icon({
 export default function Map({ fieldZone, positionGeoloc, filterEvents }) {
   const LocationMarker = () => {
     const map = useMap();
-
     useEffect(() => {
       map.eachLayer((layer) => {
         if (layer?.options?.name === 'circle') {

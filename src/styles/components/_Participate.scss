@@ -13,6 +13,16 @@
     padding: 10px;
     align-items: center;
 
+    .buttonZone {
+      margin: 25px 0;
+      width: 100%;
+  
+      .backMap {
+        font-size: 0.9em;
+      }
+    }
+
+
     .banner {
       width: 100%;
       position: relative;
@@ -43,6 +53,7 @@
         }
       }
     }
+
     .info {
       display: flex;
       flex-direction: column;
@@ -54,10 +65,37 @@
         font-size: 2em;
         margin-top: 68px;
       }
+
       .grp {
         width: 100%;
         display: flex;
         justify-content: space-around;
+        flex-wrap: wrap;
+
+        .date {
+          display: flex;
+          align-items: center;
+        }
+
+        .weather {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          padding: 0 5px;
+
+          .temp {
+            display: flex;
+            align-items: center;
+            font-size: 1.8em;
+            padding-right: 5px;
+          }
+
+          &_info {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.8em;
+          }
+        }
       }
 
       .description,
@@ -109,6 +147,13 @@
             border-radius: 0%;
             margin: 0;
           }
+        }
+
+        .infinite-scroll-component__outerdiv {
+          width: 100%;
+        }
+        .infinite-scroll-component {
+          overflow: none !important;
         }
 
         .comment {

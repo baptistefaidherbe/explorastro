@@ -8,6 +8,7 @@ import Modal from 'src/components/Modal';
 import explosFilter from 'src/selectors/filter';
 import getDistance from 'src/selectors/getDistance';
 import Loader from 'src/components/Loader';
+import { isEmpty } from 'lodash';
 import Event from './Event';
 import Map from './Map';
 
@@ -56,26 +57,32 @@ const Participate = ({
   if (isEventLoading) {
     return <Loader />;
   }
+  let filterEvents;
 
-  const explos = explorations.map((element) => {
-    const lat = parseFloat(element.geog[0], 10);
-    const long = parseFloat(element.geog[1], 10);
-    const coord = [lat, long];
-    const distance = getDistance(coord, myGeoloc);
-    element.coord = coord;
-    element.distance = distance;
-    return element;
-  });
+  if (explorations && explorations.length !== 0 && !isEmpty(myGeoloc)) {
+    const explos = explorations?.map((element) => {
+      const lat = parseFloat(element.geog[0], 10);
+      const long = parseFloat(element.geog[1], 10);
+      const coord = [lat, long];
+      const distance = getDistance(coord, myGeoloc);
+      element.coord = coord;
+      element.distance = distance;
+      return element;
+    });
 
-  const filterEvents = explosFilter(
-    explos,
-    departement,
-    fieldZone,
-    searchName,
-    searchAuthor,
-  );
+    filterEvents = explosFilter(
+      explos,
+      departement,
+      fieldZone,
+      searchName,
+      searchAuthor,
+    );
+  }
+  else {
+    return <Loader />;
+  }
 
-  return (
+  return filterEvents !== undefined ? (
     <>
       <div className="container">
         <Navbar />
@@ -114,6 +121,8 @@ const Participate = ({
         </div>
       </div>
     </>
+  ) : (
+    ''
   );
 };
 
