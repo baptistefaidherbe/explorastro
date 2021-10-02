@@ -1,5 +1,5 @@
 import {
-  CHANGE_VALUE, SAVE_USER, LOGIN_ERROR, LOGOUT,
+  CHANGE_VALUE, SAVE_USER, LOGIN_ERROR, LOGOUT, SAVE_FRIEND_USER,
 } from 'src/actions/user';
 
 const initialState = {

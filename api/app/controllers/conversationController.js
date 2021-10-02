@@ -16,7 +16,7 @@ const conversationController = {
   getConversation: async (req, res) => {
     try {
       const conversation = await Conversation.find({
-        members: { $in: [req.params.username] },
+        members: { $in: [req.params.id] },
       });
       res.status(200).json(conversation);
     } catch (err) {

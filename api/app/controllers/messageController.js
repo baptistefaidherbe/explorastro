@@ -6,6 +6,7 @@ const messageController = {
         conversationId: req.body.conversationId,
         sender: req.body.sender,
         text: req.body.text,
+        avatar_url: req.body.avatar_url,
     });
 
     try {

@@ -8,6 +8,9 @@ const MessageSchema = new mongoose.Schema(
     sender: {
       type: String,
     },
+    avatar_url:{
+      type: String,
+    },
     text: {
       type: String,
     },

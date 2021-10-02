@@ -116,7 +116,7 @@ router.patch(
 );
 
 router.post("/conversation", auth, conversationController.postConversation);
-router.get("/conversation/:username", auth, conversationController.getConversation);
+router.get("/conversation/:id", auth, conversationController.getConversation);
 
 router.post("/message", auth, messageController.postMessage);
 router.get("/message/:conversationId", auth, messageController.getMessage);

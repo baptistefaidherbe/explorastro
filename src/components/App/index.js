@@ -7,6 +7,7 @@ import Component from 'src/utils/Component';
 import Participate from 'src/containers/Participate';
 import Create from 'src/containers/Create';
 import FormEvent from 'src/containers/FormEvent';
+import Chat from 'src/containers/Chat';
 import Register from '../Register';
 
 const App = ({ isLogged, checkIsLogged, wsConnect }) => {
@@ -23,6 +24,9 @@ const App = ({ isLogged, checkIsLogged, wsConnect }) => {
         </Route>
         <Route path="/map">
           <Component Login={Login} Children={MapExploration} isLogged={isLogged} />
+        </Route>
+        <Route path="/message">
+          <Component Login={Login} Children={Chat} isLogged={isLogged} />
         </Route>
         <Route path="/create">
           <Component Login={Login} Children={Create} isLogged={isLogged} />
