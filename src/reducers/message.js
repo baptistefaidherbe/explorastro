@@ -1,9 +1,10 @@
-import { SAVE_CONVERSATION, SAVE_MESSAGE, ON_CHANGE_MESSAGE, SAVE_NEW_MESSAGE, } from 'src/actions/webSocket';
+import { SAVE_CONVERSATION, SAVE_MESSAGE, ON_CHANGE_MESSAGE, SAVE_NEW_MESSAGE, SAVE_ARRIVAL_MESSAGE } from 'src/actions/webSocket';
 
 const initialState = {
   conversations: [],
   messages: [],
   newMessage: '',
+  arrivalMessage: {},
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -31,6 +32,12 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         messages: [...state.messages, action.payload],
         newMessage: initialState.newMessage,
+      };
+    }
+    case SAVE_ARRIVAL_MESSAGE: {
+      return {
+        ...state,
+        arrivalMessage: action.payload,
       };
     }
     default:

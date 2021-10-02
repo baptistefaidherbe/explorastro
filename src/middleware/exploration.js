@@ -156,11 +156,13 @@ const exploration = (store) => (next) => (action) => {
     case ON_SUBMIT_COMMENT: {
       const submitComment = async () => {
         const state = store.getState();
+        const user = JSON.parse(localStorage.getItem("user"));
+        const authorId = user.user.id;
         const id = action.payload;
 
         const data = {
           content: state.exploration.eventToModify.sendComment,
-          author_id: state.exploration.eventToModify.author_id,
+          author_id: authorId,
         };
         try {
           await api.post(`/exploration/${id}/comment`, data);
@@ -193,10 +195,11 @@ const exploration = (store) => (next) => (action) => {
     }
     case ON_CLICK_PARTICIPATE: {
       const participate = async () => {
-        const state = store.getState();
+        const user = JSON.parse(localStorage.getItem("user"));
+        const authorId = user.user.id;
         const { id } = action;
         const data = {
-          user_id: state.exploration.eventToModify.author_id,
+          user_id: authorId,
         };
         try {
           await api.post(`/participate/${id}`, data);
@@ -212,14 +215,12 @@ const exploration = (store) => (next) => (action) => {
     }
     case ON_CLICK_NOT_PARTICIPATE: {
       const notParticipate = async () => {
-        const state = store.getState();
+        const user = JSON.parse(localStorage.getItem("user"));
+        const authorId = user.user.id;
         const { id } = action;
-        const data = {
-          user_id: state.exploration.eventToModify.author_id,
-        };
         try {
           await api.delete(`/participate/${id}`, {
-            data: { user_id: state.exploration.eventToModify.author_id },
+            data: { user_id: authorId },
           });
           store.dispatch(callEventData(id));
         }
@@ -236,7 +237,6 @@ const exploration = (store) => (next) => (action) => {
         const { payload } = action;
 
         if (payload) {
-          console.log(payload[1]);
           try {
             const resp = await axios(
               `https://api.openweathermap.org/data/2.5/onecall?lat=${payload[0]}&lon=${payload[1]}&units=metric&appid=761235a6e9c3bc9d94fe0e7d170588ad`,

@@ -16,12 +16,11 @@
     .buttonZone {
       margin: 25px 0;
       width: 100%;
-  
+
       .backMap {
         font-size: 0.9em;
       }
     }
-
 
     .banner {
       width: 100%;
@@ -117,11 +116,14 @@
         width: 50%;
 
         &_member {
-          text-align: center;
           width: 100%;
-          margin-top: 10px;
-          background-color: $secondary-color;
-          padding: 10px;
+          .card {
+            text-align: center;
+            width: 100%;
+            margin-top: 10px;
+            background-color: $secondary-color;
+            padding: 10px;
+          }
         }
       }
 

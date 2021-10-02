@@ -1,11 +1,12 @@
-export const WS_CONNECT = 'WS_CONNECT';
-export const GET_CONVERSATION = 'GET_CONVERSATION';
-export const SAVE_CONVERSATION = 'SAVE_CONVERSATION';
-export const GET_MESSAGE = 'GET_MESSAGE';
-export const SAVE_MESSAGE = 'SAVE_MESSAGE';
-export const ON_CHANGE_MESSAGE = 'ON_CHANGE_MESSAGE';
-export const ON_SUBMIT_MESSAGE = 'ON_SUBMIT_MESSAGE';
-export const SAVE_NEW_MESSAGE = 'SAVE_NEW_MESSAGE';
+export const WS_CONNECT = "WS_CONNECT";
+export const GET_CONVERSATION = "GET_CONVERSATION";
+export const SAVE_CONVERSATION = "SAVE_CONVERSATION";
+export const GET_MESSAGE = "GET_MESSAGE";
+export const SAVE_MESSAGE = "SAVE_MESSAGE";
+export const ON_CHANGE_MESSAGE = "ON_CHANGE_MESSAGE";
+export const ON_SUBMIT_MESSAGE = "ON_SUBMIT_MESSAGE";
+export const SAVE_NEW_MESSAGE = "SAVE_NEW_MESSAGE";
+export const SAVE_ARRIVAL_MESSAGE = "SAVE_ARRIVAL_MESSAGE";
 
 export const wsConnect = () => ({
   type: WS_CONNECT,
@@ -35,6 +36,10 @@ export const onSubmitMessage = (payload) => ({
   payload,
 });
 export const saveNewMessage = (payload) => ({
+  type: SAVE_NEW_MESSAGE,
+  payload,
+});
+export const saveArrivalMessage = (payload) => ({
   type: SAVE_NEW_MESSAGE,
   payload,
 });
