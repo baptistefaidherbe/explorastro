@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
-import Navbar from "src/containers/Navbar";
-import PropTypes from "prop-types";
-import User from "./User";
+import React, { useEffect } from 'react';
+import Navbar from 'src/containers/Navbar';
+import PropTypes from 'prop-types';
+import User from './User';
 
-const Member = ({ getAllUser, allUser, onlineUser }) => {
+const Member = ({
+  getAllUser, allUser, onlineUser, createConversation, conversations, getConversation,
+}) => {
   useEffect(() => {
     getAllUser();
   }, []);
@@ -23,7 +25,15 @@ const Member = ({ getAllUser, allUser, onlineUser }) => {
           </thead>
           <tbody>
             {allUser.map((element) => (
-              <User key={element.id} user={element} onlineUser={onlineUser} />
+              <User
+                key={element.id}
+                user={element}
+                onlineUser={onlineUser}
+                createConversation={createConversation}
+                conversations={conversations}
+                getConversation={getConversation}
+
+              />
             ))}
           </tbody>
         </table>
@@ -36,6 +46,9 @@ Member.propTypes = {
   getAllUser: PropTypes.func.isRequired,
   allUser: PropTypes.array.isRequired,
   onlineUser: PropTypes.array.isRequired,
+  createConversation: PropTypes.func.isRequired,
+  conversations: PropTypes.array.isRequired,
+  getConversation: PropTypes.func.isRequired,
 };
 
 export default Member;

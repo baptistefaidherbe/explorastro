@@ -37,10 +37,9 @@ module.exports = (io) => {
     });
 
     socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-      console.log(senderId, receiverId, text)
+      console.log(receiverId)
       const user = getUser(receiverId);
       if(user?.socketId){
-        console.log(text)
       io.to(user.socketId).emit("getMessage", {
         senderId,
         text,

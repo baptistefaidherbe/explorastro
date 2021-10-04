@@ -6,6 +6,8 @@ import {
   saveMessage,
   ON_SUBMIT_MESSAGE,
   saveNewMessage,
+  CREATE_CONVERSATION,
+  saveArrivalMessage,
 } from 'src/actions/webSocket';
 import { saveOnlineUser } from 'src/actions/user';
 import api from './utils/api';
@@ -27,6 +29,16 @@ const websocket = (store) => (next) => (action) => {
         socket.emit('addUser', id);
         socket.on('getUsers', (users) => {
           store.dispatch(saveOnlineUser(users));
+        });
+
+        socket.on('getMessage', (data) => {
+          store.dispatch(
+            saveArrivalMessage({
+              sender: data.senderId,
+              text: data.text,
+              createdAt: Date.now(),
+            }),
+          );
         });
       }
       break;
@@ -77,6 +89,25 @@ const websocket = (store) => (next) => (action) => {
         }
       };
       submitMessage();
+      break;
+    }
+    case CREATE_CONVERSATION: {
+      const createConversation = async () => {
+        const conversation = {
+          sender: action.sender.toString(),
+          receiver: action.receiver.toString(),
+        };
+        try {
+          const resp = await api.post('/conversation', conversation);
+          // store.dispatch(saveNewMessage(resp.data));
+          console.log(resp.data);
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error.response);
+        }
+      };
+      createConversation();
       break;
     }
     default:

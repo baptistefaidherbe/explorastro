@@ -16,13 +16,12 @@ const Chat = ({
   onChangeMessage,
   newMessage,
   onSubmitMessage,
-  saveArrivalMessage,
+
 }) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const { id } = user.user;
   const { avatar_url } = user.user;
   const [currentChat, setCurrentChat] = useState(null);
-  const [arrivalMessage, setArrivalMessage] = useState(null);
   const scrollRef = useRef();
   const socket = useRef();
 
@@ -30,27 +29,7 @@ const Chat = ({
     socket.current = window.io("http://localhost:3000", {
       transports: ["websocket"],
     });
-
-    socket.current.on("getMessage", (data) => {
-      setArrivalMessage({
-        sender: data.senderId,
-        text: data.text,
-        createdAt: Date.now(),
-      });
-    });
-    // socket.current.emit("addUser", id);
-    // socket.current.on("getUsers", (users) => {
-    //   console.log(users);
-    //   setOnlineUsers(
-    //     user.followings.filter((f) => users.some((u) => u.userId === f)),
-    //   );
-    // });
   }, []);
-  useEffect(() => {
-    if (arrivalMessage) {
-      saveArrivalMessage(arrivalMessage);
-    }
-  }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
     getConversation(id);
@@ -78,7 +57,7 @@ const Chat = ({
       avatar_url: avatar_url,
     };
     const receiverId = currentChat?.members?.find(
-      (member) => member !== id.toString()
+      (member) => member !== id.toString(),
     );
 
     socket.current.emit("sendMessage", {
@@ -94,6 +73,7 @@ const Chat = ({
       <div className="chat">
         <div className="chat_search">
           <input placeholder="Search for friends" className="chatMenuInput" />
+          <h2>Mes conversations</h2>
           {conversations.map((element) => (
             <div key={element._id} onClick={() => setCurrentChat(element)}>
               <Conversation
@@ -143,7 +123,6 @@ Chat.propTypes = {
   onChangeMessage: PropTypes.func.isRequired,
   newMessage: PropTypes.string.isRequired,
   onSubmitMessage: PropTypes.func.isRequired,
-  saveArrivalMessage: PropTypes.func.isRequired,
 };
 
 export default Chat;

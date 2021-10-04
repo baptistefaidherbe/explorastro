@@ -1,4 +1,6 @@
-import { SAVE_CONVERSATION, SAVE_MESSAGE, ON_CHANGE_MESSAGE, SAVE_NEW_MESSAGE, SAVE_ARRIVAL_MESSAGE } from 'src/actions/webSocket';
+import {
+  SAVE_CONVERSATION, SAVE_MESSAGE, ON_CHANGE_MESSAGE, SAVE_NEW_MESSAGE, SAVE_ARRIVAL_MESSAGE,
+} from 'src/actions/webSocket';
 
 const initialState = {
   conversations: [],
@@ -35,6 +37,7 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
     case SAVE_ARRIVAL_MESSAGE: {
+      console.log('zgfzegzg');
       return {
         ...state,
         arrivalMessage: action.payload,
