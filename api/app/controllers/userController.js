@@ -8,7 +8,7 @@ const userController = {
       if (error) {
         console.trace(error);
       } else {
-        res.json({ users: response.rows });
+        res.json(response.rows);
       }
     });
   },

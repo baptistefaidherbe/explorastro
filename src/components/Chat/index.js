@@ -38,13 +38,13 @@ const Chat = ({
         createdAt: Date.now(),
       });
     });
-    socket.current.emit("addUser", id);
-    socket.current.on("getUsers", (users) => {
-      console.log(users);
-      // setOnlineUsers(
-      //   user.followings.filter((f) => users.some((u) => u.userId === f)),
-      // );
-    });
+    // socket.current.emit("addUser", id);
+    // socket.current.on("getUsers", (users) => {
+    //   console.log(users);
+    //   setOnlineUsers(
+    //     user.followings.filter((f) => users.some((u) => u.userId === f)),
+    //   );
+    // });
   }, []);
   useEffect(() => {
     if (arrivalMessage) {

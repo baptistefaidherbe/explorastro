@@ -7,6 +7,7 @@ import {
   ON_SUBMIT_MESSAGE,
   saveNewMessage,
 } from 'src/actions/webSocket';
+import { saveOnlineUser } from 'src/actions/user';
 import api from './utils/api';
 
 let socket;
@@ -16,18 +17,16 @@ const websocket = (store) => (next) => (action) => {
     case WS_CONNECT: {
       const user = JSON.parse(localStorage.getItem('user'));
       if (user) {
+        const { id } = user.user;
         const idUser = user.user.id;
         socket = window.io('http://localhost:3000', {
           transports: ['websocket'],
         });
         socket.emit('pseudo', idUser);
 
-        socket.on('newUser', (message) => {
-          console.log(message);
-        });
-
-        socket.on('quitUser', (message) => {
-          console.log(message);
+        socket.emit('addUser', id);
+        socket.on('getUsers', (users) => {
+          store.dispatch(saveOnlineUser(users));
         });
       }
       break;

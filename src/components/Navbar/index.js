@@ -43,6 +43,7 @@ const Navbar = ({ handleLogout, username }) => (
           className="logoutLink"
           onClick={() => {
             handleLogout();
+            window.location.reload();
           }}
         >
           <RiLogoutCircleRLine />

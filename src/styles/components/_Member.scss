@@ -1,0 +1,47 @@
+.member {
+  color: white;
+  padding: 34px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+  &_pseudo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &_avatar {
+    width: 50px;
+  }
+
+  &_name {
+    margin-left: 10px;
+    line-height: 50px;
+  }
+
+  table {
+    font-family: arial, sans-serif;
+    width: 100%;
+  }
+
+  td,
+  th {
+    text-align: center;
+    padding: 8px;
+  }
+
+  td {
+    vertical-align: middle;
+    padding: 20px 0;
+  }
+
+  tbody tr {
+    background-color: $secondary-color;
+  }
+
+  tr:nth-child(even) {
+    background-color: $tertiary-color;
+  }
+
+}
