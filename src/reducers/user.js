@@ -1,5 +1,11 @@
 import {
-  CHANGE_VALUE, SAVE_USER, LOGIN_ERROR, LOGOUT,
+  CHANGE_VALUE,
+  SAVE_USER,
+  LOGIN_ERROR,
+  LOGOUT,
+  SAVE_FRIEND_USER,
+  SAVE_ALL_USER,
+  SAVE_ONLINE_USER,
 } from 'src/actions/user';
 
 const initialState = {
@@ -10,6 +16,8 @@ const initialState = {
   email: '',
   password: '',
   loginError: '',
+  allUser: [],
+  onlineUser: [],
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -44,6 +52,18 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...initialState,
         logged: false,
+      };
+    }
+    case SAVE_ALL_USER: {
+      return {
+        ...state,
+        allUser: action.payload,
+      };
+    }
+    case SAVE_ONLINE_USER: {
+      return {
+        ...state,
+        onlineUser: action.payload,
       };
     }
     default:

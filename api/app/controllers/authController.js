@@ -26,7 +26,7 @@ const authController = {
 
               if (verified) {
                 const { id, email } = result.rows[0];
-                const token = jwt.generateToken(id, email, "3h");
+                const token = jwt.generateToken(id, email, "20h");
 
                 res.json({
                   login: {

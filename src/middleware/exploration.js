@@ -18,18 +18,19 @@ import {
   ON_CLICK_NOT_PARTICIPATE,
   GET_WEATHER,
   saveWeather,
-} from "src/actions/exploration";
-import axios from "axios";
-import api from "./utils/api";
+} from 'src/actions/exploration';
+import axios from 'axios';
+import api from './utils/api';
 
 const exploration = (store) => (next) => (action) => {
   switch (action.type) {
     case GET_ALL_EVENTS: {
       const getAllEvents = async () => {
         try {
-          const resp = await api.get("/exploration");
+          const resp = await api.get('/exploration');
           store.dispatch(saveAllEvents(resp.data));
-        } catch (err) {
+        }
+        catch (err) {
           // eslint-disable-next-line no-console
           console.error(err);
         }
@@ -39,12 +40,13 @@ const exploration = (store) => (next) => (action) => {
     }
     case GET_MY_EVENTS: {
       const getMyEvents = async () => {
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem('user'));
         const { id } = user.user;
         try {
           const resp = await api.get(`/user/${id}`);
           store.dispatch(saveMyEvents(resp.data));
-        } catch (error) {
+        }
+        catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
         }
@@ -56,16 +58,17 @@ const exploration = (store) => (next) => (action) => {
     case ON_SUBMIT_NAME: {
       const submitName = async () => {
         const state = store.getState();
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem('user'));
         const { id } = user.user;
         const data = {
           name: state.exploration.name,
           author_id: id,
         };
         try {
-          await api.post("/exploration", data);
+          await api.post('/exploration', data);
           store.dispatch(addNewExploration());
-        } catch (error) {
+        }
+        catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
         }
@@ -79,7 +82,8 @@ const exploration = (store) => (next) => (action) => {
         try {
           await api.delete(`/exploration/${id}`);
           store.dispatch(addNewExploration());
-        } catch (error) {
+        }
+        catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
         }
@@ -94,7 +98,8 @@ const exploration = (store) => (next) => (action) => {
         try {
           const resp = await api.get(`/exploration/${id}`);
           store.dispatch(saveEventToModify(resp.data));
-        } catch (error) {
+        }
+        catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
         }
@@ -119,7 +124,8 @@ const exploration = (store) => (next) => (action) => {
         };
         try {
           await api.patch(`/exploration/${id}`, data);
-        } catch (error) {
+        }
+        catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
         }
@@ -129,16 +135,17 @@ const exploration = (store) => (next) => (action) => {
     }
     case UPLOAD_EXPLORATION_ILLUSTRATION: {
       const formData = new FormData();
-      formData.append("image", action.payload, action.payload.name);
+      formData.append('image', action.payload, action.payload.name);
       const handleUploadIllustration = async () => {
         try {
           await api.post(`/exploration/${action.id}/upload`, formData, {
             headers: {
-              "Content-Type": "multipart/form-data",
+              'Content-Type': 'multipart/form-data',
             },
           });
           store.dispatch(callEventData(action.id));
-        } catch (error) {
+        }
+        catch (error) {
           // eslint-disable-next-line no-console
           console.error(error.response);
         }
@@ -149,17 +156,20 @@ const exploration = (store) => (next) => (action) => {
     case ON_SUBMIT_COMMENT: {
       const submitComment = async () => {
         const state = store.getState();
+        const user = JSON.parse(localStorage.getItem("user"));
+        const authorId = user.user.id;
         const id = action.payload;
 
         const data = {
           content: state.exploration.eventToModify.sendComment,
-          author_id: state.exploration.eventToModify.author_id,
+          author_id: authorId,
         };
         try {
           await api.post(`/exploration/${id}/comment`, data);
           store.dispatch(callEventData(id));
           store.dispatch(resetInputComment());
-        } catch (error) {
+        }
+        catch (error) {
           // eslint-disable-next-line no-console
           console.error(error.response);
         }
@@ -174,7 +184,8 @@ const exploration = (store) => (next) => (action) => {
         try {
           await api.delete(`/comment/${id}`);
           store.dispatch(callEventData(idEvent));
-        } catch (error) {
+        }
+        catch (error) {
           // eslint-disable-next-line no-console
           console.error(error.response);
         }
@@ -184,15 +195,17 @@ const exploration = (store) => (next) => (action) => {
     }
     case ON_CLICK_PARTICIPATE: {
       const participate = async () => {
-        const state = store.getState();
+        const user = JSON.parse(localStorage.getItem("user"));
+        const authorId = user.user.id;
         const { id } = action;
         const data = {
-          user_id: state.exploration.eventToModify.author_id,
+          user_id: authorId,
         };
         try {
           await api.post(`/participate/${id}`, data);
           store.dispatch(callEventData(id));
-        } catch (error) {
+        }
+        catch (error) {
           // eslint-disable-next-line no-console
           console.error(error.response);
         }
@@ -202,17 +215,16 @@ const exploration = (store) => (next) => (action) => {
     }
     case ON_CLICK_NOT_PARTICIPATE: {
       const notParticipate = async () => {
-        const state = store.getState();
+        const user = JSON.parse(localStorage.getItem("user"));
+        const authorId = user.user.id;
         const { id } = action;
-        const data = {
-          user_id: state.exploration.eventToModify.author_id,
-        };
         try {
           await api.delete(`/participate/${id}`, {
-            data: { user_id: state.exploration.eventToModify.author_id },
+            data: { user_id: authorId },
           });
           store.dispatch(callEventData(id));
-        } catch (error) {
+        }
+        catch (error) {
           // eslint-disable-next-line no-console
           console.error(error.response);
         }
@@ -225,13 +237,13 @@ const exploration = (store) => (next) => (action) => {
         const { payload } = action;
 
         if (payload) {
-          console.log(payload[1]);
           try {
             const resp = await axios(
-              `https://api.openweathermap.org/data/2.5/onecall?lat=${payload[0]}&lon=${payload[1]}&units=metric&appid=761235a6e9c3bc9d94fe0e7d170588ad`
+              `https://api.openweathermap.org/data/2.5/onecall?lat=${payload[0]}&lon=${payload[1]}&units=metric&appid=761235a6e9c3bc9d94fe0e7d170588ad`,
             );
             store.dispatch(saveWeather(resp.data.current));
-          } catch (error) {
+          }
+          catch (error) {
             // eslint-disable-next-line no-console
             console.error(error.response);
           }
