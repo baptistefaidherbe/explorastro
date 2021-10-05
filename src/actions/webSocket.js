@@ -8,6 +8,10 @@ export const ON_SUBMIT_MESSAGE = 'ON_SUBMIT_MESSAGE';
 export const SAVE_NEW_MESSAGE = 'SAVE_NEW_MESSAGE';
 export const SAVE_ARRIVAL_MESSAGE = 'SAVE_ARRIVAL_MESSAGE';
 export const CREATE_CONVERSATION = 'CREATE_CONVERSATION';
+export const TOGGLE_FRIEND = 'TOGGLE_FRIEND';
+export const GET_NOTIFICATION = 'GET_NOTIFICATION';
+export const ON_CLICK_NOTIF = 'ON_CLICK_NOTIF';
+export const ON_CLICK_READ = 'ON_CLICK_READ';
 
 export const wsConnect = () => ({
   type: WS_CONNECT,
@@ -40,21 +44,25 @@ export const saveNewMessage = (payload) => ({
   type: SAVE_NEW_MESSAGE,
   payload,
 });
-export const saveArrivalMessage = (payload) => {
-  console.log('o', payload); return ({
-    type: SAVE_NEW_MESSAGE,
-    payload,
-  });
-};
+export const saveArrivalMessage = (payload) => ({
+  type: SAVE_NEW_MESSAGE,
+  payload,
+});
 export const createConversation = (sender, receiver) => ({
   type: CREATE_CONVERSATION,
   sender,
   receiver,
 });
-// export const saveArrivalMessage = (payload) => {
-//   console.log('meesage', payload);
-//   return {
-//     type: SAVE_ARRIVAL_MESSAGE,
-//     message: payload,
-//   };
-// };
+export const toggleFriend = () => ({
+  type: TOGGLE_FRIEND,
+});
+export const getNotication = (payload) => ({
+  type: GET_NOTIFICATION,
+  payload,
+});
+export const onClickNotif = () => ({
+  type: ON_CLICK_NOTIF,
+});
+export const onClickRead = () => ({
+  type: ON_CLICK_READ,
+});

@@ -4,6 +4,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Navbar from "src/containers/Navbar";
 import PropTypes from "prop-types";
+import { BsArrowBarRight, BsArrowBarLeft } from "react-icons/bs";
 import Conversation from "./Conversation";
 import Message from "./Message";
 
@@ -16,14 +17,20 @@ const Chat = ({
   onChangeMessage,
   newMessage,
   onSubmitMessage,
-
+  onlineUser,
+  toggleFriend,
+  isToggleFriend,
 }) => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const { id } = user.user;
+  const { id, username } = user.user;
   const { avatar_url } = user.user;
   const [currentChat, setCurrentChat] = useState(null);
   const scrollRef = useRef();
   const socket = useRef();
+
+  const handleToggleFriend = () => {
+    toggleFriend();
+  };
 
   useEffect(() => {
     socket.current = window.io("http://localhost:3000", {
@@ -57,10 +64,11 @@ const Chat = ({
       avatar_url: avatar_url,
     };
     const receiverId = currentChat?.members?.find(
-      (member) => member !== id.toString(),
+      (member) => member !== id.toString()
     );
 
     socket.current.emit("sendMessage", {
+      username: username,
       senderId: id,
       receiverId,
       text: newMessage,
@@ -71,19 +79,6 @@ const Chat = ({
     <div className="container">
       <Navbar />
       <div className="chat">
-        <div className="chat_search">
-          <input placeholder="Search for friends" className="chatMenuInput" />
-          <h2>Mes conversations</h2>
-          {conversations.map((element) => (
-            <div key={element._id} onClick={() => setCurrentChat(element)}>
-              <Conversation
-                conversation={element}
-                userId={id}
-                getUser={getUser}
-              />
-            </div>
-          ))}
-        </div>
         {currentChat ? (
           <div className="chat_messages">
             <div className="messages">
@@ -107,8 +102,23 @@ const Chat = ({
             </form>
           </div>
         ) : (
-          ""
+          <div className="isEmpty"> </div>
         )}
+        <div className={isToggleFriend ? 'chat_friend' : 'chat_friend_closed'}>
+          <input placeholder="Search for friends" className="chatMenuInput" />
+          {conversations.map((element) => (
+            <div key={element._id} onClick={() => setCurrentChat(element)}>
+              <Conversation
+                conversation={element}
+                userId={id}
+                getUser={getUser}
+                onlineUser={onlineUser}
+              />
+            </div>
+          ))}
+          <BsArrowBarRight className="iconToggleClosedFriend" onClick={handleToggleFriend} />
+        </div>
+        {!isToggleFriend ? <BsArrowBarLeft className="iconToggleOpenFriend" onClick={handleToggleFriend} /> : '' }
       </div>
     </div>
   );
@@ -123,6 +133,9 @@ Chat.propTypes = {
   onChangeMessage: PropTypes.func.isRequired,
   newMessage: PropTypes.string.isRequired,
   onSubmitMessage: PropTypes.func.isRequired,
+  onlineUser: PropTypes.array.isRequired,
+  toggleFriend: PropTypes.func.isRequired,
+  isToggleFriend: PropTypes.bool.isRequired,
 };
 
 export default Chat;

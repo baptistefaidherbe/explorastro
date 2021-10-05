@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as dayjs from 'dayjs';
+import { FaCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const relativeTime = require('dayjs/plugin/relativeTime');
@@ -42,13 +43,19 @@ const User = ({
         <Link
           name={user.id}
           to="/message"
-          className="logoutLink"
           onClick={handleClickMessage}
+          className={user.username}
         >
           Envoyer une message
         </Link>
       </td>
-      <td>{isOnline ? 'oui' : 'non'}</td>
+      <td>
+        {isOnline ? (
+          <FaCircle className="green" />
+        ) : (
+          <FaCircle className="red" />
+        )}
+      </td>
     </tr>
   );
 };

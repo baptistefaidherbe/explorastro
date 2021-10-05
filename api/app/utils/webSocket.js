@@ -36,11 +36,11 @@ module.exports = (io) => {
      
     });
 
-    socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-      console.log(receiverId)
+    socket.on("sendMessage", ({username, senderId, receiverId, text }) => {
       const user = getUser(receiverId);
       if(user?.socketId){
       io.to(user.socketId).emit("getMessage", {
+        username,
         senderId,
         text,
       });

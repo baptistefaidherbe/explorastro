@@ -8,6 +8,7 @@ import {
   saveNewMessage,
   CREATE_CONVERSATION,
   saveArrivalMessage,
+  getNotication,
 } from 'src/actions/webSocket';
 import { saveOnlineUser } from 'src/actions/user';
 import api from './utils/api';
@@ -34,11 +35,16 @@ const websocket = (store) => (next) => (action) => {
         socket.on('getMessage', (data) => {
           store.dispatch(
             saveArrivalMessage({
+              username: data.username,
               sender: data.senderId,
               text: data.text,
               createdAt: Date.now(),
             }),
           );
+
+          if (data.senderId !== id) {
+            store.dispatch(getNotication(data.username));
+          }
         });
       }
       break;
