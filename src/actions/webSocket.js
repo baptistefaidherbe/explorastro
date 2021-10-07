@@ -12,6 +12,7 @@ export const TOGGLE_FRIEND = 'TOGGLE_FRIEND';
 export const GET_NOTIFICATION = 'GET_NOTIFICATION';
 export const ON_CLICK_NOTIF = 'ON_CLICK_NOTIF';
 export const ON_CLICK_READ = 'ON_CLICK_READ';
+export const ON_CHANGE_FRIEND = 'ON_CHANGE_FRIEND';
 
 export const wsConnect = () => ({
   type: WS_CONNECT,
@@ -48,10 +49,11 @@ export const saveArrivalMessage = (payload) => ({
   type: SAVE_NEW_MESSAGE,
   payload,
 });
-export const createConversation = (sender, receiver) => ({
+export const createConversation = (sender, receiver, receiverName) => ({
   type: CREATE_CONVERSATION,
   sender,
   receiver,
+  receiverName,
 });
 export const toggleFriend = () => ({
   type: TOGGLE_FRIEND,
@@ -65,4 +67,8 @@ export const onClickNotif = () => ({
 });
 export const onClickRead = () => ({
   type: ON_CLICK_READ,
+});
+export const onchangeFriend = (payload) => ({
+  type: ON_CHANGE_FRIEND,
+  payload,
 });

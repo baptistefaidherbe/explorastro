@@ -1,7 +1,13 @@
 import { connect } from 'react-redux';
 import Chat from 'src/components/Chat';
 import {
-  getConversation, getMessage, onChangeMessage, onSubmitMessage, saveArrivalMessage, toggleFriend,
+  getConversation,
+  getMessage,
+  onChangeMessage,
+  onSubmitMessage,
+  saveArrivalMessage,
+  toggleFriend,
+  onchangeFriend,
 } from 'src/actions/webSocket';
 import { getUser } from 'src/actions/user';
 
@@ -12,6 +18,7 @@ const mapStateToProps = (state) => ({
   arrivalMessage: state.message.arrivalMessage,
   onlineUser: state.user.onlineUser,
   isToggleFriend: state.message.toggleFriend,
+  searchFriend: state.message.searchFriend,
 });
 const mapDispatchToProps = (dispatch) => ({
   getConversation: (value) => {
@@ -35,7 +42,9 @@ const mapDispatchToProps = (dispatch) => ({
   toggleFriend: () => {
     dispatch(toggleFriend());
   },
-
+  onchangeFriend: (value) => {
+    dispatch(onchangeFriend(value));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

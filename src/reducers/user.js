@@ -6,6 +6,7 @@ import {
   SAVE_FRIEND_USER,
   SAVE_ALL_USER,
   SAVE_ONLINE_USER,
+  SAVE_USER_BY_ID,
 } from 'src/actions/user';
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   loginError: '',
   allUser: [],
   onlineUser: [],
+  userById: {},
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -64,6 +66,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         onlineUser: action.payload,
+      };
+    }
+    case SAVE_USER_BY_ID: {
+      return {
+        ...state,
+        userById: action.payload,
       };
     }
     default:

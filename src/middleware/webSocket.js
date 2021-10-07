@@ -52,7 +52,6 @@ const websocket = (store) => (next) => (action) => {
     case GET_CONVERSATION: {
       const getConversation = async () => {
         const idUser = action.payload;
-
         try {
           const resp = await api.get(`/conversation/${idUser}`);
           store.dispatch(saveConversation(resp.data));
@@ -102,10 +101,10 @@ const websocket = (store) => (next) => (action) => {
         const conversation = {
           sender: action.sender.toString(),
           receiver: action.receiver.toString(),
+          receiverName: action.receiverName,
         };
         try {
           const resp = await api.post('/conversation', conversation);
-          // store.dispatch(saveNewMessage(resp.data));
           console.log(resp.data);
         }
         catch (error) {

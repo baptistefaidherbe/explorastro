@@ -7,7 +7,7 @@ const Conversation = ({ conversation, userId, onlineUser }) => {
   const [friend, setUser] = useState(null);
   useEffect(() => {
     const friendId = conversation.members.find(
-      (id) => id !== userId.toString()
+      (id) => id !== userId.toString(),
     );
     const getUser = async () => {
       try {

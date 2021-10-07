@@ -9,15 +9,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
   }
 
   &_avatar {
     width: 50px;
   }
 
+  &_row {
+    cursor: pointer;
+    transition: 0.4s;
+
+    &:hover {
+      background-color: rgb(110, 131, 250);
+      transform: scale(1.01);
+    }
+  }
+
   &_name {
-    margin-left: 10px;
-    line-height: 50px;
+    margin: 5px 0;
   }
 
   table {
@@ -29,6 +39,7 @@
   th {
     text-align: center;
     padding: 8px;
+    border: none;
   }
 
   td {
@@ -42,10 +53,15 @@
 
   tr:nth-child(even) {
     background-color: $tertiary-color;
+    transition: 0.4s;
+    
+    &:hover{
+      background-color: rgb(110, 131, 250);
+    }
   }
 
   .green {
-   color: green;
+    color: green;
   }
 
   .red {

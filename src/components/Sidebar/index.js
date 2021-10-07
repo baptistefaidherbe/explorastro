@@ -5,6 +5,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { FiSettings, FiMap } from "react-icons/fi";
 import { VscTelescope } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 import {
   GiPlanetConquest,
   GiRingedPlanet,
@@ -39,11 +40,11 @@ const SideBar = ({ username }) => (
           </li>
           <li>
             <GiFallingStar className="sideBar_content_icons" />
-            <span>Explorations organisées (1)</span>
+            <Link to="/create">Explorations organisées (1)</Link>
           </li>
           <li>
             <TiMessages className="sideBar_content_icons" />
-            <span>Messages</span>
+            <Link to="/message">Messages</Link>
           </li>
           <li>
             <FiSettings className="sideBar_content_icons" />
@@ -57,17 +58,17 @@ const SideBar = ({ username }) => (
         <ul className="sideBar_content_tooltip tooltip--exploration">
           <li>
             <BiMapPin />
-            <span>Rejoindre une exploration</span>
+            <Link to="/map">Rejoindre une exploration</Link>
           </li>
           <li>
             <VscTelescope className="sideBar_content_icons" />
-            <span>Organiser une exploration</span>
+            <Link to="/create">Organiser une exploration</Link>
           </li>
         </ul>
       </li>
       <li>
         <FaUserFriends className="sideBar_content_icons" />
-        <span>Les membres</span>
+        <Link to="/member">Les membres</Link>
       </li>
 
       <li>
