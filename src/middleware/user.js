@@ -1,4 +1,4 @@
-import { GET_ALL_USER, saveAllUser } from 'src/actions/user';
+import { GET_ALL_USER, saveAllUser, GET_USER_BY_ID, saveUserById } from 'src/actions/user';
 import api from './utils/api';
 
 const user = (store) => (next) => (action) => {
@@ -15,6 +15,21 @@ const user = (store) => (next) => (action) => {
         }
       };
       getAllUser();
+      break;
+    }
+    case GET_USER_BY_ID: {
+      const getUserById = async () => {
+        const id = action.payload;
+        try {
+          const resp = await api.get(`/user/${id}`);
+          store.dispatch(saveUserById(resp.data));
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error.response);
+        }
+      };
+      getUserById();
       break;
     }
 

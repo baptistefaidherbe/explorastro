@@ -8,6 +8,8 @@ export const GET_USER = "GET_USER";
 export const GET_ALL_USER = "GET_ALL_USER";
 export const SAVE_ALL_USER = "SAVE_ALL_USER";
 export const SAVE_ONLINE_USER = 'SAVE_ONLINE_USER';
+export const GET_USER_BY_ID = 'GET_USER_BY_ID';
+export const SAVE_USER_BY_ID = 'SAVE_USER_BY_ID';
 
 export const changeValue = (value, key) => ({
   type: CHANGE_VALUE,
@@ -44,5 +46,13 @@ export const saveAllUser = (payload) => ({
 });
 export const saveOnlineUser = (payload) => ({
   type: SAVE_ONLINE_USER,
+  payload,
+});
+export const getUserById = (payload) => ({
+  type: GET_USER_BY_ID,
+  payload,
+});
+export const saveUserById = (payload) => ({
+  type: SAVE_USER_BY_ID,
   payload,
 });

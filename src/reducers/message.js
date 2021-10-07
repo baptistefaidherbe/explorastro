@@ -8,6 +8,7 @@ import {
   GET_NOTIFICATION,
   ON_CLICK_NOTIF,
   ON_CLICK_READ,
+  ON_CHANGE_FRIEND,
 } from 'src/actions/webSocket';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   notification: 0,
   notificationSender: [],
   toggleNotif: false,
+  searchFriend: '',
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -79,6 +81,12 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         notificationSender: initialState.notificationSender,
         notification: initialState.notification,
+      };
+    }
+    case ON_CHANGE_FRIEND: {
+      return {
+        ...state,
+        searchFriend: action.payload,
       };
     }
     default:

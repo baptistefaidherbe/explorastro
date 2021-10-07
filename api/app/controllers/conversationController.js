@@ -3,7 +3,7 @@ const Conversation = require("../models/Conversation");
 const conversationController = {
   postConversation: async (req, res) => {
     const newConversation = new Conversation({
-      members: [req.body.sender, req.body.receiver],
+      members: [req.body.sender, req.body.receiver, req.body.receiverName],
     });
 
     try {

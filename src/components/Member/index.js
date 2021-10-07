@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import User from './User';
 
 const Member = ({
-  getAllUser, allUser, onlineUser, createConversation, conversations, getConversation,
+  getAllUser, allUser, onlineUser,
 }) => {
   useEffect(() => {
     getAllUser();
@@ -18,8 +18,7 @@ const Member = ({
           <thead>
             <tr>
               <th>Nom</th>
-              <th>Pseudo</th>
-              <th>Pseudo</th>
+              <th>Depatement</th>
               <th>Connecté</th>
             </tr>
           </thead>
@@ -29,10 +28,6 @@ const Member = ({
                 key={element.id}
                 user={element}
                 onlineUser={onlineUser}
-                createConversation={createConversation}
-                conversations={conversations}
-                getConversation={getConversation}
-
               />
             ))}
           </tbody>
@@ -46,9 +41,6 @@ Member.propTypes = {
   getAllUser: PropTypes.func.isRequired,
   allUser: PropTypes.array.isRequired,
   onlineUser: PropTypes.array.isRequired,
-  createConversation: PropTypes.func.isRequired,
-  conversations: PropTypes.array.isRequired,
-  getConversation: PropTypes.func.isRequired,
 };
 
 export default Member;

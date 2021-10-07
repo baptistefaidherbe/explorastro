@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
-import Login from "src/containers/Login";
-import PropTypes from "prop-types";
-import MapExploration from "src/containers/MapExploration";
-import Component from "src/utils/Component";
-import Participate from "src/containers/Participate";
-import Create from "src/containers/Create";
-import FormEvent from "src/containers/FormEvent";
-import Chat from "src/containers/Chat";
-import Member from "src/containers/Member";
-import Register from "../Register";
+import React, { useEffect } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Login from 'src/containers/Login';
+import PropTypes from 'prop-types';
+import MapExploration from 'src/containers/MapExploration';
+import Component from 'src/utils/Component';
+import Participate from 'src/containers/Participate';
+import Create from 'src/containers/Create';
+import FormEvent from 'src/containers/FormEvent';
+import Chat from 'src/containers/Chat';
+import Member from 'src/containers/Member';
+import Profile from 'src/containers/Profile';
+import Register from '../Register';
 
 const App = ({ isLogged, checkIsLogged, wsConnect }) => {
   useEffect(() => {
@@ -40,6 +41,17 @@ const App = ({ isLogged, checkIsLogged, wsConnect }) => {
         <Route path="/message">
           <Component Login={Login} Children={Chat} isLogged={isLogged} />
         </Route>
+        <Route
+          path="/profil/:id"
+          render={(prop) => (
+            <Component
+              Login={Login}
+              Children={Profile}
+              id={Number(prop.match.params.id)}
+              isLogged={isLogged}
+            />
+          )}
+        />
         <Route path="/create">
           <Component Login={Login} Children={Create} isLogged={isLogged} />
         </Route>
