@@ -21,6 +21,7 @@ const initialState = {
   notificationSender: [],
   toggleNotif: false,
   searchFriend: '',
+  isEventLoading: true,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -29,6 +30,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         conversations: action.payload,
+        isEventLoading: !state.isEventLoading,
       };
     }
     case SAVE_MESSAGE: {

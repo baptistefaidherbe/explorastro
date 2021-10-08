@@ -21,6 +21,7 @@ const dataUser = {
       u.city,
       u.zipcode,
       u.role_id,
+      u.notification,
       (   SELECT
           json_agg(exploration)  explorationCreate
           FROM
@@ -125,6 +126,16 @@ const dataUser = {
       values: [email],
     };
     client.query(checkEmail_query, callback);
+  },
+  updateUserNotificationRequest: (id, notification, callback) => {
+    const updateUsername_query = {
+      text: `
+        UPDATE "user"
+        SET notification = $2
+        WHERE id= $1;`,
+      values: [id, notification],
+    };
+    client.query(updateUsername_query, callback);
   },
 };
 module.exports = dataUser;

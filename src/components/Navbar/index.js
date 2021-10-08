@@ -1,12 +1,11 @@
 /* eslint-disable react/button-has-type */
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { AiOutlineBell } from "react-icons/ai";
-import { RiLogoutCircleRLine } from "react-icons/ri";
-import { CgSearch } from "react-icons/cg";
-
-import avatar from "src/assets/img/avatar.png";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { AiOutlineBell } from 'react-icons/ai';
+import { RiLogoutCircleRLine } from 'react-icons/ri';
+import { CgSearch } from 'react-icons/cg';
+import avatar from 'src/assets/img/avatar.png';
 
 const Navbar = ({
   handleLogout,
@@ -22,6 +21,7 @@ const Navbar = ({
   };
   const handleOnClickRead = () => {
     onClickRead();
+    window.location.href = '/message';
   };
   return (
     <nav className="navBar">
@@ -45,7 +45,7 @@ const Navbar = ({
             {notification > 0 ? (
               <span className="notification">{notification}</span>
             ) : (
-              ""
+              ''
             )}
             {toggleNotif ? (
               <div className="bubble">
@@ -55,11 +55,11 @@ const Navbar = ({
                 {notification > 0 ? (
                   <button onClick={handleOnClickRead}>Marqué comme lu</button>
                 ) : (
-                  ""
+                  ''
                 )}
               </div>
             ) : (
-              ""
+              ''
             )}
           </div>
         </li>

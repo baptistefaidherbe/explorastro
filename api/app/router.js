@@ -75,6 +75,11 @@ router.patch(
   validate("body", userSchema),
   userController.updateEmail
 );
+router.patch(
+  "/user/:id/update/notification",
+  auth,
+  userController.updateNotification
+);
 
 router.post("/signup", validate("body", userSchema), authController.signup);
 router.post("/login", validate("body", userSchema), authController.login);

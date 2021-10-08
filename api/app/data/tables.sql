@@ -84,5 +84,11 @@ ADD CONSTRAINT comment_exploration_id_fkey
    ALTER TABLE "user"
    ALTER COLUMN avatar_url SET NOT NULL;
 
+   ALTER TABLE "user"
+   ADD COLUMN notification BOOLEAN;
+
+      ALTER TABLE "user"
+   ALTER COLUMN notification SET DEFAULT false;
+
 
 

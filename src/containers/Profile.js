@@ -6,6 +6,7 @@ import { createConversation, getConversation } from 'src/actions/webSocket';
 const mapStateToProps = (state) => ({
   userById: state.user.userById,
   conversations: state.message.conversations,
+  isEventLoading: state.message.isEventLoading,
 });
 const mapDispatchToProps = (dispatch) => ({
   getUserById: (id) => {

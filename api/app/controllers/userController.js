@@ -140,6 +140,23 @@ const userController = {
       }
     });
   },
+
+  updateNotification: (req, res) => {
+    const id = req.params.id;
+    const { notification } = req.body;
+
+    dataUser.updateUserNotificationRequest(
+      id,
+      notification,
+      (error, response) => {
+        if (error) {
+          console.trace(error);
+        } else {
+          res.json(MESSAGE.SUCCESS_MODIFICATION);
+        }
+      }
+    );
+  },
 };
 
 module.exports = userController;

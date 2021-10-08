@@ -36,6 +36,7 @@ const Chat = ({
   const handleToggleFriend = () => {
     toggleFriend();
   };
+
   const filterFriends = conversations.filter((element) => (
     element.members[2]?.includes(searchFriend)));
 
@@ -54,9 +55,8 @@ const Chat = ({
   }, [currentChat]);
 
   useEffect(() => {
-    getMessage(conversationId);
     setCurrentChat(data?.state?.conversation);
-  }, []);
+  }, [conversationId]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -91,7 +91,7 @@ const Chat = ({
     });
     onSubmitMessage(message);
   };
-  console.log(filterFriends);
+
   return (
     <div className="container">
       <Navbar />

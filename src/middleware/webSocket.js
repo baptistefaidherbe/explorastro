@@ -9,6 +9,7 @@ import {
   CREATE_CONVERSATION,
   saveArrivalMessage,
   getNotication,
+  getConversation,
 } from 'src/actions/webSocket';
 import { saveOnlineUser } from 'src/actions/user';
 import api from './utils/api';
@@ -19,6 +20,7 @@ const websocket = (store) => (next) => (action) => {
   switch (action.type) {
     case WS_CONNECT: {
       const user = JSON.parse(localStorage.getItem('user'));
+      const state = store.getState();
       if (user) {
         const { id } = user.user;
         const idUser = user.user.id;
@@ -50,7 +52,7 @@ const websocket = (store) => (next) => (action) => {
       break;
     }
     case GET_CONVERSATION: {
-      const getConversation = async () => {
+      const conversation = async () => {
         const idUser = action.payload;
         try {
           const resp = await api.get(`/conversation/${idUser}`);
@@ -61,7 +63,7 @@ const websocket = (store) => (next) => (action) => {
           console.error(error.response);
         }
       };
-      getConversation();
+      conversation();
       break;
     }
     case GET_MESSAGE: {
@@ -99,13 +101,13 @@ const websocket = (store) => (next) => (action) => {
     case CREATE_CONVERSATION: {
       const createConversation = async () => {
         const conversation = {
-          sender: action.sender.toString(),
-          receiver: action.receiver.toString(),
+          sender: action.sender?.toString(),
+          receiver: action.receiver?.toString(),
           receiverName: action.receiverName,
         };
         try {
           const resp = await api.post('/conversation', conversation);
-          console.log(resp.data);
+          store.dispatch(getConversation(resp.data.members[0]));
         }
         catch (error) {
           // eslint-disable-next-line no-console
