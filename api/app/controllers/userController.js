@@ -15,7 +15,6 @@ const userController = {
 
   getUserById: (req, res) => {
     const id = Number(req.params.id);
-
     dataUser.getUserByIdRequest(id, (error, response) => {
       if (error) {
         console.trace(error);
@@ -143,11 +142,27 @@ const userController = {
 
   updateNotification: (req, res) => {
     const id = req.params.id;
-    const { notification } = req.body;
-
+    const { notificationSender } = req.body;
+    console.log(req.body);
     dataUser.updateUserNotificationRequest(
       id,
-      notification,
+      notificationSender,
+      (error, response) => {
+        if (error) {
+          console.trace(error);
+        } else {
+          res.json(MESSAGE.SUCCESS_MODIFICATION);
+        }
+      }
+    );
+  },
+  deleteNotification: (req, res) => {
+    const id = req.params.id;
+    const { notificationCount } = req.body;
+    console.log(req.body);
+    dataUser.deleteNotificationRequest(
+      id,
+      notificationCount,
       (error, response) => {
         if (error) {
           console.trace(error);

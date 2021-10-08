@@ -5,22 +5,19 @@ import {
   SAVE_NEW_MESSAGE,
   SAVE_ARRIVAL_MESSAGE,
   TOGGLE_FRIEND,
-  GET_NOTIFICATION,
   ON_CLICK_NOTIF,
   ON_CLICK_READ,
   ON_CHANGE_FRIEND,
-} from 'src/actions/webSocket';
+} from "src/actions/webSocket";
 
 const initialState = {
   conversations: [],
   messages: [],
-  newMessage: '',
+  newMessage: "",
   arrivalMessage: {},
   toggleFriend: true,
-  notification: 0,
-  notificationSender: [],
   toggleNotif: false,
-  searchFriend: '',
+  searchFriend: "",
   isEventLoading: true,
 };
 
@@ -62,14 +59,6 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         toggleFriend: !state.toggleFriend,
-      };
-    }
-
-    case GET_NOTIFICATION: {
-      return {
-        ...state,
-        notification: state.notification + 1,
-        notificationSender: [...state.notificationSender, action.payload],
       };
     }
     case ON_CLICK_NOTIF: {

@@ -8,10 +8,18 @@ import {
   saveNewMessage,
   CREATE_CONVERSATION,
   saveArrivalMessage,
-  getNotication,
+  getNotification,
+  SAVE_NOTIFICATION,
   getConversation,
+  saveNotication,
+  GET_NOTIFICATION,
+  ON_CLICK_READ,
 } from 'src/actions/webSocket';
-import { saveOnlineUser } from 'src/actions/user';
+import {
+  saveOnlineUser,
+  saveUserById,
+  resetNotification,
+} from 'src/actions/user';
 import api from './utils/api';
 
 let socket;
@@ -20,14 +28,12 @@ const websocket = (store) => (next) => (action) => {
   switch (action.type) {
     case WS_CONNECT: {
       const user = JSON.parse(localStorage.getItem('user'));
-      const state = store.getState();
       if (user) {
         const { id } = user.user;
-        const idUser = user.user.id;
+
         socket = window.io('http://localhost:3000', {
           transports: ['websocket'],
         });
-        socket.emit('pseudo', idUser);
 
         socket.emit('addUser', id);
         socket.on('getUsers', (users) => {
@@ -45,7 +51,7 @@ const websocket = (store) => (next) => (action) => {
           );
 
           if (data.senderId !== id) {
-            store.dispatch(getNotication(data.username));
+            store.dispatch(saveNotication(data.username, id));
           }
         });
       }
@@ -89,6 +95,14 @@ const websocket = (store) => (next) => (action) => {
         try {
           const resp = await api.post('/message', message);
           store.dispatch(saveNewMessage(resp.data));
+
+          const { onlineREceiver } = action;
+
+          if (!onlineREceiver && message.sender !== message.receiverId) {
+            store.dispatch(
+              saveNotication(message.username, message.receiverId),
+            );
+          }
         }
         catch (error) {
           // eslint-disable-next-line no-console
@@ -115,6 +129,62 @@ const websocket = (store) => (next) => (action) => {
         }
       };
       createConversation();
+      break;
+    }
+    case SAVE_NOTIFICATION: {
+      const notification = async () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const id = user?.user?.id;
+        const state = store.getState();
+        const data = {
+          notificationCount: state.user.notificationCount,
+          notificationSender: [action.sender],
+        };
+        const receicerId = action.receicer;
+        try {
+          await api.patch(`/user/${receicerId}/update/notification`, data);
+          store.dispatch(getNotification(id));
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error.response);
+        }
+      };
+      notification();
+      break;
+    }
+    case ON_CLICK_READ: {
+      const reset = async () => {
+        const data = {
+          notificationCount: 0,
+        };
+        const user = JSON.parse(localStorage.getItem('user'));
+        const { id } = user.user;
+        try {
+          await api.patch(`/user/${id}/delete/notification`, data);
+          store.dispatch(resetNotification());
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error.response);
+        }
+      };
+      reset();
+      break;
+    }
+    case GET_NOTIFICATION: {
+      const notification = async () => {
+        const { id } = action;
+        try {
+          const resp = await api.get(`/user/${id}`);
+          store.dispatch(saveUserById(resp.data));
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error.response);
+        }
+      };
+      notification();
       break;
     }
     default:

@@ -21,8 +21,10 @@ const Navbar = ({
   };
   const handleOnClickRead = () => {
     onClickRead();
-    window.location.href = '/message';
+    // window.location.href = '/message';
   };
+console.log(notificationSender)
+
   return (
     <nav className="navBar">
       <ul className="navBar_container">
@@ -49,9 +51,13 @@ const Navbar = ({
             )}
             {toggleNotif ? (
               <div className="bubble">
-                {notificationSender.map((element, index) => (
-                  <p key={index}>{element} vient de vous envoyer un message</p>
-                ))}
+                {notification > 0
+                  ? notificationSender?.map((element, index) => (
+                    <p key={index}>
+                      {element && `${element} vient de vous envoyer un message` }
+                    </p>
+                  ))
+                  : ''}
                 {notification > 0 ? (
                   <button onClick={handleOnClickRead}>Marqué comme lu</button>
                 ) : (

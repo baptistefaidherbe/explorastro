@@ -10,6 +10,7 @@ export const SAVE_ALL_USER = "SAVE_ALL_USER";
 export const SAVE_ONLINE_USER = 'SAVE_ONLINE_USER';
 export const GET_USER_BY_ID = 'GET_USER_BY_ID';
 export const SAVE_USER_BY_ID = 'SAVE_USER_BY_ID';
+export const RESET_NOTIFICATION = 'RESET_NOTIFICATION';
 
 export const changeValue = (value, key) => ({
   type: CHANGE_VALUE,
@@ -55,4 +56,7 @@ export const getUserById = (payload) => ({
 export const saveUserById = (payload) => ({
   type: SAVE_USER_BY_ID,
   payload,
+});
+export const resetNotification = () => ({
+  type: RESET_NOTIFICATION,
 });

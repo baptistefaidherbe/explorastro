@@ -5,8 +5,8 @@ import { onClickNotif, onClickRead } from "src/actions/webSocket";
 
 const mapStateToProps = (state) => ({
   username: state.user.username,
-  notification: state.message.notification,
-  notificationSender: state.message.notificationSender,
+  notification: state.user.notificationCount,
+  notificationSender: state.user.userById.notificationsender,
   toggleNotif: state.message.toggleNotif,
 });
 const mapDispatchToProps = (dispatch) => ({

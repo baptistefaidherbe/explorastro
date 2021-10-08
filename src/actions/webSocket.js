@@ -9,10 +9,12 @@ export const SAVE_NEW_MESSAGE = "SAVE_NEW_MESSAGE";
 export const SAVE_ARRIVAL_MESSAGE = "SAVE_ARRIVAL_MESSAGE";
 export const CREATE_CONVERSATION = "CREATE_CONVERSATION";
 export const TOGGLE_FRIEND = "TOGGLE_FRIEND";
-export const GET_NOTIFICATION = "GET_NOTIFICATION";
+export const SAVE_NOTIFICATION = "SAVE_NOTIFICATION";
+export const GET_NOTIFICATION = 'GET_NOTIFICATION';
 export const ON_CLICK_NOTIF = "ON_CLICK_NOTIF";
 export const ON_CLICK_READ = "ON_CLICK_READ";
 export const ON_CHANGE_FRIEND = "ON_CHANGE_FRIEND";
+export const SAVE_NOTIFICATION_SOCKET = 'SAVE_NOTIFICATION_SOCKET';
 
 export const wsConnect = () => ({
   type: WS_CONNECT,
@@ -37,9 +39,10 @@ export const onChangeMessage = (payload) => ({
   type: ON_CHANGE_MESSAGE,
   payload,
 });
-export const onSubmitMessage = (payload) => ({
+export const onSubmitMessage = (payload, onlineREceiver) => ({
   type: ON_SUBMIT_MESSAGE,
   payload,
+  onlineREceiver,
 });
 export const saveNewMessage = (payload) => ({
   type: SAVE_NEW_MESSAGE,
@@ -58,9 +61,19 @@ export const createConversation = (sender, receiver, receiverName) => ({
 export const toggleFriend = () => ({
   type: TOGGLE_FRIEND,
 });
-export const getNotication = (payload) => ({
+export const saveNotication = (sender, receicer) => ({
+  type: SAVE_NOTIFICATION,
+  sender,
+  receicer,
+});
+export const saveNoticationSocket = (sender, receicer) => ({
+  type: SAVE_NOTIFICATION_SOCKET,
+  sender,
+  receicer,
+});
+export const getNotification = (id) => ({
   type: GET_NOTIFICATION,
-  payload,
+  id,
 });
 export const onClickNotif = () => ({
   type: ON_CLICK_NOTIF,

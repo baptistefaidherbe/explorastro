@@ -80,6 +80,11 @@ router.patch(
   auth,
   userController.updateNotification
 );
+router.patch(
+  "/user/:id/delete/notification",
+  auth,
+  userController.deleteNotification
+);
 
 router.post("/signup", validate("body", userSchema), authController.signup);
 router.post("/login", validate("body", userSchema), authController.login);

@@ -1,12 +1,12 @@
 /* eslint-disable react/button-has-type */
-import React, { useEffect, useState } from "react";
-import Navbar from "src/containers/Navbar";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from 'react';
+import Navbar from 'src/containers/Navbar';
+import PropTypes from 'prop-types';
 // import { AiOutlineFileImage } from "react-icons/ai";
-import { BiMessage } from "react-icons/bi";
-import banner from "src/assets/img/bg_sky2.png";
-import { useHistory } from "react-router-dom";
-import Event from "./Event";
+import { BiMessage } from 'react-icons/bi';
+import banner from 'src/assets/img/bg_sky2.png';
+import { useHistory } from 'react-router-dom';
+import Event from './Event';
 
 const Profile = ({
   getUserById,
@@ -16,7 +16,7 @@ const Profile = ({
   id,
   getConversation,
 }) => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem('user'));
   const senderId = user.user.id;
   const history = useHistory();
 
@@ -24,19 +24,19 @@ const Profile = ({
     getUserById(id);
     getConversation(senderId);
   }, []);
-
+console.log(id)
   const handleClickMessage = () => {
     const filterConversation = conversations.find(
-      (element) =>
-        element.members[1] === userById.id.toString() ||
-        element.members[0] === userById.id.toString()
+      (element) => element.members[1] === userById.id.toString()
+        || element.members[0] === userById.id.toString(),
     );
 
     if (!filterConversation) {
       createConversation(senderId, userById.id, userById.username);
-    } else {
+    }
+    else {
       history.push({
-        pathname: "/message",
+        pathname: '/message',
         state: { conversation: filterConversation },
       });
     }
@@ -64,8 +64,8 @@ const Profile = ({
           <img src={banner} alt="banner" />
           <div className="profile_info_bio">{userById.bio}</div>
           <div className="profile_info_explorationParticipate">
-            {userById.explorationparticipate &&
-            userById.explorationparticipate[0] !== null ? (
+            {userById.explorationparticipate
+            && userById.explorationparticipate[0] !== null ? (
               <>
                 <p>{userById.username}, participe aux explorations suivantes</p>
                 <div className="profile_info_explorationParticipate_content">
@@ -74,9 +74,9 @@ const Profile = ({
                   ))}
                 </div>
               </>
-            ) : (
-              <p>{userById.username} ne participe à aucune exploration</p>
-            )}
+              ) : (
+                <p>{userById.username} ne participe à aucune exploration</p>
+              )}
           </div>
         </div>
       </div>

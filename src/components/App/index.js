@@ -12,10 +12,21 @@ import Member from 'src/containers/Member';
 import Profile from 'src/containers/Profile';
 import Register from '../Register';
 
-const App = ({ isLogged, checkIsLogged, wsConnect }) => {
+const App = ({
+  isLogged, checkIsLogged, wsConnect, getUserById,
+}) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const id = user?.user?.id;
+
   useEffect(() => {
     checkIsLogged();
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      getUserById(id);
+    }
+  }, [id]);
 
   useEffect(() => {
     wsConnect();
@@ -95,6 +106,7 @@ App.propTypes = {
   isLogged: PropTypes.bool,
   checkIsLogged: PropTypes.func.isRequired,
   wsConnect: PropTypes.func.isRequired,
+  getUserById: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {

@@ -21,7 +21,8 @@ const dataUser = {
       u.city,
       u.zipcode,
       u.role_id,
-      u.notification,
+      u.notificationCount,
+      u.notificationSender,
       (   SELECT
           json_agg(exploration)  explorationCreate
           FROM
@@ -127,13 +128,33 @@ const dataUser = {
     };
     client.query(checkEmail_query, callback);
   },
-  updateUserNotificationRequest: (id, notification, callback) => {
+  updateUserNotificationRequest: (
+    id,
+    notificationSender,
+    callback
+  ) => {
     const updateUsername_query = {
       text: `
         UPDATE "user"
-        SET notification = $2
+        SET notificationCount = notificationCount + 1, 
+        notificationSender = notificationSender || $2
         WHERE id= $1;`,
-      values: [id, notification],
+      values: [id, notificationSender],
+    };
+    client.query(updateUsername_query, callback);
+  },
+  deleteNotificationRequest: (
+    id,
+    notificationCount,
+    callback
+  ) => {
+    const updateUsername_query = {
+      text: `
+        UPDATE "user"
+        SET notificationCount = $2, 
+        notificationSender = '{}'
+        WHERE id= $1;`,
+      values: [id, notificationCount, ],
     };
     client.query(updateUsername_query, callback);
   },
