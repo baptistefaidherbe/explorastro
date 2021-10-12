@@ -18,19 +18,19 @@ import {
   REMOVE_LAST_ID,
   RESET_INPUT_COMMENT,
   SAVE_WEATHER,
-
-} from 'src/actions/exploration';
+  SAVE_MY_EVENTS_PARTICIPATE_ORGANISE,
+} from "src/actions/exploration";
 
 const initialState = {
   explorations: [],
   togledModal: false,
   fieldZone: 0,
-  departement: 'Choisisez un département',
-  searchName: '',
-  searchAuthor: '',
+  departement: "Choisisez un département",
+  searchName: "",
+  searchAuthor: "",
   myGeoloc: {},
   isEventLoading: true,
-  name: '',
+  name: "",
   myEvents: [],
   eventToModify: {},
   lastId: null,
@@ -111,6 +111,17 @@ const reducer = (state = initialState, action = {}) => {
         name: initialState.name,
       };
     }
+    case SAVE_MY_EVENTS_PARTICIPATE_ORGANISE: {
+      return {
+        ...state,
+        myEvents: {
+          ...state.myEvents,
+          explorationparticipate: action.payload.explorationparticipate,
+          explorationcreate: action.payload.explorationcreate,
+        },
+        isEventLoading: false,
+      };
+    }
     case SAVE_EVENT_TO_MODIFY: {
       return {
         ...state,
@@ -168,7 +179,7 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         eventToModify: {
           ...state.eventToModify,
-          sendComment: '',
+          sendComment: "",
         },
       };
     }

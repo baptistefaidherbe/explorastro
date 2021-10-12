@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from 'src/containers/Login';
 import PropTypes from 'prop-types';
@@ -10,10 +10,14 @@ import FormEvent from 'src/containers/FormEvent';
 import Chat from 'src/containers/Chat';
 import Member from 'src/containers/Member';
 import Profile from 'src/containers/Profile';
+import ListParticipate from 'src/containers/ListParticipate';
 import Register from '../Register';
 
 const App = ({
-  isLogged, checkIsLogged, wsConnect, getUserById,
+  isLogged,
+  checkIsLogged,
+  wsConnect,
+  getUserById,
 }) => {
   const user = JSON.parse(localStorage.getItem('user'));
   const id = user?.user?.id;
@@ -65,6 +69,13 @@ const App = ({
         />
         <Route path="/create">
           <Component Login={Login} Children={Create} isLogged={isLogged} />
+        </Route>
+        <Route path="/myEventsParticipate">
+          <Component
+            Login={Login}
+            Children={ListParticipate}
+            isLogged={isLogged}
+          />
         </Route>
         <Route
           path="/formEvent/:id"

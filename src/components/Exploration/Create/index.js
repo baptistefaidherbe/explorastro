@@ -44,6 +44,7 @@ const Create = ({
     <div className="container">
       <Navbar />
       <div className="create">
+        <h1 className="mainTitle">Organiser une exploration</h1>
         <div className="events">
           <div className="card">
             <img src={explorationImg} alt="explorationImg" className="img" />

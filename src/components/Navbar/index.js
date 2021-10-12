@@ -6,6 +6,7 @@ import { AiOutlineBell } from 'react-icons/ai';
 import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { CgSearch } from 'react-icons/cg';
 import avatar from 'src/assets/img/avatar.png';
+import { v4 as uuidv4 } from 'uuid';
 
 const Navbar = ({
   handleLogout,
@@ -23,7 +24,6 @@ const Navbar = ({
     onClickRead();
     // window.location.href = '/message';
   };
-console.log(notificationSender)
 
   return (
     <nav className="navBar">
@@ -52,9 +52,10 @@ console.log(notificationSender)
             {toggleNotif ? (
               <div className="bubble">
                 {notification > 0
-                  ? notificationSender?.map((element, index) => (
-                    <p key={index}>
-                      {element && `${element} vient de vous envoyer un message` }
+                  ? notificationSender?.map((element) => (
+                    <p key={uuidv4()}>
+                      {element
+                          && `${element} vient de vous envoyer un message`}
                     </p>
                   ))
                   : ''}
@@ -98,8 +99,12 @@ Navbar.propTypes = {
   handleLogout: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   notification: PropTypes.number.isRequired,
-  notificationSender: PropTypes.array.isRequired,
+  notificationSender: PropTypes.array,
   onClickNotif: PropTypes.func.isRequired,
   toggleNotif: PropTypes.bool.isRequired,
   onClickRead: PropTypes.func.isRequired,
+};
+
+Navbar.defaultProps = {
+  notificationSender: [],
 };

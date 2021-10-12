@@ -1,13 +1,14 @@
 /* eslint-disable camelcase */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState, useRef } from "react";
-import Navbar from "src/containers/Navbar";
-import PropTypes from "prop-types";
-import { BsArrowBarRight, BsArrowBarLeft } from "react-icons/bs";
-import { useLocation } from "react-router-dom";
-import Conversation from "./Conversation";
-import Message from "./Message";
+import React, { useEffect, useState, useRef } from 'react';
+import Navbar from 'src/containers/Navbar';
+import PropTypes from 'prop-types';
+import { BsArrowBarRight, BsArrowBarLeft } from 'react-icons/bs';
+import { useLocation } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import Conversation from './Conversation';
+import Message from './Message';
 
 const Chat = ({
   getConversation,
@@ -24,7 +25,7 @@ const Chat = ({
   onchangeFriend,
   searchFriend,
 }) => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem('user'));
   const { id, username } = user.user;
   const { avatar_url } = user.user;
   const [currentChat, setCurrentChat] = useState(null);
@@ -32,18 +33,17 @@ const Chat = ({
   const socket = useRef();
   const data = useLocation();
   const conversationId = data?.state?.conversation?._id;
-  console.log(onlineUser.userId);
+
   const handleToggleFriend = () => {
     toggleFriend();
   };
 
-  const filterFriends = conversations.filter((element) =>
-    element.members[2]?.includes(searchFriend)
-  );
+  const filterFriends = conversations.filter((element) => (
+    element.members[2]?.includes(searchFriend)));
 
   useEffect(() => {
-    socket.current = window.io("http://localhost:3000", {
-      transports: ["websocket"],
+    socket.current = window.io('http://localhost:3000', {
+      transports: ['websocket'],
     });
   }, []);
 
@@ -60,7 +60,7 @@ const Chat = ({
   }, [conversationId]);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   const handleOnChange = (e) => {
@@ -74,7 +74,7 @@ const Chat = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     const receiverId = currentChat?.members?.find(
-      (member) => member !== id.toString()
+      (member) => member !== id.toString(),
     );
 
     const message = {
@@ -86,7 +86,7 @@ const Chat = ({
       receiverId: receiverId,
     };
 
-    socket.current.emit("sendMessage", {
+    socket.current.emit('sendMessage', {
       username: username,
       senderId: id,
       receiverId,
@@ -105,7 +105,7 @@ const Chat = ({
           <div className="chat_messages">
             <div className="messages">
               {messages.map((element) => (
-                <div key={element._id} ref={scrollRef}>
+                <div key={element._id ? element._id : uuidv4()} ref={scrollRef}>
                   <Message
                     message={element}
                     own={element.sender === id.toString()}
@@ -126,7 +126,7 @@ const Chat = ({
         ) : (
           <div className="isEmpty"> </div>
         )}
-        <div className={isToggleFriend ? "chat_friend" : "chat_friend_closed"}>
+        <div className={isToggleFriend ? 'chat_friend' : 'chat_friend_closed'}>
           <input
             placeholder="Search for friends"
             className="chatMenuInput"
@@ -134,16 +134,16 @@ const Chat = ({
           />
           {filterFriends.length !== 0
             ? filterFriends.map((element) => (
-                <div key={element._id} onClick={() => setCurrentChat(element)}>
-                  <Conversation
-                    conversation={element}
-                    userId={id}
-                    getUser={getUser}
-                    onlineUser={onlineUser}
-                  />
-                </div>
-              ))
-            : ""}
+              <div key={element._id} onClick={() => setCurrentChat(element)}>
+                <Conversation
+                  conversation={element}
+                  userId={id}
+                  getUser={getUser}
+                  onlineUser={onlineUser}
+                />
+              </div>
+            ))
+            : ''}
           <BsArrowBarRight
             className="iconToggleClosedFriend"
             onClick={handleToggleFriend}
@@ -155,7 +155,7 @@ const Chat = ({
             onClick={handleToggleFriend}
           />
         ) : (
-          ""
+          ''
         )}
       </div>
     </div>
