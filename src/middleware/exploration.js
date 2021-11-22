@@ -118,6 +118,7 @@ const exploration = (store) => (next) => (action) => {
         const id = action.payload;
         try {
           const resp = await api.get(`/exploration/${id}`);
+          console.log(resp.data)
           store.dispatch(saveEventToModify(resp.data));
         }
         catch (error) {

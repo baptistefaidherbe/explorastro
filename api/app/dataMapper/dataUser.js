@@ -61,7 +61,6 @@ const dataUser = {
     bio,
     city,
     zipcode,
-    avatar_url,
     callback
   ) => {
     const updateUser_query = {
@@ -71,10 +70,9 @@ const dataUser = {
         lastname = $3,
         bio= $4,
         city= $5,
-        zipcode = $6,
-        avatar_url= $7
+        zipcode = $6
         WHERE id= $1;`,
-      values: [id, firstname, lastname, bio, city, zipcode, avatar_url],
+      values: [id, firstname, lastname, bio, city, zipcode],
     };
     client.query(updateUser_query, callback);
   },
@@ -154,9 +152,27 @@ const dataUser = {
         SET notificationCount = $2, 
         notificationSender = '{}'
         WHERE id= $1;`,
-      values: [id, notificationCount, ],
+      values: [id, notificationCount,],
     };
     client.query(updateUsername_query, callback);
+  },
+
+  updateUserImage: (
+    id,
+    image_url,
+    callback
+  ) => {
+    const updateUserImg_query = {
+      text: `
+        UPDATE "user"
+        SET avatar_url = $2
+        WHERE id= $1;`,
+      values: [
+        id,
+        image_url
+      ],
+    };
+    client.query(updateUserImg_query, callback);
   },
 };
 module.exports = dataUser;

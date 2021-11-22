@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Login from 'src/containers/Login';
 import PropTypes from 'prop-types';
@@ -12,6 +12,7 @@ import Member from 'src/containers/Member';
 import Profile from 'src/containers/Profile';
 import ListParticipate from 'src/containers/ListParticipate';
 import Register from '../Register';
+import ProfileSetting from 'src/containers/ProfileSetting';
 
 const App = ({
   isLogged,
@@ -63,6 +64,16 @@ const App = ({
               Login={Login}
               Children={Profile}
               id={Number(prop.match.params.id)}
+              isLogged={isLogged}
+            />
+          )}
+        />
+        <Route
+          path="/setting/"
+          render={(prop) => (
+            <Component
+              Login={Login}
+              Children={ProfileSetting}
               isLogged={isLogged}
             />
           )}

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
-import { FaCircle } from "react-icons/fa";
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import { FaCircle } from 'react-icons/fa';
 
 const Conversation = ({ conversation, userId, onlineUser }) => {
   const [friend, setUser] = useState(null);
@@ -11,18 +11,19 @@ const Conversation = ({ conversation, userId, onlineUser }) => {
     );
     const getUser = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem('user'));
         axios.defaults.headers.common.authorization = `BEARER ${user?.token}`;
         const res = await axios.get(`http://localhost:3000/user/${friendId}`);
         setUser(res.data);
-      } catch (err) {
+      }
+      catch (err) {
         console.log(err);
       }
     };
     getUser();
   }, [userId, conversation]);
   const isOnline = onlineUser.find(
-    (element) => element.userId === parseInt(conversation.members[1], 10)
+    (element) => element.userId === parseInt(conversation.members[1], 10),
   );
 
   return (

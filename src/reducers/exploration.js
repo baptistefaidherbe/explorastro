@@ -19,18 +19,18 @@ import {
   RESET_INPUT_COMMENT,
   SAVE_WEATHER,
   SAVE_MY_EVENTS_PARTICIPATE_ORGANISE,
-} from "src/actions/exploration";
+} from 'src/actions/exploration';
 
 const initialState = {
   explorations: [],
   togledModal: false,
   fieldZone: 0,
-  departement: "Choisisez un département",
-  searchName: "",
-  searchAuthor: "",
+  departement: 'Choisisez un département',
+  searchName: '',
+  searchAuthor: '',
   myGeoloc: {},
   isEventLoading: true,
-  name: "",
+  name: '',
   myEvents: [],
   eventToModify: {},
   lastId: null,
@@ -179,7 +179,7 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         eventToModify: {
           ...state.eventToModify,
-          sendComment: "",
+          sendComment: '',
         },
       };
     }

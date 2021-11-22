@@ -38,7 +38,7 @@ const userController = {
 
   updateUserInfo: (req, res) => {
     const id = Number(req.params.id);
-    const { firstname, lastname, bio, city, zipcode, avatar_url } = req.body;
+    const { firstname, lastname, bio, city, zipcode} = req.body;
 
     if (!firstname || !lastname || !bio || !city || !zipcode) {
       return res.json(MESSAGE.MISSING_FIEDLS);
@@ -51,7 +51,6 @@ const userController = {
       bio,
       city,
       zipcode,
-      avatar_url,
       (error, response) => {
         if (error) {
           console.trace(error);
@@ -114,6 +113,7 @@ const userController = {
   updateEmail: (req, res) => {
     const id = Number(req.params.id);
     const { email } = req.body;
+    console.log(req.body)
 
     if (!email) {
       return res.json(MESSAGE.MISSING_FIEDLS);
@@ -126,16 +126,19 @@ const userController = {
       } else {
         if (response.rows.length !== 0) {
           res.json(MESSAGE.USER_EXIST);
-        }
-      }
-    });
 
-    // if email don't exist in db => update email in db
-    dataUser.updateEmailRequest(id, email, (error, response) => {
-      if (error) {
-        console.trace(error);
-      } else {
-        res.json(MESSAGE.SUCCESS_MODIFICATION);
+        }
+        else {
+
+          // if email don't exist in db => update email in db
+          dataUser.updateEmailRequest(id, email, (error, response) => {
+            if (error) {
+              console.trace(error);
+            } else {
+              res.json(MESSAGE.SUCCESS_MODIFICATION);
+            }
+          });
+        }
       }
     });
   },
@@ -163,6 +166,23 @@ const userController = {
     dataUser.deleteNotificationRequest(
       id,
       notificationCount,
+      (error, response) => {
+        if (error) {
+          console.trace(error);
+        } else {
+          res.json(MESSAGE.SUCCESS_MODIFICATION);
+        }
+      }
+    );
+  },
+
+  updateImage: (req, res) => {
+    const id = Number(req.params.id);
+    const { file } = req;
+    const image_url = `http://${process.env.PGHOST}:3000/uploads/${file.filename}`;
+    dataUser.updateUserImage(
+      id,
+      image_url,
       (error, response) => {
         if (error) {
           console.trace(error);

@@ -1,6 +1,6 @@
-import { connect } from "react-redux";
-import Profile from "src/components/Profile";
-import { getUserById } from "src/actions/user";
+import { connect } from 'react-redux';
+import Profile from 'src/components/Profile';
+import { getUserById } from 'src/actions/user';
 import { createConversation, getConversation } from 'src/actions/webSocket';
 
 const mapStateToProps = (state) => ({

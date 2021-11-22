@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { BsArrowBarRight, BsArrowBarLeft } from 'react-icons/bs';
 import { useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { IoIosSend } from 'react-icons/io';
 import Conversation from './Conversation';
 import Message from './Message';
 
@@ -114,13 +115,17 @@ const Chat = ({
               ))}
             </div>
             <form onSubmit={handleSubmit} className="chat_messages_input">
-              <textarea
-                className="textArea"
-                placeholder="write something..."
+              <input
+                className="inputSend"
+                type="text"
+                placeholder="Ecrire un message"
                 onChange={handleOnChange}
                 value={newMessage}
               />
-              <button className="buttunMessage">Send</button>
+              <button className="buttunMessage">
+                <IoIosSend />
+                Envoyer
+              </button>
             </form>
           </div>
         ) : (
@@ -138,7 +143,6 @@ const Chat = ({
                 <Conversation
                   conversation={element}
                   userId={id}
-                  getUser={getUser}
                   onlineUser={onlineUser}
                 />
               </div>

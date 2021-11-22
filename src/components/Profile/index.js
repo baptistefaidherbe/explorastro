@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Navbar from 'src/containers/Navbar';
 import PropTypes from 'prop-types';
 // import { AiOutlineFileImage } from "react-icons/ai";
@@ -24,7 +24,6 @@ const Profile = ({
     getUserById(id);
     getConversation(senderId);
   }, []);
-console.log(id)
   const handleClickMessage = () => {
     const filterConversation = conversations.find(
       (element) => element.members[1] === userById.id.toString()

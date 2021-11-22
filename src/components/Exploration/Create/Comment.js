@@ -1,5 +1,4 @@
 import React from "react";
-import explorationImg from "src/assets/img/bg_sky2.png";
 import { TiDelete } from "react-icons/ti";
 import * as dayjs from "dayjs";
 import PropTypes from "prop-types";
@@ -11,7 +10,7 @@ const Comment = ({ element, onClickDelete, idEvent }) => {
 
   return (
     <div className="comments_box">
-      <img src={explorationImg} alt="explorationImg" className="author_img" />
+      <img src={element.avatar_url} alt="explorationImg" className="author_img" />
       <div className="content">
         <div className="test">
           <div className="author">

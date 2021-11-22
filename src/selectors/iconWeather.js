@@ -30,6 +30,33 @@ const getIconWeather = (weather) => {
     case '50d':
       icon = <img src="http://openweathermap.org/img/wn/09d.png" alt="weather" />;
       break;
+    case '01n':
+      icon = <img src="http://openweathermap.org/img/wn/01n.png" alt="weather" />;
+      break;
+    case '02n':
+      icon = <img src="http://openweathermap.org/img/wn/02n.png" alt="weather" />;
+      break;
+    case '03n':
+      icon = <img src="http://openweathermap.org/img/wn/03n.png" alt="weather" />;
+      break;
+    case '04n':
+      icon = <img src="http://openweathermap.org/img/wn/04n.png" alt="weather" />;
+      break;
+    case '09n':
+      icon = <img src="http://openweathermap.org/img/wn/05n.png" alt="weather" />;
+      break;
+    case '10n':
+      icon = <img src="http://openweathermap.org/img/wn/06n.png" alt="weather" />;
+      break;
+    case '11n':
+      icon = <img src="http://openweathermap.org/img/wn/07n.png" alt="weather" />;
+      break;
+    case '13n':
+      icon = <img src="http://openweathermap.org/img/wn/08n.png" alt="weather" />;
+      break;
+    case '50n':
+      icon = <img src="http://openweathermap.org/img/wn/09n.png" alt="weather" />;
+      break;
     default:
       console.log('Sorry, we are out of');
   }

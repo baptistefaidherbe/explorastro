@@ -3,21 +3,23 @@ import {
   SAVE_USER,
   LOGIN_ERROR,
   LOGOUT,
+  CHANGE_VALUE_SETTING,
   SAVE_FRIEND_USER,
   SAVE_ALL_USER,
   SAVE_ONLINE_USER,
   SAVE_USER_BY_ID,
   RESET_NOTIFICATION,
-} from "src/actions/user";
+} from 'src/actions/user';
 
 const initialState = {
   userId: null,
-  username: "",
+  username: '',
   logged: false,
   avatarUrl: null,
-  email: "",
-  password: "",
-  loginError: "",
+  email: '',
+  password: '',
+  userToModify: {},
+  loginError: '',
   allUser: [],
   onlineUser: [],
   userById: {},
@@ -31,7 +33,16 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         [action.key]: action.value,
-        loginError: "",
+        loginError: '',
+      };
+    }
+    case CHANGE_VALUE_SETTING: {
+      return {
+        ...state,
+        userToModify: {
+          ...state.userToModify,
+          [action.key]: action.value,
+        },
       };
     }
     case SAVE_USER: {
@@ -41,9 +52,9 @@ const reducer = (state = initialState, action = {}) => {
         username: action.payload?.user?.username,
         logged: action.payload?.logged,
         avatarUrl: action.payload?.user?.avatar_url,
-        email: "",
-        password: "",
-        loginError: "",
+        email: '',
+        password: '',
+        loginError: '',
       };
     }
     case LOGIN_ERROR: {
@@ -53,7 +64,7 @@ const reducer = (state = initialState, action = {}) => {
       };
     }
     case LOGOUT: {
-      localStorage.removeItem("user");
+      localStorage.removeItem('user');
       return {
         ...initialState,
         logged: false,
@@ -75,6 +86,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         userById: action.payload,
+        userToModify: action.payload,
         notificationCount: action.payload.notificationcount,
         notificationSender: [...state.notificationSender, action.payload.notificationsender],
       };

@@ -1,21 +1,21 @@
 /* eslint-disable react/button-has-type */
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { FaUserFriends } from "react-icons/fa";
-import { MdDashboard } from "react-icons/md";
-import { FiSettings, FiMap } from "react-icons/fi";
-import { VscTelescope } from "react-icons/vsc";
-import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { FaUserFriends } from 'react-icons/fa';
+import { MdDashboard } from 'react-icons/md';
+import { FiSettings, FiMap } from 'react-icons/fi';
+import { VscTelescope } from 'react-icons/vsc';
+import { Link } from 'react-router-dom';
 import {
   GiPlanetConquest,
   GiRingedPlanet,
   GiFallingStar,
-} from "react-icons/gi";
+} from 'react-icons/gi';
 
-import { TiMessages } from "react-icons/ti";
-import { BiMapPin } from "react-icons/bi";
-import avatar from "src/assets/img/avatar.png";
-import logo from "src/assets/img/logo-explorastro.png";
+import { TiMessages } from 'react-icons/ti';
+import { BiMapPin } from 'react-icons/bi';
+import avatar from 'src/assets/img/avatar.png';
+import logo from 'src/assets/img/logo-explorastro.png';
 
 const SideBar = ({
   username,
@@ -67,7 +67,7 @@ const SideBar = ({
             </li>
             <li>
               <FiSettings className="sideBar_content_icons" />
-              <span>Configurer mon compte</span>
+              <Link to="/setting">Configurer mon compte</Link>
             </li>
           </ul>
         </li>

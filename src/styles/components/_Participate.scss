@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 90%;
+    width: 80%;
     padding: 10px;
     align-items: center;
 
@@ -101,6 +101,12 @@
       .grp,
       .participant {
         margin-top: 40px;
+      }
+
+      .description, .grp{
+        background-color: $secondary-color;
+        padding: 30px;
+        width: 100%;
       }
 
       .leaflet-container {
