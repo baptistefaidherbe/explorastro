@@ -21,6 +21,8 @@ const dataUser = {
       u.city,
       u.zipcode,
       u.role_id,
+      u.notificationCount,
+      u.notificationSender,
       (   SELECT
           json_agg(exploration)  explorationCreate
           FROM
@@ -59,7 +61,6 @@ const dataUser = {
     bio,
     city,
     zipcode,
-    avatar_url,
     callback
   ) => {
     const updateUser_query = {
@@ -69,10 +70,9 @@ const dataUser = {
         lastname = $3,
         bio= $4,
         city= $5,
-        zipcode = $6,
-        avatar_url= $7
+        zipcode = $6
         WHERE id= $1;`,
-      values: [id, firstname, lastname, bio, city, zipcode, avatar_url],
+      values: [id, firstname, lastname, bio, city, zipcode],
     };
     client.query(updateUser_query, callback);
   },
@@ -125,6 +125,54 @@ const dataUser = {
       values: [email],
     };
     client.query(checkEmail_query, callback);
+  },
+  updateUserNotificationRequest: (
+    id,
+    notificationSender,
+    callback
+  ) => {
+    const updateUsername_query = {
+      text: `
+        UPDATE "user"
+        SET notificationCount = notificationCount + 1, 
+        notificationSender = notificationSender || $2
+        WHERE id= $1;`,
+      values: [id, notificationSender],
+    };
+    client.query(updateUsername_query, callback);
+  },
+  deleteNotificationRequest: (
+    id,
+    notificationCount,
+    callback
+  ) => {
+    const updateUsername_query = {
+      text: `
+        UPDATE "user"
+        SET notificationCount = $2, 
+        notificationSender = '{}'
+        WHERE id= $1;`,
+      values: [id, notificationCount,],
+    };
+    client.query(updateUsername_query, callback);
+  },
+
+  updateUserImage: (
+    id,
+    image_url,
+    callback
+  ) => {
+    const updateUserImg_query = {
+      text: `
+        UPDATE "user"
+        SET avatar_url = $2
+        WHERE id= $1;`,
+      values: [
+        id,
+        image_url
+      ],
+    };
+    client.query(updateUserImg_query, callback);
   },
 };
 module.exports = dataUser;

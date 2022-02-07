@@ -18,7 +18,7 @@ import {
   REMOVE_LAST_ID,
   RESET_INPUT_COMMENT,
   SAVE_WEATHER,
-
+  SAVE_MY_EVENTS_PARTICIPATE_ORGANISE,
 } from 'src/actions/exploration';
 
 const initialState = {
@@ -109,6 +109,17 @@ const reducer = (state = initialState, action = {}) => {
         myEvents: action.payload,
         isEventLoading: false,
         name: initialState.name,
+      };
+    }
+    case SAVE_MY_EVENTS_PARTICIPATE_ORGANISE: {
+      return {
+        ...state,
+        myEvents: {
+          ...state.myEvents,
+          explorationparticipate: action.payload.explorationparticipate,
+          explorationcreate: action.payload.explorationcreate,
+        },
+        isEventLoading: false,
       };
     }
     case SAVE_EVENT_TO_MODIFY: {

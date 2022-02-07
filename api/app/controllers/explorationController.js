@@ -92,7 +92,6 @@ const explorationController = {
     const id = Number(req.params.id);
     const { file } = req;
     const image_url = `http://${process.env.PGHOST}:3000/uploads/${file.filename}`;
-    console.log(image_url)
     dataExploration.updateExplorationImage(
       id,
       image_url,

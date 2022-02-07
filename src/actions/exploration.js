@@ -30,6 +30,8 @@ export const ON_CLICK_PARTICIPATE = 'ON_CLICK_PARTICIPATE';
 export const ON_CLICK_NOT_PARTICIPATE = 'ON_CLICK_NOT_PARTICIPATE';
 export const GET_WEATHER = 'GET_WEATHER';
 export const SAVE_WEATHER = 'SAVE_WEATHER';
+export const GET_MY_EVENTS_PARTICIPATE_ORGANISE = 'GET_MY_EVENTS_PARTICIPATE_ORGANISE';
+export const SAVE_MY_EVENTS_PARTICIPATE_ORGANISE = 'SAVE_MY_EVENTS_PARTICIPATE_ORGANISE';
 
 export const getAllEvents = () => ({
   type: GET_ALL_EVENTS,
@@ -159,5 +161,12 @@ export const getWeather = (payload) => ({
 });
 export const saveWeather = (payload) => ({
   type: SAVE_WEATHER,
+  payload,
+});
+export const getMyEventsParticipateOrganise = () => ({
+  type: GET_MY_EVENTS_PARTICIPATE_ORGANISE,
+});
+export const saveMyEventsParticipateOrganise = (payload) => ({
+  type: SAVE_MY_EVENTS_PARTICIPATE_ORGANISE,
   payload,
 });

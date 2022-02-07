@@ -3,10 +3,12 @@ import {
   SAVE_USER,
   LOGIN_ERROR,
   LOGOUT,
+  CHANGE_VALUE_SETTING,
   SAVE_FRIEND_USER,
   SAVE_ALL_USER,
   SAVE_ONLINE_USER,
   SAVE_USER_BY_ID,
+  RESET_NOTIFICATION,
 } from 'src/actions/user';
 
 const initialState = {
@@ -16,10 +18,13 @@ const initialState = {
   avatarUrl: null,
   email: '',
   password: '',
+  userToModify: {},
   loginError: '',
   allUser: [],
   onlineUser: [],
   userById: {},
+  notificationSender: [],
+  notificationCount: 0,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -29,6 +34,15 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         [action.key]: action.value,
         loginError: '',
+      };
+    }
+    case CHANGE_VALUE_SETTING: {
+      return {
+        ...state,
+        userToModify: {
+          ...state.userToModify,
+          [action.key]: action.value,
+        },
       };
     }
     case SAVE_USER: {
@@ -72,8 +86,19 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         userById: action.payload,
+        userToModify: action.payload,
+        notificationCount: action.payload.notificationcount,
+        notificationSender: [...state.notificationSender, action.payload.notificationsender],
       };
     }
+    case RESET_NOTIFICATION: {
+      return {
+        ...state,
+        notificationCount: 0,
+        notificationSender: [],
+      };
+    }
+
     default:
       return state;
   }

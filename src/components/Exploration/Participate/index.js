@@ -119,7 +119,7 @@ const Participate = ({
                 </span>
               </div>
               <div className="weather">
-                <span>Météo : </span>
+                <span>Météo :  </span>
                 <div className="temp">
                   {getIconWeather(weather.weather[0].icon)}
                   {weather.temp}°{' '}

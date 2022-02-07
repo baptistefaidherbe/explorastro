@@ -16,6 +16,8 @@ module.exports = (io) => {
     return users.find((user) => user.userId == userId);
   };
 
+ 
+
   io.on("connection", (socket) => {
     socket.on("pseudo", (idUser) => {
       User.findOne({ idUser: idUser }, (err, user) => {
@@ -35,6 +37,7 @@ module.exports = (io) => {
       io.emit("getUsers", users);
      
     });
+
 
     socket.on("sendMessage", ({username, senderId, receiverId, text }) => {
       const user = getUser(receiverId);

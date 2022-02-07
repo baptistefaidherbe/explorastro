@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Exploration from 'src/components/App';
-import { checkUserLogged } from 'src/actions/user';
+import { checkUserLogged, getUserById } from 'src/actions/user';
 import { wsConnect } from 'src/actions/webSocket';
 
 const mapStateToProps = (state) => ({
@@ -12,6 +12,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   wsConnect: () => {
     dispatch(wsConnect());
+  },
+  getUserById: (id) => {
+    dispatch(getUserById(id));
   },
 });
 

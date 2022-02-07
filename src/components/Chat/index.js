@@ -6,6 +6,8 @@ import Navbar from 'src/containers/Navbar';
 import PropTypes from 'prop-types';
 import { BsArrowBarRight, BsArrowBarLeft } from 'react-icons/bs';
 import { useLocation } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import { IoIosSend } from 'react-icons/io';
 import Conversation from './Conversation';
 import Message from './Message';
 
@@ -36,6 +38,7 @@ const Chat = ({
   const handleToggleFriend = () => {
     toggleFriend();
   };
+
   const filterFriends = conversations.filter((element) => (
     element.members[2]?.includes(searchFriend)));
 
@@ -54,9 +57,8 @@ const Chat = ({
   }, [currentChat]);
 
   useEffect(() => {
-    getMessage(conversationId);
     setCurrentChat(data?.state?.conversation);
-  }, []);
+  }, [conversationId]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -72,16 +74,18 @@ const Chat = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const receiverId = currentChat?.members?.find(
+      (member) => member !== id.toString(),
+    );
 
     const message = {
       conversationId: currentChat._id,
       sender: id,
       text: newMessage,
       avatar_url: avatar_url,
+      username: username,
+      receiverId: receiverId,
     };
-    const receiverId = currentChat?.members?.find(
-      (member) => member !== id.toString(),
-    );
 
     socket.current.emit('sendMessage', {
       username: username,
@@ -89,9 +93,11 @@ const Chat = ({
       receiverId,
       text: newMessage,
     });
-    onSubmitMessage(message);
+
+    const onlineREceiver = onlineUser.find((element) => element.userId !== id);
+    onSubmitMessage(message, onlineREceiver);
   };
-  console.log(filterFriends);
+
   return (
     <div className="container">
       <Navbar />
@@ -100,7 +106,7 @@ const Chat = ({
           <div className="chat_messages">
             <div className="messages">
               {messages.map((element) => (
-                <div key={element._id} ref={scrollRef}>
+                <div key={element._id ? element._id : uuidv4()} ref={scrollRef}>
                   <Message
                     message={element}
                     own={element.sender === id.toString()}
@@ -109,13 +115,17 @@ const Chat = ({
               ))}
             </div>
             <form onSubmit={handleSubmit} className="chat_messages_input">
-              <textarea
-                className="textArea"
-                placeholder="write something..."
+              <input
+                className="inputSend"
+                type="text"
+                placeholder="Ecrire un message"
                 onChange={handleOnChange}
                 value={newMessage}
               />
-              <button className="buttunMessage">Send</button>
+              <button className="buttunMessage">
+                <IoIosSend />
+                Envoyer
+              </button>
             </form>
           </div>
         ) : (
@@ -133,7 +143,6 @@ const Chat = ({
                 <Conversation
                   conversation={element}
                   userId={id}
-                  getUser={getUser}
                   onlineUser={onlineUser}
                 />
               </div>

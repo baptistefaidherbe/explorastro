@@ -10,12 +10,28 @@ import FormEvent from 'src/containers/FormEvent';
 import Chat from 'src/containers/Chat';
 import Member from 'src/containers/Member';
 import Profile from 'src/containers/Profile';
+import ListParticipate from 'src/containers/ListParticipate';
 import Register from '../Register';
+import ProfileSetting from 'src/containers/ProfileSetting';
 
-const App = ({ isLogged, checkIsLogged, wsConnect }) => {
+const App = ({
+  isLogged,
+  checkIsLogged,
+  wsConnect,
+  getUserById,
+}) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const id = user?.user?.id;
+
   useEffect(() => {
     checkIsLogged();
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      getUserById(id);
+    }
+  }, [id]);
 
   useEffect(() => {
     wsConnect();
@@ -52,8 +68,25 @@ const App = ({ isLogged, checkIsLogged, wsConnect }) => {
             />
           )}
         />
+        <Route
+          path="/setting/"
+          render={(prop) => (
+            <Component
+              Login={Login}
+              Children={ProfileSetting}
+              isLogged={isLogged}
+            />
+          )}
+        />
         <Route path="/create">
           <Component Login={Login} Children={Create} isLogged={isLogged} />
+        </Route>
+        <Route path="/myEventsParticipate">
+          <Component
+            Login={Login}
+            Children={ListParticipate}
+            isLogged={isLogged}
+          />
         </Route>
         <Route
           path="/formEvent/:id"
@@ -95,6 +128,7 @@ App.propTypes = {
   isLogged: PropTypes.bool,
   checkIsLogged: PropTypes.func.isRequired,
   wsConnect: PropTypes.func.isRequired,
+  getUserById: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {

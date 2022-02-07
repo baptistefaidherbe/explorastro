@@ -1,12 +1,12 @@
 /* eslint-disable react/button-has-type */
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { AiOutlineBell } from "react-icons/ai";
-import { RiLogoutCircleRLine } from "react-icons/ri";
-import { CgSearch } from "react-icons/cg";
-
-import avatar from "src/assets/img/avatar.png";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { AiOutlineBell } from 'react-icons/ai';
+import { RiLogoutCircleRLine } from 'react-icons/ri';
+import { CgSearch } from 'react-icons/cg';
+import avatar from 'src/assets/img/avatar.png';
+import { v4 as uuidv4 } from 'uuid';
 
 const Navbar = ({
   handleLogout,
@@ -22,7 +22,9 @@ const Navbar = ({
   };
   const handleOnClickRead = () => {
     onClickRead();
+    // window.location.href = '/message';
   };
+
   return (
     <nav className="navBar">
       <ul className="navBar_container">
@@ -45,21 +47,26 @@ const Navbar = ({
             {notification > 0 ? (
               <span className="notification">{notification}</span>
             ) : (
-              ""
+              ''
             )}
             {toggleNotif ? (
               <div className="bubble">
-                {notificationSender.map((element, index) => (
-                  <p key={index}>{element} vient de vous envoyer un message</p>
-                ))}
+                {notification > 0
+                  ? notificationSender?.map((element) => (
+                    <p key={uuidv4()}>
+                      {element
+                          && `${element} vient de vous envoyer un message`}
+                    </p>
+                  ))
+                  : ''}
                 {notification > 0 ? (
                   <button onClick={handleOnClickRead}>Marqué comme lu</button>
                 ) : (
-                  ""
+                  ''
                 )}
               </div>
             ) : (
-              ""
+              ''
             )}
           </div>
         </li>
@@ -92,8 +99,12 @@ Navbar.propTypes = {
   handleLogout: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   notification: PropTypes.number.isRequired,
-  notificationSender: PropTypes.array.isRequired,
+  notificationSender: PropTypes.array,
   onClickNotif: PropTypes.func.isRequired,
   toggleNotif: PropTypes.bool.isRequired,
   onClickRead: PropTypes.func.isRequired,
+};
+
+Navbar.defaultProps = {
+  notificationSender: [],
 };

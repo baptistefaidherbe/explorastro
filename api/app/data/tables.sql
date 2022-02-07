@@ -84,5 +84,13 @@ ADD CONSTRAINT comment_exploration_id_fkey
    ALTER TABLE "user"
    ALTER COLUMN avatar_url SET NOT NULL;
 
+   ALTER TABLE "user"
+   ADD COLUMN notificationCount NUMBER;
 
+      ALTER TABLE "user"
+   ALTER COLUMN notificationCount SET DEFAULT 0;
+
+
+  ALTER TABLE "user"
+   ADD COLUMN notificationText Text;
 

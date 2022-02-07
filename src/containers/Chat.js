@@ -33,8 +33,8 @@ const mapDispatchToProps = (dispatch) => ({
   onChangeMessage: (value) => {
     dispatch(onChangeMessage(value));
   },
-  onSubmitMessage: (value) => {
-    dispatch(onSubmitMessage(value));
+  onSubmitMessage: (value, onlineREceiver) => {
+    dispatch(onSubmitMessage(value, onlineREceiver));
   },
   saveArrivalMessage: (value) => {
     dispatch(saveArrivalMessage(value));

@@ -18,6 +18,8 @@ import {
   ON_CLICK_NOT_PARTICIPATE,
   GET_WEATHER,
   saveWeather,
+  GET_MY_EVENTS_PARTICIPATE_ORGANISE,
+  saveMyEventsParticipateOrganise,
 } from 'src/actions/exploration';
 import axios from 'axios';
 import api from './utils/api';
@@ -45,6 +47,25 @@ const exploration = (store) => (next) => (action) => {
         try {
           const resp = await api.get(`/user/${id}`);
           store.dispatch(saveMyEvents(resp.data));
+        }
+        catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
+      };
+      getMyEvents();
+      break;
+    }
+
+    case GET_MY_EVENTS_PARTICIPATE_ORGANISE: {
+      const getMyEvents = async () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const { id } = user.user;
+        try {
+          const resp = await api.get(`/user/${id}`);
+          store.dispatch(
+            saveMyEventsParticipateOrganise(resp.data),
+          );
         }
         catch (error) {
           // eslint-disable-next-line no-console
@@ -97,6 +118,7 @@ const exploration = (store) => (next) => (action) => {
         const id = action.payload;
         try {
           const resp = await api.get(`/exploration/${id}`);
+          console.log(resp.data)
           store.dispatch(saveEventToModify(resp.data));
         }
         catch (error) {
@@ -156,7 +178,7 @@ const exploration = (store) => (next) => (action) => {
     case ON_SUBMIT_COMMENT: {
       const submitComment = async () => {
         const state = store.getState();
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem('user'));
         const authorId = user.user.id;
         const id = action.payload;
 
@@ -195,7 +217,7 @@ const exploration = (store) => (next) => (action) => {
     }
     case ON_CLICK_PARTICIPATE: {
       const participate = async () => {
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem('user'));
         const authorId = user.user.id;
         const { id } = action;
         const data = {
@@ -215,7 +237,7 @@ const exploration = (store) => (next) => (action) => {
     }
     case ON_CLICK_NOT_PARTICIPATE: {
       const notParticipate = async () => {
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem('user'));
         const authorId = user.user.id;
         const { id } = action;
         try {

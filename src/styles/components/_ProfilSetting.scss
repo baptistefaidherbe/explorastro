@@ -1,0 +1,85 @@
+.profileSetting {
+  padding: 34px;
+  color: #959ec7;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+
+  .content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+
+
+    .banner {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      .imgBanner {
+        border: 1px solid transparent;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        height: 300px;
+        width: 100%;
+      }
+      .imgEvent {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        max-width: 15em;
+        height: 14em;
+        width: 100%;
+        bottom: -2em;
+
+        .img {
+          width: 100%;
+          border-radius: 50%;
+        }
+
+        .uploadBtn {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          background-color: transparent;
+        }
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      margin-top: 3em;
+
+      textarea,
+      input {
+        margin-bottom: 25px;
+        padding: 10px;
+        background-color: $secondary-color;
+        border: none;
+        color: #959ec7;
+      }
+
+      textarea {
+        resize: none;
+        height: 200px;
+      }
+
+      &_button {
+        display: flex;
+        justify-content: center;
+
+        .submiteBtn {
+          margin: 0 10px;
+          width: 20%;
+          padding: 15px 0;
+          margin-top: 25px;
+        }
+      }
+    }
+  }
+}
